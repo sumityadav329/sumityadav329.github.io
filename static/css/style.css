@@ -1,0 +1,442 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    scroll-behavior: smooth;
+}
+
+:root {
+    --primary-color: #3498db;
+    --secondary-color: #2ecc71;
+    --dark-color: #2c3e50;
+    --light-color: #ecf0f1;
+    --text-color: #333;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: var(--light-color);
+    color: var(--text-color);
+    line-height: 1.6;
+    overflow-x: hidden;
+}
+
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 15px;
+}
+
+/* Logo Section */
+.logo-container {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    margin-right: 15px;
+}
+
+.logo-image {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%; 
+    object-fit: cover; 
+}
+
+
+.logo-image:hover {
+    transform: scale(1.1);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.logo-text {
+    font-size: 26px;
+    font-weight: bold;
+    color: white;
+    text-decoration: none;
+    letter-spacing: 1px;
+    margin-right: auto;
+}
+
+
+/* Navbar Styling */
+nav {
+    background-color: rgba(44, 62, 80, 0.95);
+    color: white;
+    padding: 15px 0;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    transition: background-color 0.3s ease;
+}
+
+nav .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+nav .logo {
+    font-size: 26px;
+    font-weight: bold;
+    color: white;
+    text-decoration: none;
+    letter-spacing: 1px;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    align-items: center;
+}
+
+nav ul li {
+    margin: 0 15px;
+}
+
+nav ul li a {
+    color: white;
+    text-decoration: none;
+    font-weight: 600;
+    position: relative;
+    transition: color 0.3s ease;
+}
+
+nav ul li a::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: -5px;
+    left: 0;
+    background-color: var(--primary-color);
+    transition: width 0.3s ease;
+}
+
+nav ul li a:hover {
+    color: var(--primary-color);
+}
+
+nav ul li a:hover::after {
+    width: 100%;
+}
+
+/* Hero Section */
+.hero {
+    display: flex;
+    align-items: center;
+    padding: 100px 0;
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    color: white;
+    min-height: 100vh;
+}
+
+.hero .container {
+    width: 100%;
+    max-width: 1200px;
+}
+
+.hero-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.hero-text {
+    flex: 1;
+    max-width: 50%;
+    padding-right: 50px;
+}
+
+.hero-text h1 {
+    font-size: 48px;
+    line-height: 1.2;
+    margin-bottom: 10px;
+}
+
+.hero-image-container {
+    flex: 1;
+    max-width: 50%;
+    display: flex;
+    justify-content: center;
+}
+
+.hero-img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 10px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+}
+
+/* Responsive adjustments */
+@media screen and (max-width: 768px) {
+    .hero-content {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .hero-text, .hero-image-container {
+        max-width: 100%;
+        padding-right: 0;
+        margin-bottom: 30px;
+    }
+}
+.cta-btn {
+    display: inline-block;
+    background: linear-gradient(135deg, #4fcf70, #4f9dec);
+    color: white;
+    padding: 15px 30px;
+    text-decoration: none;
+    border-radius: 50px;
+    font-weight: bold;
+    font-size: 18px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    transform: perspective(1px) translateZ(0);
+}
+
+.cta-btn::before {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, #4fcf70, #4f9dec);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.cta-btn::after {
+    content: "📄 Download Resume";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.cta-btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 15px 25px rgba(0, 0, 0, 0.3);
+}
+
+.cta-btn:hover::before {
+    opacity: 1;
+}
+
+.cta-btn:hover::after {
+    opacity: 1;
+}
+
+.cta-btn:active {
+    transform: scale(0.95);
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Adding a hover effect */
+@keyframes shine {
+    0% {
+        background-position: -100% 0;
+    }
+    100% {
+        background-position: 100% 0;
+    }
+}
+
+
+.cta-btn {
+    background-image: linear-gradient(
+        90deg, 
+        transparent,
+        rgb(255, 0, 0),
+        transparent
+    );
+    background-size: 200% 100%;
+    background-position: -100% 0;
+    animation: shine 2s infinite;
+}
+
+/* Sections General */
+section {
+    padding: 80px 0;
+    background-color: white;
+}
+
+section:nth-child(even) {
+    background-color: var(--light-color);
+}
+
+section h2 {
+    font-size: 40px;
+    margin-bottom: 30px;
+    text-align: center;
+    color: var(--dark-color);
+    position: relative;
+}
+
+section h2::after {
+    content: '';
+    position: absolute;
+    width: 100px;
+    height: 3px;
+    background-color: var(--primary-color);
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+/* Skills Section */
+.skills {
+    text-align: center;
+    background-color: var(--light-color);
+}
+
+.skills-icons {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 25px;
+    padding: 30px 0;
+}
+
+.skills-icons a {
+    display: inline-block;
+    transition: all 0.3s ease;
+    background-color: white;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+.skills-icons a:hover {
+    transform: scale(1.1) rotate(5deg);
+    box-shadow: 0 6px 10px rgba(0,0,0,0.15);
+}
+
+.skills-icons img {
+    width: 60px;
+    height: 60px;
+    object-fit: contain;
+}
+
+/* Connect Section */
+.connect {
+    background-color: var(--primary-color);
+    color: rgb(70, 69, 68);
+    text-align: center;
+}
+
+.connect .social-icons {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    margin-top: 30px;
+}
+
+.connect .social-icons a {
+    display: inline-block;
+    text-decoration: none;
+    color: rgba(243, 241, 241, 0);
+    transition: all 0.3s ease;
+}
+
+.connect .social-icons .icon {
+    width: 50px;
+    height: 50px;
+    background-color: rgba(255,255,255,0.2);
+    border-radius: 50%;
+    padding: 10px;
+    transition: all 0.3s ease;
+}
+
+.connect .social-icons a:hover .icon {
+    transform: scale(1.2) rotate(360deg);
+    background-color: white;
+    color: var(--primary-color);
+}
+
+/* Contact Section */
+.contact {
+    background-color: var(--light-color);
+    text-align: center;
+}
+
+.contact-info {
+    margin-top: 30px;
+}
+
+.contact-info a {
+    color: var(--primary-color);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.contact-info a:hover {
+    text-decoration: underline;
+}
+
+/* Footer */
+footer {
+    background-color: var(--dark-color);
+    color: white;
+    padding: 25px 0;
+    text-align: center;
+}
+
+/* Animations */
+@keyframes fadeInLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes fadeInRight {
+    from {
+        opacity: 0;
+        transform: translateX(50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* Responsive Design */
+@media screen and (max-width: 768px) {
+    .hero {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .hero-text, .hero-img {
+        max-width: 100%;
+        margin-bottom: 30px;
+    }
+
+    nav ul {
+        display: none; /* Consider implementing a mobile menu */
+    }
+
+    section h2 {
+        font-size: 32px;
+    }
+}
