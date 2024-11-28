@@ -333,6 +333,28 @@ section h2::after {
     object-fit: contain;
 }
 
+/* Projects Section */
+.projects {
+    padding: 50px 0;
+}
+.project-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+.project-item h3 a {
+    color: #007bff;
+    text-decoration: none;
+}
+.project-item h3 a:hover {
+    text-decoration: underline;
+}
+.project-item p {
+    color: #333;
+    margin-top: 10px;
+}
+
+
 /* Connect Section */
 .connect {
     background-color: var(--primary-color);
