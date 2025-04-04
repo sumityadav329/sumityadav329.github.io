@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Concepts: Transformers</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>Topic 4: Transformers - Bhasha ke liye Self-Attention ka Jaadu</h1>
+     <a href="index.html" class="nav-link">&laquo; Back to Topics</a>
+
+    <div class="container">
+        <h2>Transformers: Interview Q&A Style</h2>
+
+        <div class="qa-block">
+            <p class="question">Interviewer: Chaliye ab hot topic pe aate hain - Transformers. ChatGPT jaise models inhi pe based hain. Yeh vectors aur matrix multiplication ko kaise use karte hain, jo pehle ke models (like RNNs) se alag ho?</p>
+            <div class="answer">
+                <p>Transformers ka main innovation hai <strong>Self-Attention Mechanism</strong>. Pehle ke models (like RNNs) sequence ko step-by-step process karte the, jisse long-range dependencies (sentence mein door ke words ka relation) capture karna mushkil hota tha.</p>
+                <p>Transformers pure sequence ko ek saath dekhte hain. Har word ke liye, self-attention calculate karta hai ki woh word sequence ke *baaki sabhi words* (including itself) ke liye kitna relevant hai. Yeh relevance score (attention score) decide karta hai ki har word ka final representation banate waqt kin dusre words se information leni chahiye.</p>
+                <p>Yeh sab calculations heavily matrix multiplication par based hote hain. Word vectors ko pehle teen alag matrices (Query, Key, Value) mein transform kiya jaata hai, aur phir inke beech matrix multiplications se attention scores aur final contextual vectors bante hain.</p>
+            </div>
+        </div>
+
+        <div class="qa-block">
+            <p class="question">Interviewer: Self-Attention... thoda aur detail mein bata sakte hain? Yeh Query, Key, Value matrices ka kya concept hai?</p>
+            <div class="answer">
+                <p>High level pe sochiye:</p>
+                <ul>
+                    <li>Har word ka ek initial Vector hota hai (embedding).</li>
+                    <li>Is vector se, hum teen alag vectors derive karte hain (using learned weight matrices): <strong>Query (Q)</strong>, <strong>Key (K)</strong>, and <strong>Value (V)</strong>.</li>
+                    <li><strong>Query:</strong> Represent karta hai, "Main (yeh word) kya information dhoondh raha hoon?"</li>
+                    <li><strong>Key:</strong> Represent karta hai, "Main (yeh word) kya information offer kar raha hoon?"</li>
+                    <li><strong>Value:</strong> Represent karta hai, "Agar mujhpe attention diya gaya, toh main yeh actual information pass karunga."</li>
+                </ul>
+                <p>Ek word ka Query vector, baaki sabhi words ke Key vectors ke saath compare (dot product/matrix multiplication) kiya jaata hai. Isse 'attention scores' milte hain – Query kitna match karta hai har Key se.</p>
+                <p>In scores ko use karke, sabhi words ke Value vectors ka weighted average liya jaata hai. Jis word ka score high hoga, uska Value vector final output mein zyada contribute karega.</p>
+                <p>Yeh process har word ke liye parallel mein hota hai, aur sabhi calculations (Q, K, V generation, score calculation, weighted sum) matrix multiplications se efficiently kiye jaate hain.</p>
+            </div>
+        </div>
+
+         <div class="qa-block">
+            <p class="question">Interviewer: Toh basically, matrix math use karke model dynamically figure out karta hai ki sentence ke andar kaunse words ek doosre ke liye important hain context samajhne ke liye?</p>
+            <div class="answer">
+                <p>Exactly! Yahi self-attention ka magic hai. Yeh model ko allow karta hai ki woh sentence ke structure aur meaning ko globally samjhe, na ki sirf local dependencies dekhe. Isliye Transformers language tasks mein itne successful hain.</p>
+            </div>
+        </div>
+
+
+        <h2>Interactive Example: Self-Attention Concept</h2>
+        <p>Neeche diye gaye sentence mein kisi word pe click karke dekho ki self-attention conceptually kaise kaam kar sakta hai. Highlighted words woh hain jin par clicked word context ke liye potentially zyada 'dhyaan' de sakta hai.</p>
+        <div id="attention-sentence" style="margin-bottom: 10px; font-size: 1.1em; padding: 15px; background: #f8f9fa; border: 1px solid #dee2e6; border-radius: 5px; line-height: 2;">
+            <span class="attention-word" onclick="showAttention(this)">The</span>
+            <span class="attention-word" onclick="showAttention(this)">animal</span>
+            <span class="attention-word" onclick="showAttention(this)">didn't</span>
+            <span class="attention-word" onclick="showAttention(this)">cross</span>
+            <span class="attention-word" onclick="showAttention(this)">the</span>
+            <span class="attention-word" onclick="showAttention(this)">road</span>
+            <span class="attention-word" onclick="showAttention(this)">because</span>
+            <span class="attention-word attention-target" onclick="showAttention(this)">it</span>
+            <span class="attention-word" onclick="showAttention(this)">was</span>
+            <span class="attention-word" onclick="showAttention(this)">tired</span>.
+        </div>
+        <div id="attention-explanation" class="explanation">
+           Upar sentence mein kisi word pe click karo. For example, 'it' pe click karke dekho woh kisko refer kar raha hai (Model kin words pe zyada attention dega: 'animal' aur 'tired'). Yeh attention scores matrix math se calculate hote hain.
+        </div>
+
+    </div>
+
+    <a href="matrix_multiplication.html" class="nav-link" style="float: left;">&laquo; Previous: Matrix Multiplication</a>
+    <div style="clear: both;"></div>
+
+
+    <script>
+        // --- Attention Mechanism Script ---
+        const attentionWords = document.querySelectorAll('.attention-word');
+        const attentionExp = document.getElementById('attention-explanation');
+
+        // Predefined attention targets for simplicity
+         const attentionMap = {
+            "The": ["animal"],
+            "animal": ["The", "cross", "it", "tired"], // Animal is related to crossing, it, and being tired
+            "didn't": ["animal", "cross"], // Negation relates to the action
+            "cross": ["animal", "road", "because"], // Action relates to subject, object, reason
+            "the": ["road"], // Article relates to noun
+            "road": ["cross", "the"], // Object relates to action and article
+            "because": ["cross", "it", "tired"], // Reason links action and state
+            "it": ["animal", "tired", "was", "because"], // Pronoun relates strongly to its antecedent and state
+            "was": ["it", "tired"], // Verb links pronoun and state
+            "tired": ["animal", "it", "was", "because"] // State relates to subject and reason
+        };
+
+         function showAttention(clickedWordElement) {
+             // Reset all highlights and styles first
+             attentionWords.forEach(word => {
+                 word.classList.remove('attention-highlight', 'attention-source');
+             });
+
+             // Highlight the clicked word (source)
+             clickedWordElement.classList.add('attention-source');
+
+             // Highlight target words based on the map
+             const sourceText = clickedWordElement.innerText.replace(/[.,]/g, ''); // Clean punctuation
+             const targets = attentionMap[sourceText] || [];
+
+             let explanation = `Word '<strong>${sourceText}</strong>' pe click kiya. Self-Attention ke through, yeh model context ke liye in words pe zyada dhyaan de sakta hai: `;
+             let targetsFound = false;
+
+             attentionWords.forEach(word => {
+                 const wordText = word.innerText.replace(/[.,]/g, '');
+                 // Highlight if it's in the target list AND not the source word itself
+                 if (targets.includes(wordText) && word !== clickedWordElement) {
+                     word.classList.add('attention-highlight');
+                     explanation += ` '<strong>${wordText}</strong>',`;
+                     targetsFound = true;
+                 }
+             });
+
+             if (!targetsFound) {
+                 explanation += " (Is simple example mein, hum khud source word ko hi sabse important maan rahe hain).";
+                 clickedWordElement.classList.add('attention-highlight'); // Highlight self if no other targets shown
+             } else {
+                 explanation = explanation.slice(0, -1) + "."; // Remove last comma and add period
+             }
+
+             // Specific explanation for 'it'
+             if (sourceText === 'it') {
+                 explanation += "<br><em>Important Dekho: 'it' ke liye '<strong>animal</strong>' aur '<strong>tired</strong>' highlight hue hain. Isse model samajh jaata hai ki 'it' uss 'animal' ko refer kar raha hai jo 'tired' tha. Yahi context samajhne ki power matrix math se aati hai!</em>";
+             }
+
+             attentionExp.innerHTML = explanation;
+        }
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Concepts: Matrices</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>Topic 2: Matrices - Data ko Organize Karna</h1>
+    <a href="index.html" class="nav-link">&laquo; Back to Topics</a>
+
+    <div class="container">
+        <h2>Matrices: Interview Q&A Style</h2>
+
+        <div class="qa-block">
+            <p class="question">Interviewer: Okay, vectors toh numbers ki list ho gayi. Ab matrices ka kya scene hai AI mein?</p>
+            <div class="answer">
+                <p>Matrices basically numbers ka ek rectangular grid (rows and columns) hoti hain. Math mein jaise use hoti hain, waise hi AI mein bhi. Aap soch sakte hain ki ek matrix multiple vectors ka collection hai.</p>
+                <p>Jaise, agar hamare paas Apple, Aam, aur Kela ke vectors hain, toh hum unhe ek matrix mein aise arrange kar sakte hain (har column ek fruit):</p>
+                <div class="matrix-container" style="text-align: center;">
+                    <span style="display: block; margin-bottom: 5px; font-weight: bold;">Fruits Feature Matrix:</span>
+                    <div class="matrix">
+                        <!-- Header Row -->
+                        <div class="matrix-row">
+                           <span class="matrix-cell" style="min-width: 80px; font-weight:bold; background: #e9ecef;">Feature</span>
+                           <span class="matrix-cell" style="min-width: 50px; font-weight:bold; background: #e9ecef;">Apple</span>
+                           <span class="matrix-cell" style="min-width: 50px; font-weight:bold; background: #e9ecef;">Aam</span>
+                           <span class="matrix-cell" style="min-width: 50px; font-weight:bold; background: #e9ecef;">Kela</span>
+                        </div>
+                       <!-- Data Rows -->
+                       <div class="matrix-row">
+                           <span class="matrix-cell" style="font-weight:bold; background: #f8f9fa;">Laal/Peela</span>
+                           <span class="matrix-cell">9</span>
+                           <span class="matrix-cell">4</span>
+                           <span class="matrix-cell">1</span>
+                       </div>
+                       <div class="matrix-row">
+                           <span class="matrix-cell" style="font-weight:bold; background: #f8f9fa;">Mithaas</span>
+                           <span class="matrix-cell">7</span>
+                           <span class="matrix-cell">9</span>
+                           <span class="matrix-cell">8</span>
+                       </div>
+                       <div class="matrix-row">
+                           <span class="matrix-cell" style="font-weight:bold; background: #f8f9fa;">Size</span>
+                           <span class="matrix-cell">5</span>
+                           <span class="matrix-cell">6</span>
+                           <span class="matrix-cell">7</span>
+                       </div>
+                    </div>
+                 </div>
+                <p>Yahaan har column ek fruit ka vector hai. Matrices data ko structure karne, transformations define karne (jaise rotation, scaling), ya neural networks mein 'weights' store karne ke kaam aati hain.</p>
+            </div>
+        </div>
+
+        <div class="qa-block">
+            <p class="question">Interviewer: Feature listing ke alawa koi practical example jahan matrix use hoti ho?</p>
+            <div class="answer">
+                <p>Bilkul. Neural Networks mein, ek layer se doosri layer ke connections ki strength ko 'Weight Matrix' mein store kiya jaata hai. Jab data ek layer se doosri mein jaata hai, toh us data ke vector ko is weight matrix se multiply kiya jaata hai (hum agle topic mein dekhenge). Isse network seekhta hai ki kaunse input features important hain.</p>
+                <p>Ek aur example hai jab hum data ko batches mein process karte hain. Agar 10 images process karni hain, aur har image ka vector 100 numbers ka hai, toh humara input ek 10x100 matrix ban jayega.</p>
+            </div>
+        </div>
+
+        <h2>Visualization</h2>
+        <p>Upar di gayi matrix visualization data ko tabular form mein dikhati hai. Rows features hain, columns items (fruits) hain.</p>
+
+    </div>
+
+    <a href="vectors.html" class="nav-link" style="float: left;">&laquo; Previous: Vectors</a>
+    <a href="matrix_multiplication.html" class="nav-link" style="float: right;">Next Topic: Matrix Multiplication &raquo;</a>
+    <div style="clear: both;"></div>
+
+
+</body>
+</html>

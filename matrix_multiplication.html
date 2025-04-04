@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Concepts: Matrix Multiplication</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>Topic 3: Matrix Multiplication - Transformation ka Formula</h1>
+    <a href="index.html" class="nav-link">&laquo; Back to Topics</a>
+
+    <div class="container">
+        <h2>Matrix Multiplication: Interview Q&A Style</h2>
+
+        <div class="qa-block">
+            <p class="question">Interviewer: Yeh topic AI mein kaafi fundamental lagta hai. Matrix Multiplication (MatMul) element-wise multiplication se alag kyun hai, aur yeh itna zaroori kyun hai AI models mein?</p>
+            <div class="answer">
+                <p>Aap bilkul sahi hain. MatMul sirf corresponding elements ko multiply karna nahi hai. Yeh ek defined process hai jisme pehli matrix ki rows ko doosri matrix ki columns se combine kiya jaata hai (dot product lekar).</p>
+                <p>Yeh important isliye hai kyunki yeh information ko <strong>transform</strong> aur <strong>combine</strong> karne ka ek powerful tareeka hai. Aap isko aise soch sakte hain: Input Data (vector/matrix) ko ek Transformation Matrix (jaise neural network ke weights) se multiply karke hum ek naya, transformed Output (vector/matrix) generate karte hain.</p>
+                <p>Formulaically: `Output = Transformation_Matrix * Input_Vector`. Yeh process AI models ko data se patterns seekhne mein madad karta hai.</p>
+            </div>
+        </div>
+
+        <div class="qa-block">
+            <p class="question">Interviewer: Aapne transformations ki baat ki. Kaisa transformation?</p>
+            <div class="answer">
+                <p>Kai tarah ke transformations ho sakte hain:</p>
+                <ul>
+                    <li><strong>Feature Combination:</strong> Alag-alag input features ko weigh karke combine karna. Neural network ki layers yahi karti hain.</li>
+                    <li><strong>Dimensionality Change:</strong> Data ko lower ya higher dimension space mein project karna.</li>
+                    <li><strong>Geometric Transformations:</strong> Data points ko rotate, scale, ya shear karna (Computer graphics mein common hai, par AI mein bhi concepts use hote hain).</li>
+                </ul>
+                <p>Essentially, MatMul woh core mathematical operation hai jiske through models input data ko process karke useful representations banate hain.</p>
+            </div>
+        </div>
+
+        <h2>Interactive Example: Step-by-Step MatMul</h2>
+        <p>Chalo ek simple Matrix ko Vector se multiply karke dekhte hain:</p>
+
+        <div style="text-align: center; margin-top: 20px;">
+            <!-- Matrix A -->
+            <div class="matrix" id="matrix-a">
+                 <div class="matrix-row" id="a-row-0">
+                    <span class="matrix-cell" id="a-0-0">2</span>
+                    <span class="matrix-cell" id="a-0-1">1</span>
+                </div>
+                <div class="matrix-row" id="a-row-1">
+                    <span class="matrix-cell" id="a-1-0">3</span>
+                    <span class="matrix-cell" id="a-1-1">4</span>
+                </div>
+            </div>
+
+            <div class="operator">X</div>
+
+            <!-- Vector x -->
+             <div class="matrix" id="vector-x">
+                 <div class="matrix-row" id="x-row-0"> <span class="matrix-cell" id="x-0-0">5</span> </div>
+                 <div class="matrix-row" id="x-row-1"> <span class="matrix-cell" id="x-1-0">6</span> </div>
+            </div>
+
+            <div class="operator">=</div>
+
+            <!-- Result Vector -->
+             <div class="matrix" id="result-vector">
+                 <div class="matrix-row"> <span class="matrix-cell result-cell" id="res-0-0">?</span> </div>
+                 <div class="matrix-row"> <span class="matrix-cell result-cell" id="res-1-0">?</span> </div>
+            </div>
+        </div>
+
+        <div id="matmul-explanation" class="explanation" style="min-height: 50px; margin-top: 15px;">
+            Click buttons to see calculation step-by-step.
+        </div>
+
+        <button onclick="calculateMatMul(0)">Calculate Top Result Element</button>
+        <button onclick="calculateMatMul(1)">Calculate Bottom Result Element</button>
+        <button onclick="resetMatMul()">Reset</button>
+
+    </div>
+
+    <a href="matrices.html" class="nav-link" style="float: left;">&laquo; Previous: Matrices</a>
+    <a href="transformers.html" class="nav-link" style="float: right;">Next Topic: Transformers &raquo;</a>
+    <div style="clear: both;"></div>
+
+
+    <script>
+        // --- Matrix Multiplication Script ---
+        const matMulExp = document.getElementById('matmul-explanation');
+        const res0 = document.getElementById('res-0-0');
+        const res1 = document.getElementById('res-1-0');
+        const matrixA = document.getElementById('matrix-a');
+        const vectorX = document.getElementById('vector-x');
+
+        function clearHighlights() {
+            const cells = document.querySelectorAll('#matrix-a .matrix-cell, #vector-x .matrix-cell');
+            cells.forEach(cell => cell.classList.remove('highlight-row', 'highlight-col'));
+             // Remove row highlights specifically
+            document.getElementById('a-row-0').classList.remove('highlight-row');
+            document.getElementById('a-row-1').classList.remove('highlight-row');
+        }
+
+        function calculateMatMul(step) {
+            clearHighlights();
+            let calculationText = '';
+            // Always highlight the vector column
+            document.getElementById('x-0-0').classList.add('highlight-col');
+            document.getElementById('x-1-0').classList.add('highlight-col');
+
+            if (step === 0) {
+                // Highlight first row of A
+                document.getElementById('a-row-0').classList.add('highlight-row');
+
+                const a00 = parseInt(document.getElementById('a-0-0').innerText);
+                const a01 = parseInt(document.getElementById('a-0-1').innerText);
+                const x0 = parseInt(document.getElementById('x-0-0').innerText);
+                const x1 = parseInt(document.getElementById('x-1-0').innerText);
+                const result = (a00 * x0) + (a01 * x1);
+                res0.innerText = result;
+                calculationText = `Top Result: (Row 1 of A <strong>DOT</strong> Column 1 of X) = <br><code>(${a00} * ${x0}) + (${a01} * ${x1}) = ${10} + ${6} = <strong>${result}</strong></code>`;
+            } else if (step === 1) {
+                // Highlight second row of A
+                document.getElementById('a-row-1').classList.add('highlight-row');
+
+                const a10 = parseInt(document.getElementById('a-1-0').innerText);
+                const a11 = parseInt(document.getElementById('a-1-1').innerText);
+                const x0 = parseInt(document.getElementById('x-0-0').innerText);
+                const x1 = parseInt(document.getElementById('x-1-0').innerText);
+                const result = (a10 * x0) + (a11 * x1);
+                res1.innerText = result;
+                 calculationText = `Bottom Result: (Row 2 of A <strong>DOT</strong> Column 1 of X) = <br><code>(${a10} * ${x0}) + (${a11} * ${x1}) = ${15} + ${24} = <strong>${result}</strong></code>`;
+            }
+            matMulExp.innerHTML = calculationText;
+        }
+
+        function resetMatMul() {
+            clearHighlights();
+            res0.innerText = '?';
+            res1.innerText = '?';
+            matMulExp.innerHTML = 'Click buttons to see calculation step-by-step.';
+        }
+    </script>
+</body>
+</html>
