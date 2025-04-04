@@ -1,31 +1,130 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI Concepts for Math Students - Interactive Guide</title>
+    <title>AI/ML Zero to Hero - Interactive Guide</title>
     <link rel="stylesheet" href="style.css">
+    <style>
+        .path-section {
+            margin-bottom: 25px;
+            padding: 15px;
+            border: 1px solid #dee2e6;
+            border-radius: 8px;
+            background-color: #f8f9fa;
+        }
+        .path-section h3 {
+            margin-top: 0;
+            color: #0056b3;
+            border-bottom: 1px solid #ced4da;
+            padding-bottom: 8px;
+        }
+        .path-section ul {
+            list-style: none;
+            padding-left: 0;
+        }
+        .path-section li {
+            margin-bottom: 10px;
+            padding-left: 20px;
+            position: relative;
+        }
+        .path-section li::before {
+            content: "➔"; /* Arrow symbol */
+            position: absolute;
+            left: 0;
+            color: #007bff;
+            font-weight: bold;
+        }
+         .path-section li a {
+            text-decoration: none;
+            color: #007bff;
+            font-weight: 500;
+         }
+         .path-section li a:hover {
+             text-decoration: underline;
+         }
+         .path-section li.completed a {
+             color: #198754; /* Green for completed/existing */
+             font-weight: bold;
+         }
+         .path-section li.completed::before {
+             color: #198754;
+             content: "✔"; /* Check mark */
+         }
+          .path-section li.coming-soon a {
+             color: #6c757d; /* Grey for coming soon */
+             font-style: italic;
+         }
+         .path-section li.coming-soon::before {
+             color: #6c757d;
+             content: "⏳"; /* Hourglass */
+         }
+    </style>
 </head>
 <body>
-    <h1>AI Concepts (Math Perspective) - Interactive Guide</h1>
+    <h1>AI/ML Learning Path: Zero to Hero</h1>
 
     <div class="container">
-        <h2>Welcome! Swagat hai!</h2>
-        <p>Yeh guide unn students ke liye hai jinka background Math mein hai aur woh AI/ML ke core concepts samajhna chahte hain, jaise Vectors, Matrices, aur Transformers.</p>
-        <p>Hum har topic ko ek <strong>Interview Q&A style</strong> mein explore karenge aur interactive examples use karenge taki concepts clear ho jayein.</p>
-        <p>Neeche diye gaye topics mein se choose karein:</p>
+        <h2>Welcome to Your AI Journey! (Swagat Hai!)</h2>
+        <p>Yeh structured learning path aapko AI aur Machine Learning ke concepts step-by-step sikhayega - bilkul basics se lekar advanced topics tak. Hum har topic ko <strong>Interview Q&A style</strong> mein explore karenge aur interactive examples use karenge.</p>
+        <p>Neeche diye gaye path ko follow karein:</p>
 
-        <ul class="topic-list">
-            <li><a href="vectors.html">Topic 1: Vectors - Information ki Buniyad</a></li>
-            <li><a href="matrices.html">Topic 2: Matrices - Data ko Organize Karna</a></li>
-            <li><a href="matrix_multiplication.html">Topic 3: Matrix Multiplication - Transformation ka Formula</a></li>
-            <li><a href="transformers.html">Topic 4: Transformers - Bhasha ke liye Self-Attention ka Jaadu</a></li>
-        </ul>
+        <!-- Section 1: Foundations -->
+        <div class="path-section">
+            <h3>Phase 1: Foundations (Neenv)</h3>
+            <ul>
+                <li class="completed"><a href="vectors.html">Topic 1: Vectors - Information ki Buniyad</a></li>
+                <li class="completed"><a href="matrices.html">Topic 2: Matrices - Data ko Organize Karna</a></li>
+                <li class="completed"><a href="matrix_multiplication.html">Topic 3: Matrix Multiplication - Transformation ka Formula</a></li>
+                <li><a href="probability_stats.html">Topic 4: Probability & Statistics - Uncertainty ko Handle Karna</a></li>
+                <!-- Add Calculus later if needed, or keep conceptual -->
+                <li><a href="python_libs.html">Topic 5: Python & Libraries (NumPy, Pandas) - Tools of the Trade</a></li>
+            </ul>
+        </div>
+
+        <!-- Section 2: Core Machine Learning -->
+        <div class="path-section">
+            <h3>Phase 2: Core Machine Learning (Mool Concepts)</h3>
+            <ul>
+                <li><a href="intro_ml.html">Topic 6: What is Machine Learning? (Supervised vs Unsupervised)</a></li>
+                <li><a href="linear_regression.html">Topic 7: Linear Regression - Simple Predictions Karna</a></li>
+                <li><a href="logistic_regression.html">Topic 8: Logistic Regression - Classification ka Pehla Kadam</a></li>
+                <li><a href="model_evaluation.html">Topic 9: Model Evaluation - Performance Kaise Check Karein? (Accuracy, Precision, Recall)</a></li>
+                <li><a href="overfitting_underfitting.html">Topic 10: Overfitting & Underfitting - Model ki Problems</a></li>
+                 <li><a href="decision_trees.html">Topic 11: Decision Trees & Random Forests - Rule-Based Decisions</a></li>
+                 <li><a href="clustering.html">Topic 12: Clustering (K-Means) - Groups Dhoondhna (Unsupervised)</a></li>
+                 <li><a href="dimensionality_reduction.html">Topic 13: Dimensionality Reduction (PCA) - Data ko Simplify Karna</a></li>
+            </ul>
+        </div>
+
+        <!-- Section 3: Deep Learning -->
+        <div class="path-section">
+            <h3>Phase 3: Deep Learning (Gehri Samajh)</h3>
+            <ul>
+                <li><a href="neural_networks.html">Topic 14: Neural Networks - Brain se Inspired Models</a></li>
+                <li><a href="activation_functions.html">Topic 15: Activation Functions - Neuron ko 'Activate' Karna</a></li>
+                <li><a href="backpropagation.html">Topic 16: How NNs Learn: Gradient Descent & Backpropagation (Conceptual)</a></li>
+                 <li class="completed"><a href="transformers.html">Topic 17: Transformers & Self-Attention - Bhasha ke liye Powerhouse (Existing)</a></li>
+                <li><a href="cnns.html">Topic 18: Convolutional Neural Networks (CNNs) - Images ko Samajhna</a></li>
+                <li><a href="rnns_lstms.html">Topic 19: Recurrent Neural Networks (RNNs/LSTMs) - Sequences ke Models</a></li>
+                 <li><a href="transformers_advanced.html">Topic 20: Transformers Advanced - Multi-Head Attention, Encoder-Decoder</a></li>
+            </ul>
+        </div>
+
+        <!-- Section 4: Advanced & Applied Topics -->
+        <div class="path-section">
+            <h3>Phase 4: Advanced & Applied AI (Aage ki Raah)</h3>
+            <ul>
+                <li><a href="generative_models.html">Topic 21: Generative Models (GANs Intro) - Nayi Cheezein Banana</a></li>
+                <li><a href="reinforcement_learning.html">Topic 22: Reinforcement Learning (Intro) - Seekhna by Trial & Error</a></li>
+                <li class="coming-soon"><a href="#">Topic 23: MLOps - Models ko Production mein Lana (Coming Soon)</a></li>
+                <li class="coming-soon"><a href="#">Topic 24: Ethics in AI - Zimmedari se AI Use Karna (Coming Soon)</a></li>
+            </ul>
+        </div>
     </div>
 
     <div class="explanation">
-        <strong>Tip:</strong> Har page par interactive elements ko try karein aur Q&A ko dhyaan se padhein ki math concepts AI mein kaise apply hote hain.
+        <strong>Note:</strong> Hum dheere-dheere naye topic files add karte jayenge. Jo topics abhi available nahi hain, woh 'Coming Soon' mark kiye gaye hain. Existing topics 'Completed' mark kiye gaye hain. Happy Learning!
     </div>
 
 </body>
