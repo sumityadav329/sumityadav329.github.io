@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Concepts: Overfitting & Underfitting</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .fit-image-container { display: flex; justify-content: space-around; margin: 20px 0; }
+        .fit-image { width: 30%; border: 1px solid #ccc; padding: 5px; text-align: center; }
+        .fit-image img { max-width: 100%; height: auto; }
+        .hidden-label { background-color: #ffc107; padding: 2px 5px; border-radius: 3px; cursor: pointer; }
+        .revealed-label { font-weight: bold; color: #198754;}
+    </style>
+</head>
+<body>
+    <h1>Topic 10: Overfitting & Underfitting - Model ki Problems</h1>
+    <a href="index.html" class="nav-link">&laquo; Back to Topics</a>
+
+    <div class="container">
+        <h2>Overfitting & Underfitting: Interview Q&A Style</h2>
+
+        <div class="qa-block">
+            <p class="question">Interviewer: Jab hum model train karte hain, toh kya woh hamesha acche se kaam karta hai naye data par?</p>
+            <div class="answer">
+                <p>Nahi, zaroori nahi. Do common problems aa sakti hain: <strong>Overfitting</strong> aur <strong>Underfitting</strong>.</p>
+                <p><strong>Underfitting:</strong> Model itna simple hota hai ki woh training data ke underlying pattern ko theek se capture hi nahi kar paata. Woh training data par bhi accha perform nahi karta, aur naye (test) data par toh bilkul nahi.</p>
+                <ul><li>Analogy: Exam ke liye bilkul padhai nahi ki, toh exam mein kuch nahi kar paoge.</li></ul>
+                <p><strong>Overfitting:</strong> Model itna complex ho jaata hai ki woh training data ke patterns ke saath-saath uske noise (random fluctuations) ko bhi 'ratt' leta hai. Woh training data par toh super-human performance deta hai, lekin naye (test) data par bahut kharab perform karta hai kyunki woh generalize nahi kar paata.</p>
+                <ul><li>Analogy: Exam ke liye sirf specific questions rat liye. Agar exam mein thoda bhi alag question aaya, toh answer nahi kar paoge.</li></ul>
+                <p>Hamara goal hai ek "Goldilocks" model banana - jo na underfit kare na overfit, balki data ke true underlying pattern ko seekhe aur naye data par accha generalize kare.</p>
+            </div>
+        </div>
+
+        <div class="qa-block">
+            <p class="question">Interviewer: Toh pata kaise chalta hai ki model overfit ya underfit kar raha hai? Aur isse theek kaise karte hain?</p>
+            <div class="answer">
+                <p>Hum model ki performance ko <strong>training data</strong> aur ek alag <strong>test data</strong> (jo model ne training ke time nahi dekha) dono par check karte hain:</p>
+                <ul>
+                    <li><strong>Underfitting:</strong> Performance training aur test dono par kharab hoti hai.</li>
+                    <li><strong>Overfitting:</strong> Performance training par bahut acchi hoti hai, lekin test par kaafi gir jaati hai.</li>
+                    <li><strong>Good Fit:</strong> Performance training aur test dono par acchi hoti hai, aur test performance training se thodi hi kam hoti hai.</li>
+                </ul>
+                <p>Solutions:</p>
+                <ul>
+                    <li><strong>Underfitting ke liye:</strong> Model ko complex karo (e.g., zyada features use karo, complex algorithm try karo), zyada der train karo.</li>
+                    <li><strong>Overfitting ke liye:</strong> Model ko simplify karo (e.g., kam features use karo), aur data collect karo, Regularization techniques use karo (yeh model complexity ko penalize karti hain), Cross-validation use karo.</li>
+                </ul>
+            </div>
+        </div>
+
+        <h2>Interactive Example: Identify the Fit!</h2>
+        <p>Neeche teen graphs hain jo data points (blue dots) aur model ki fit line (red line) dikha rahe hain. Guess karo kaunsa Underfitting, Good Fit, aur Overfitting hai. Label pe click karke answer dekho!</p>
+
+        <div class="fit-image-container">
+            <div class="fit-image">
+                <img src="https://scikit-learn.org/stable/_images/sphx_glr_plot_underfitting_overfitting_001.png" alt="Underfitting Example">
+                 <p>Graph 1: <span id="label1" class="hidden-label" onclick="revealLabel('label1', 'Underfitting')">Click to Reveal</span></p>
+            </div>
+             <div class="fit-image">
+                 <img src="https://scikit-learn.org/stable/_images/sphx_glr_plot_underfitting_overfitting_002.png" alt="Good Fit Example">
+                 <p>Graph 2: <span id="label2" class="hidden-label" onclick="revealLabel('label2', 'Good Fit')">Click to Reveal</span></p>
+            </div>
+             <div class="fit-image">
+                 <img src="https://scikit-learn.org/stable/_images/sphx_glr_plot_underfitting_overfitting_003.png" alt="Overfitting Example">
+                 <p>Graph 3: <span id="label3" class="hidden-label" onclick="revealLabel('label3', 'Overfitting')">Click to Reveal</span></p>
+            </div>
+        </div>
+         <p style="font-size:0.8em; text-align: center;">(Images Source: Scikit-learn Documentation)</p>
+        <div class="explanation">
+            Dekho kaise Overfitting wali line har data point se jaane ki koshish kar rahi hai (noise ko bhi pakad rahi hai), jabki Underfitting wali line trend ko theek se capture hi nahi kar paa rahi. Good Fit wali line general trend ko follow kar rahi hai.
+        </div>
+
+    </div>
+
+    <a href="model_evaluation.html" class="nav-link" style="float: left;">&laquo; Previous: Model Evaluation</a>
+    <a href="decision_trees.html" class="nav-link" style="float: right;">Next Topic: Decision Trees &raquo;</a>
+    <div style="clear: both;"></div>
+
+     <script>
+        function revealLabel(labelId, answer) {
+            const labelElement = document.getElementById(labelId);
+            labelElement.innerText = answer;
+            labelElement.classList.remove('hidden-label');
+            labelElement.classList.add('revealed-label');
+             labelElement.onclick = null; // Prevent further clicks
+        }
+    </script>
+
+</body>
+</html>

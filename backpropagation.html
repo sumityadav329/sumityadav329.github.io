@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Concepts: How NNs Learn (Backpropagation)</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .flow-diagram { text-align: center; font-size: 1.2em; margin: 20px 0;}
+        .flow-step { background-color: #e7f3ff; padding: 10px; margin: 10px; border-radius: 5px; border: 1px solid #007bff;}
+        .arrow { color: #007bff; font-weight: bold; margin: 5px 0; display: block; }
+    </style>
+</head>
+<body>
+    <h1>Topic 16: How NNs Learn: Gradient Descent & Backpropagation</h1>
+    <a href="index.html" class="nav-link">&laquo; Back to Topics</a>
+
+    <div class="container">
+        <h2>NN Learning Process: Interview Q&A Style</h2>
+
+        <div class="qa-block">
+            <p class="question">Interviewer: Humne NN ka structure dekha. Lekin yeh model 'seekhta' kaise hai? Woh connection weights ko sahi kaise karta hai?</p>
+            <div class="answer">
+                <p>Yeh process do main concepts par based hai: <strong>Loss Function</strong> aur <strong>Optimization Algorithm (like Gradient Descent using Backpropagation)</strong>.</p>
+                <ol>
+                    <li><strong>Forward Pass:</strong> Pehle input data network se aage ki taraf jaata hai (input -> hidden -> output layer). Har neuron apna calculation karta hai current weights ke saath, aur final prediction generate hota hai.</li>
+                    <li><strong>Calculate Loss:</strong> Phir hum model ki prediction ko actual correct value (label) se compare karte hain ek <strong>Loss Function</strong> use karke. Loss function batata hai ki model ki prediction kitni 'galat' hai (error kitna hai). Common loss functions hain Mean Squared Error (Regression ke liye) ya Cross-Entropy (Classification ke liye). Hamara goal is Loss ko minimize karna hai.</li>
+                    <li><strong>Backward Pass (Backpropagation):</strong> Yahi magic step hai! Hum calculate karte hain ki har weight ka loss par kitna contribution tha. Iske liye Calculus (specifically chain rule of derivatives) use hota hai. Hum loss ke gradient (rate of change) ko calculate karte hain with respect to each weight, starting from the output layer aur peeche ki taraf (backward) jaate hue har layer ke liye. Is process ko <strong>Backpropagation</strong> kehte hain.</li>
+                    <li><strong>Weight Update (Gradient Descent):</strong> Jab humein pata chal jaata hai ki har weight ko kis direction mein change karne se loss kam hoga (gradient se pata chalta hai), hum weights ko uss direction mein thoda sa update karte hain. Yeh update step <strong>Gradient Descent</strong> (ya uske variations like Adam, SGD) algorithm follow karta hai. Update ka size 'Learning Rate' parameter control karta hai.</li>
+                </ol>
+                <p>Yeh pura process (Forward Pass -> Calculate Loss -> Backward Pass -> Update Weights) baar baar repeat kiya jaata hai (epochs) training data par, jab tak loss kam nahi ho jaata aur model acche se learn nahi kar leta.</p>
+            </div>
+        </div>
+
+        <div class="qa-block">
+            <p class="question">Interviewer: Toh Backpropagation basically har weight ki 'galti' ka hissa calculate karta hai aur Gradient Descent use karke us galti ko sudharta hai?</p>
+            <div class="answer">
+                <p>Exactly! Backpropagation ek efficient tareeka hai yeh calculate karne ka ki har weight ko kitna adjust karna hai loss kam karne ke liye. Gradient Descent woh mechanism hai jo actual weight adjustment karta hai, gradient ke direction mein 'neeche utarte hue' loss ko minimize karne ki koshish karta hai (jaise pahad se neeche utarna sabse steep slope follow karke).</p>
+            </div>
+        </div>
+
+        <h2>Conceptual Flow Diagram: NN Training Loop</h2>
+        <div class="flow-diagram">
+            <div class="flow-step">1. Input Data -> Forward Pass -> Get Prediction</div>
+            <div class="arrow">▼</div>
+            <div class="flow-step">2. Compare Prediction with Actual Label -> Calculate Loss (Error)</div>
+            <div class="arrow">▼</div>
+            <div class="flow-step">3. Backward Pass (Backpropagation) -> Calculate Gradients (How each weight affects loss)</div>
+            <div class="arrow">▼</div>
+            <div class="flow-step">4. Use Gradients (Gradient Descent) -> Update Weights</div>
+            <div class="arrow">↺ Repeat with more data</div>
+        </div>
+
+        <div class="explanation">
+             Yeh iterative process hai jisse Neural Network data se seekhta hai aur apni predictions ko improve karta hai by minimizing the loss function.
+        </div>
+
+    </div>
+
+    <a href="activation_functions.html" class="nav-link" style="float: left;">&laquo; Previous: Activation Funcs</a>
+     <!-- Link to Transformers (Topic 17) - assuming it's already done -->
+    <a href="transformers.html" class="nav-link" style="float: right;">Next Topic: Transformers &raquo;</a>
+    <div style="clear: both;"></div>
+</body>
+</html>

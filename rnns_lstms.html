@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Concepts: RNNs & LSTMs</title>
+    <link rel="stylesheet" href="style.css">
+     <style>
+        .rnn-diagram { text-align: center; margin: 20px 0; }
+        .rnn-diagram img { max-width: 70%; border: 1px solid #eee; margin-top: 10px;}
+        .loop { font-size: 2em; color: #dc3545; font-weight: bold;}
+    </style>
+</head>
+<body>
+    <h1>Topic 19: Recurrent Neural Networks (RNNs/LSTMs) - Sequences ke Models</h1>
+     <a href="index.html" class="nav-link">&laquo; Back to Topics</a>
+
+    <div class="container">
+        <h2>RNNs & LSTMs: Interview Q&A Style</h2>
+
+        <div class="qa-block">
+            <p class="question">Interviewer: Images ke liye CNNs hain. Lekin agar data sequential ho, jaise text (words ka sequence) ya time series (stock prices)? Wahan information ka order important hai. Kya use hota hai?</p>
+            <div class="answer">
+                <p>Aise sequential data ke liye <strong>Recurrent Neural Networks (RNNs)</strong> design kiye gaye hain. Inki khaasiyat hai inmein 'memory' hoti hai.</p>
+                <p>Normal feedforward networks (jaise Dense NNs ya CNNs) har input ko independently process karte hain. RNNs alag hain - woh har step ke output ko (ya ek 'hidden state' ko) agle step ke input ke saath use karte hain. Yeh ek loop jaisa structure banata hai jo network ko previous information yaad rakhne deta hai.</p>
+                <p>Socho aap ek sentence padh rahe ho. Har word ka meaning pichle words ke context par depend karta hai. RNNs isi tarah kaam karte hain - woh har word ko process karte waqt pichle words se seekhi hui information (hidden state) ko consider karte hain.</p>
+            </div>
+        </div>
+
+        <div class="qa-block">
+            <p class="question">Interviewer: Yeh 'memory' wali baat interesting hai. Par kya simple RNNs کافی hain? LSTMs/GRUs ka naam bhi suna hai.</p>
+            <div class="answer">
+                <p>Simple RNNs ko ek badi problem aati hai - <strong>Vanishing/Exploding Gradients</strong>. Jab sequence bahut lamba ho jaata hai, toh backpropagation ke time gradients ya toh bahut chhote (vanish) ho jaate hain ya bahut bade (explode). Isse network long-range dependencies (sequence mein door ke words/events ka connection) learn nahi kar paata.</p>
+                <p>Is problem ko solve karne ke liye advanced RNN architectures develop ki gayi hain:</p>
+                <ul>
+                    <li><strong>LSTM (Long Short-Term Memory):</strong> Yeh special units use karte hain jinmein 'gates' (input, forget, output gates) hote hain. Yeh gates control karte hain ki kaunsi information ko hidden state mein store karna hai, kaunsi ko bhulana hai, aur kya output karna hai. Isse woh long-term dependencies ko effectively learn kar paate hain.</li>
+                    <li><strong>GRU (Gated Recurrent Unit):</strong> LSTM ka ek simplified version hai, jismein kam gates hote hain (update aur reset gates). Yeh computationally thoda efficient hota hai aur kaafi tasks mein LSTM jaisa hi perform karta hai.</li>
+                </ul>
+                <p>Aajkal language modeling, machine translation, speech recognition jaise sequential tasks mein LSTMs aur GRUs (aur ab Transformers bhi) extensively use hote hain.</p>
+            </div>
+        </div>
+
+         <h2>Conceptual Diagram: Simple RNN vs LSTM Cell</h2>
+         <div class="rnn-diagram">
+             <div>
+                <p><strong>Simple RNN (Unrolled):</strong></p>
+                <!-- Placeholder image of unrolled RNN -->
+                 <img src="https://colah.github.io/posts/2015-08-Understanding-LSTMs/img/RNN-unrolled.png" alt="Unrolled RNN">
+                 <p>Har step ka output (h_t) agle step ka input banta hai.</p>
+            </div>
+             <hr style="margin: 20px 0;">
+             <div>
+                 <p><strong>LSTM Cell Internal Structure (Conceptual):</strong></p>
+                 <!-- Placeholder image of LSTM cell -->
+                 <img src="https://colah.github.io/posts/2015-08-Understanding-LSTMs/img/LSTM3-chain.png" alt="LSTM Cell Structure">
+                  <p>'Gates' control karte hain information flow ko (Cell State C_t).</p>
+             </div>
+             <p style="font-size:0.8em; text-align: center;">(Images Source: Christopher Olah's Blog - Understanding LSTMs)</p>
+        </div>
+
+        <div class="explanation">
+             RNNs sequences process karne ke liye bane hain, aur LSTMs/GRUs unki memory limitations ko overcome karte hain using special gating mechanisms.
+        </div>
+
+    </div>
+
+    <a href="cnns.html" class="nav-link" style="float: left;">&laquo; Previous: CNNs</a>
+    <a href="transformers_advanced.html" class="nav-link" style="float: right;">Next Topic: Transformers Advanced &raquo;</a>
+    <div style="clear: both;"></div>
+</body>
+</html>

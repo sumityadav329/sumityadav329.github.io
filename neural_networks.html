@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Concepts: Neural Networks</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .nn-diagram { text-align: center; margin: 20px 0; }
+        .nn-diagram img { max-width: 80%; border: 1px solid #eee; margin-top: 10px;}
+        .neuron { border: 1px solid #007bff; border-radius: 50%; padding: 10px; margin: 5px; display: inline-block; min-width: 40px; background-color: #e7f3ff;}
+        .layer { margin: 10px 0; padding: 10px; border: 1px dashed #ccc; border-radius: 5px;}
+        .arrow { font-size: 1.5em; margin: 0 10px; color: #6c757d;}
+    </style>
+</head>
+<body>
+    <h1>Topic 14: Neural Networks - Brain se Inspired Models</h1>
+    <a href="index.html" class="nav-link">&laquo; Back to Topics</a>
+
+    <div class="container">
+        <h2>Neural Networks (NNs): Interview Q&A Style</h2>
+
+        <div class="qa-block">
+            <p class="question">Interviewer: Humne basic ML models dekhe. Ab yeh Deep Learning aur Neural Networks kya hain jinki itni hype hai?</p>
+            <div class="answer">
+                <p>Deep Learning, Machine Learning ka ek subfield hai jo <strong>Artificial Neural Networks (ANNs)</strong> use karta hai complex patterns seekhne ke liye. Yeh networks human brain ke structure se loosely inspired hain.</p>
+                <p>Ek simple NN bahut saare interconnected 'neurons' (ya nodes) se bana hota hai, jo layers mein arranged hote hain:</p>
+                <ul>
+                    <li><strong>Input Layer:</strong> Data ko receive karta hai (har neuron ek input feature ko represent karta hai).</li>
+                    <li><strong>Hidden Layer(s):</strong> Input layer aur output layer ke beech mein hoti hain. Yahaan actual computation hota hai. 'Deep' learning ka matlab usually multiple hidden layers hona hai.</li>
+                    <li><strong>Output Layer:</strong> Final result ya prediction deta hai.</li>
+                </ul>
+                <p>Har connection do neurons ke beech mein ek 'weight' associate karta hai, jo connection ki strength batata hai. Model training ke time in weights ko adjust karna seekhta hai.</p>
+            </div>
+        </div>
+
+        <div class="qa-block">
+            <p class="question">Interviewer: Yeh 'neuron' kya karta hai exactly?</p>
+            <div class="answer">
+                <p>Ek single neuron (ya perceptron, simplest form) kuch inputs leta hai, har input ko uske corresponding connection weight se multiply karta hai, un sabko sum karta hai (weighted sum), ek 'bias' term add karta hai, aur phir is result ko ek <strong>Activation Function</strong> se pass karta hai (hum agle topic mein dekhenge). Yeh activation function decide karta hai ki neuron 'fire' karega ya nahi, ya kitna strongly fire karega.</p>
+                <p><code>Output = ActivationFunction( (Input1 * Weight1 + Input2 * Weight2 + ...) + Bias )</code></p>
+                <p>Multiple neurons ki layers milkar complex, non-linear relationships ko data mein model kar sakti hain, jo simple models (like linear regression) nahi kar sakte.</p>
+            </div>
+        </div>
+
+        <h2>Conceptual Diagram: Simple Neural Network</h2>
+        <p>Neeche ek simple NN ka structure dekho (e.g., 2 inputs, 1 hidden layer with 3 neurons, 1 output):</p>
+        <div class="nn-diagram layer">
+            <strong>Input Layer</strong><br>
+            <span class="neuron">X1</span> <span class="neuron">X2</span>
+        </div>
+         <div style="text-align:center; font-size: 1.5em; margin: 5px 0;">↓ Connections (Weights) ↓</div>
+        <div class="nn-diagram layer">
+             <strong>Hidden Layer</strong><br>
+            <span class="neuron">H1</span> <span class="neuron">H2</span> <span class="neuron">H3</span>
+        </div>
+         <div style="text-align:center; font-size: 1.5em; margin: 5px 0;">↓ Connections (Weights) ↓</div>
+        <div class="nn-diagram layer">
+             <strong>Output Layer</strong><br>
+            <span class="neuron">Out</span>
+        </div>
+
+        <div class="explanation">
+            Data input layer se enter hota hai, hidden layers mein process hota hai (har neuron apna calculation karta hai), aur final result output layer se milta hai. Training ka goal in connections ke weights ko optimize karna hota hai.
+        </div>
+
+    </div>
+
+    <a href="dimensionality_reduction.html" class="nav-link" style="float: left;">&laquo; Previous: Dim Reduction</a>
+    <a href="activation_functions.html" class="nav-link" style="float: right;">Next Topic: Activation Functions &raquo;</a>
+    <div style="clear: both;"></div>
+</body>
+</html>

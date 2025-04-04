@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Concepts: Probability & Statistics</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>Topic 4: Probability & Statistics - Uncertainty ko Handle Karna</h1>
+    <a href="index.html" class="nav-link">&laquo; Back to Topics</a>
+
+    <div class="container">
+        <h2>Probability & Stats: Interview Q&A Style</h2>
+
+        <div class="qa-block">
+            <p class="question">Interviewer: Humne vectors/matrices dekha jo data represent karte hain. Lekin real-world data hamesha perfect nahi hota, usmein noise aur uncertainty hoti hai. Probability aur Statistics AI mein kaise help karte hain?</p>
+            <div class="answer">
+                <p>Bilkul sahi point hai. Probability humein uncertainty ko mathematically model karne ka framework deta hai - kisi event ke hone ka chance kya hai (e.g., ek email spam hai ya nahi?). Statistics humein data se meaningful insights nikalne, trends samajhne, aur conclusions draw karne ke tools deta hai (e.g., kya naye ad campaign se sales badhi?).</p>
+                <p>AI/ML mein P&S har jagah hai:</p>
+                <ul>
+                    <li>Model assumptions define karne mein (e.g., data normally distributed hai).</li>
+                    <li>Loss functions design karne mein (jo batate hain model kitna galat hai).</li>
+                    <li>Model outputs ko interpret karne mein (e.g., classification model 90% confidence deta hai).</li>
+                    <li>A/B testing se model improvements validate karne mein.</li>
+                </ul>
+                <p>Essentially, P&S humein data-driven decisions lene aur model ki reliability samajhne mein madad karta hai.</p>
+            </div>
+        </div>
+
+        <div class="qa-block">
+            <p class="question">Interviewer: Koi specific example de sakte hain jahan probability use hoti ho?</p>
+            <div class="answer">
+                <p>Ek classic example hai Naive Bayes classifier, jo spam detection mein use hota hai. Yeh Bayes' Theorem (probability ka ek fundamental rule) use karta hai yeh calculate karne ke liye ki kuch specific words (like "free", "offer", "click here") ke hone par email ke spam hone ki probability kitni hai.</p>
+                <p>Har decision jo AI model leta hai, implicitly ya explicitly, probability par based hota hai - "Given the input data, what is the most *probable* output?"</p>
+            </div>
+        </div>
+
+        <h2>Interactive Example: Coin Toss Simulation</h2>
+        <p>Probability ka sabse simple example - coin toss! Click karke dekho Heads/Tails aane ki frequency kya rehti hai over multiple tosses. Theory kehti hai 50/50 chance hai, par short term mein results vary kar sakte hain (Law of Large Numbers).</p>
+
+        <div>
+            <button onclick="tossCoin()">Toss Coin</button>
+            <button onclick="resetTosses()">Reset</button>
+        </div>
+        <div style="margin-top: 15px;">
+            Total Tosses: <span id="total-tosses">0</span> |
+            Heads: <span id="heads-count">0</span> (<span id="heads-percent">0</span>%) |
+            Tails: <span id="tails-count">0</span> (<span id="tails-percent">0</span>%)
+        </div>
+        <div id="coin-result" style="font-size: 1.5em; margin-top: 10px; font-weight: bold;"></div>
+
+    </div>
+
+    <a href="matrix_multiplication.html" class="nav-link" style="float: left;">&laquo; Previous: MatMul</a>
+    <a href="python_libs.html" class="nav-link" style="float: right;">Next Topic: Python & Libs &raquo;</a>
+    <div style="clear: both;"></div>
+
+    <script>
+        let totalTosses = 0;
+        let headsCount = 0;
+        let tailsCount = 0;
+
+        const totalEl = document.getElementById('total-tosses');
+        const headsEl = document.getElementById('heads-count');
+        const tailsEl = document.getElementById('tails-count');
+        const headsPctEl = document.getElementById('heads-percent');
+        const tailsPctEl = document.getElementById('tails-percent');
+        const resultEl = document.getElementById('coin-result');
+
+        function tossCoin() {
+            totalTosses++;
+            const result = Math.random() < 0.5 ? 'Heads' : 'Tails';
+            if (result === 'Heads') {
+                headsCount++;
+                resultEl.innerText = "Result: Heads!";
+                resultEl.style.color = 'green';
+            } else {
+                tailsCount++;
+                 resultEl.innerText = "Result: Tails!";
+                 resultEl.style.color = 'blue';
+            }
+            updateStats();
+        }
+
+        function updateStats() {
+            totalEl.innerText = totalTosses;
+            headsEl.innerText = headsCount;
+            tailsEl.innerText = tailsCount;
+            headsPctEl.innerText = totalTosses > 0 ? ((headsCount / totalTosses) * 100).toFixed(1) : '0';
+            tailsPctEl.innerText = totalTosses > 0 ? ((tailsCount / totalTosses) * 100).toFixed(1) : '0';
+        }
+
+        function resetTosses() {
+            totalTosses = 0;
+            headsCount = 0;
+            tailsCount = 0;
+            resultEl.innerText = "";
+            updateStats();
+        }
+    </script>
+</body>
+</html>

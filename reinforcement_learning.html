@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Concepts: Reinforcement Learning (Intro)</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .rl-diagram { text-align: center; margin: 20px 0; }
+        .rl-diagram img { max-width: 80%; border: 1px solid #eee; margin-top: 10px;}
+        .rl-component { font-weight: bold; }
+        .interaction-loop { font-size: 1.5em; color: #007bff; margin: 10px 0;}
+    </style>
+</head>
+<body>
+    <h1>Topic 22: Reinforcement Learning (Intro) - Seekhna by Trial & Error</h1>
+     <a href="index.html" class="nav-link">&laquo; Back to Topics</a>
+
+    <div class="container">
+        <h2>Reinforcement Learning (RL): Interview Q&A Style</h2>
+
+        <div class="qa-block">
+            <p class="question">Interviewer: Humne Supervised aur Unsupervised learning dekha. Yeh teesra type, Reinforcement Learning, kaise alag hai? Iska kya concept hai?</p>
+            <div class="answer">
+                <p>Reinforcement Learning (RL) ekdum alag paradigm hai. Yahaan koi labeled data nahi hota (jaise Supervised mein), aur na hi sirf hidden patterns dhoondhne hote hain (jaise Unsupervised mein).</p>
+                <p>RL mein ek <strong>Agent</strong> hota hai jo ek <strong>Environment</strong> mein interact karta hai. Agent environment ki current <strong>State</strong> ko dekhta hai, ek <strong>Action</strong> leta hai, aur uss action ke badle environment se ek <strong>Reward</strong> (ya penalty) aur nayi State milti hai.</p>
+                <p>Agent ka goal hota hai <strong>maximum cumulative reward</strong> collect karna seekhna, over time, by trial and error. Woh seekhta hai ki kis state mein kaunsa action lene se future mein accha reward milega.</p>
+                <p>Analogy: Ek baccha video game khelna seekh raha hai. Woh screen (State) dekhta hai, controller pe button dabata hai (Action), game se score badhta/ghatata hai (Reward), aur game agle frame pe jaata hai (New State). Dheere dheere woh seekh jaata hai kaunse actions high score dilate hain.</p>
+            </div>
+        </div>
+
+        <div class="qa-block">
+            <p class="question">Interviewer: Toh RL ke main components kya hain? Aur yeh "policy" kya hoti hai?</p>
+            <div class="answer">
+                <p>Key components hain:</p>
+                <ul>
+                    <li><strong>Agent:</strong> Learner ya decision-maker.</li>
+                    <li><strong>Environment:</strong> Agent jiske saath interact karta hai (e.g., game world, real world).</li>
+                    <li><strong>State (S):</strong> Environment ki current situation jo agent observe karta hai.</li>
+                    <li><strong>Action (A):</strong> Jo agent perform kar sakta hai.</li>
+                    <li><strong>Reward (R):</strong> Immediate feedback jo agent ko action lene par milta hai (positive ya negative).</li>
+                </ul>
+                <p>Agent jo strategy use karta hai decide karne ke liye ki kis state mein kaunsa action lena hai, usse <strong>Policy (π)</strong> kehte hain. Policy basically state se action ko map karti hai.</p>
+                <p>RL algorithms (like Q-learning, SARSA, Deep Q-Networks (DQN), Policy Gradients) ka goal hota hai optimal policy find karna - woh policy jo long-term cumulative reward ko maximize kare.</p>
+                <p>Ek aur important concept hai <strong>Value Function</strong>, jo estimate karta hai ki kisi state mein hona (ya kisi state mein action lena) future mein kitna accha (expected reward) hai.</p>
+            </div>
+        </div>
+
+        <h2>Conceptual Diagram: Reinforcement Learning Loop</h2>
+        <div class="rl-diagram">
+             <!-- Placeholder for RL loop diagram -->
+             <img src="https://miro.medium.com/v2/resize:fit:1400/1*eH_hR_W3YRWeIP_4pQ6S3g.png" alt="Reinforcement Learning Loop">
+             <p style="font-size:0.8em; text-align: center;">(Image Source: Jonathan Hui on Medium)</p>
+
+             <div class="interaction-loop">
+                <span class="rl-component">Agent</span> observes <span class="rl-component">State (S)</span> from <span class="rl-component">Environment</span>
+                <br>↓<br>
+                <span class="rl-component">Agent</span> takes <span class="rl-component">Action (A)</span> (based on Policy)
+                 <br>↓<br>
+                 <span class="rl-component">Environment</span> returns <span class="rl-component">Reward (R)</span> & New <span class="rl-component">State (S')</span>
+                 <br>↺ Loop Repeats
+             </div>
+        </div>
+
+        <div class="explanation">
+             RL ka use robotics (chalna seekhna), game playing (AlphaGo), resource management, recommendation systems (long-term user engagement ke liye) jaise complex decision-making problems mein hota hai jahan immediate feedback important hota hai.
+        </div>
+
+    </div>
+
+    <a href="generative_models.html" class="nav-link" style="float: left;">&laquo; Previous: Generative Models</a>
+    <!-- Maybe link back to index or a conclusion page if added -->
+     <a href="index.html" class="nav-link" style="float: right;">Back to Main Topics &raquo;</a>
+    <div style="clear: both;"></div>
+</body>
+</html>

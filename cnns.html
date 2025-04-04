@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Concepts: Convolutional Neural Networks (CNNs)</title>
+    <link rel="stylesheet" href="style.css">
+     <style>
+        .cnn-diagram { text-align: center; margin: 20px 0; }
+        .cnn-diagram img { max-width: 95%; border: 1px solid #eee; margin-top: 10px;}
+        .layer-desc { font-weight: bold; margin-top: 15px; }
+    </style>
+</head>
+<body>
+    <h1>Topic 18: Convolutional Neural Networks (CNNs) - Images ko Samajhna</h1>
+    <a href="index.html" class="nav-link">&laquo; Back to Topics</a>
+
+    <div class="container">
+        <h2>CNNs: Interview Q&A Style</h2>
+
+        <div class="qa-block">
+            <p class="question">Interviewer: Neural Networks toh theek hain, par images jaise data ke liye (jahan pixels ka spatial arrangement important hai) kya normal NN کافی hai? CNNs kaise different hain?</p>
+            <div class="answer">
+                <p>Normal NNs (Dense/Fully Connected) image data ke liye akele efficient nahi hote. Agar aap ek 100x100 pixel image ko flatten karke input layer mein daalo, toh 10,000 input neurons ho jayenge, aur hidden layer ke saath connections bahut zyada ho jayenge (millions of weights!). Yeh computationally expensive hai aur spatial information (pixels ki relative position) loose ho jaati hai.</p>
+                <p><strong>Convolutional Neural Networks (CNNs)</strong> specifically image (aur dusre grid-like data jaise audio spectrograms) ko process karne ke liye design kiye gaye hain. Yeh spatial hierarchies ko preserve karte hain.</p>
+                <p>CNNs kuch special layers use karte hain:</p>
+                <ul>
+                    <li><strong>Convolutional Layer:</strong> Yeh core building block hai. Ismein small filters (kernels) input image par slide karte hain, element-wise multiplication aur sum karte hain (convolution operation). Har filter specific feature detect karna seekhta hai (jaise edges, corners, textures). Ek hi filter puri image par use hota hai (parameter sharing), jo NNs se bahut efficient hai.</li>
+                    <li><strong>Activation Layer (ReLU):</strong> Convolution layer ke output mein non-linearity add karta hai.</li>
+                    <li><strong>Pooling Layer (e.g., Max Pooling):</strong> Feature map ko downsample karta hai (size reduce karta hai). Yeh computation kam karta hai aur model ko object ki exact position ke prati thoda robust banata hai (translation invariance). Max pooling usually ek small window mein se maximum value leta hai.</li>
+                </ul>
+                <p>Yeh layers (Conv -> ReLU -> Pool) multiple baar stack ki jaati hain hierarchical features seekhne ke liye (simple edges -> shapes -> object parts -> objects).</p>
+            </div>
+        </div>
+
+        <div class="qa-block">
+            <p class="question">Interviewer: Toh pehle CNN layers features extract karti hain, aur phir final decision kaise hota hai?</p>
+            <div class="answer">
+                <p>CNN architecture ke end mein, jo high-level feature maps aate hain multiple Conv/Pool layers ke baad, unhe <strong>flatten</strong> kiya jaata hai (ek single long vector mein convert kiya jaata hai).</p>
+                <p>Is flattened vector ko phir ek standard <strong>Fully Connected Neural Network</strong> (jaise humne pehle dekha) mein input ki tarah diya jaata hai. Yeh fully connected layers in high-level features ko combine karke final classification (e.g., Cat/Dog/Car) ya regression task perform karti hain. Output layer mein usually Softmax (multi-class classification) ya Sigmoid (binary) use hota hai.</p>
+            </div>
+        </div>
+
+        <h2>Conceptual Diagram: Typical CNN Architecture</h2>
+        <p>Ek common CNN ka flow aisa dikhta hai:</p>
+        <div class="cnn-diagram">
+            <!-- Placeholder for a CNN architecture diagram -->
+            <img src="https://miro.medium.com/v2/resize:fit:1400/1*uAeANQIOQPqWZnnuH-VEyw.jpeg" alt="Typical CNN Architecture Diagram">
+            <p style="font-size:0.8em; text-align: center;">(Image Source: Sumit Saha on Medium)</p>
+
+            <p class="layer-desc">Input Image</p>
+            -> <span style="color: #007bff;">[Conv -> ReLU -> Pool]</span> (Feature Extraction Block 1)
+            -> <span style="color: #007bff;">[Conv -> ReLU -> Pool]</span> (Feature Extraction Block 2) ...
+            -> <span style="color: #dc3545;">Flatten</span>
+            -> <span style="color: #198754;">[Fully Connected Layer -> ReLU]</span>
+            -> <span style="color: #198754;">[Fully Connected Layer (Output) -> Softmax]</span>
+            <p class="layer-desc">-> Final Probabilities (e.g., Cat: 0.9, Dog: 0.05, ...)</p>
+        </div>
+
+        <div class="explanation">
+            CNNs image recognition, object detection, image segmentation jaise tasks mein state-of-the-art results dete hain kyunki woh spatial information ko effectively process kar sakte hain.
+        </div>
+
+    </div>
+
+    <!-- Assuming Transformers (17) is done, linking to CNN (18), then RNN (19) -->
+    <a href="transformers.html" class="nav-link" style="float: left;">&laquo; Previous: Transformers</a>
+    <a href="rnns_lstms.html" class="nav-link" style="float: right;">Next Topic: RNNs/LSTMs &raquo;</a>
+    <div style="clear: both;"></div>
+</body>
+</html>

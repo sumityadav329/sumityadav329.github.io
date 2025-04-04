@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Concepts: Model Evaluation</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .confusion-matrix { border-collapse: collapse; margin: 15px 0; }
+        .confusion-matrix th, .confusion-matrix td { border: 1px solid #ccc; padding: 8px 12px; text-align: center; }
+        .confusion-matrix th { background-color: #e9ecef; }
+        .confusion-matrix td input { width: 50px; text-align: center; padding: 5px; border: 1px solid #ccc; border-radius: 3px;}
+        .metrics span { display: inline-block; min-width: 50px; font-weight: bold; }
+        .metrics code { background-color: #fff; border: 1px solid #eee; padding: 3px 6px;}
+    </style>
+</head>
+<body>
+    <h1>Topic 9: Model Evaluation - Performance Kaise Check Karein?</h1>
+    <a href="index.html" class="nav-link">&laquo; Back to Topics</a>
+
+    <div class="container">
+        <h2>Model Evaluation: Interview Q&A Style</h2>
+
+        <div class="qa-block">
+            <p class="question">Interviewer: Humne model bana liya, jaise Logistic Regression se spam filter. Par humein kaise pata chalega ki yeh model kitna accha kaam kar raha hai?</p>
+            <div class="answer">
+                <p>Bahut important sawaal hai! Model banane ke baad use evaluate karna zaroori hai. Sabse common metric hai <strong>Accuracy</strong>.</p>
+                <p><strong>Accuracy:</strong> Total predictions mein se kitne predictions sahi the.</p>
+                <p><code>Accuracy = (Number of Correct Predictions) / (Total Number of Predictions)</code></p>
+                <p>Jaise, agar humne 100 emails test kiye aur model ne 90 ko sahi classify kiya (spam ko spam, non-spam ko non-spam), toh accuracy 90/100 = 90% hui.</p>
+            </div>
+        </div>
+
+        <div class="qa-block">
+            <p class="question">Interviewer: 90% accuracy toh acchi lag rahi hai. Toh kya sirf accuracy kaafi hai?</p>
+            <div class="answer">
+                <p>Hamesha nahi! Accuracy misleading ho sakti hai, khaas kar jab data imbalanced ho. Socho ek rare disease test karne ka model hai. Agar 100 mein se sirf 2 logon ko disease hai. Agar model hamesha predict kare "No Disease", toh woh 98 predictions sahi karega! Accuracy 98% hogi, lekin model useless hai kyunki woh kisi ko detect hi nahi kar pa raha.</p>
+                <p>Isliye humein aur metrics ki zaroorat padti hai, jaise:</p>
+                <ul>
+                    <li><strong>Precision:</strong> Jin instances ko model ne 'Positive' predict kiya (e.g., Spam), unmein se *actually* kitne positive the? (Focus on False Positives - Non-spam ko spam bol dena)</li>
+                    <li><strong>Recall (Sensitivity):</strong> Jo instances *actually* positive the (e.g., Spam emails), unmein se kitno ko model ne sahi 'Positive' predict kiya? (Focus on False Negatives - Spam ko non-spam bol dena)</li>
+                    <li><strong>F1-Score:</strong> Precision aur Recall ka harmonic mean. Dono ko balance karta hai.</li>
+                </ul>
+                <p>Yeh metrics humein model ki performance ki zyada detailed picture dete hain. Inko samajhne ke liye <strong>Confusion Matrix</strong> use karte hain.</p>
+            </div>
+        </div>
+
+        <h2>Interactive Example: Confusion Matrix & Metrics</h2>
+        <p>Confusion Matrix batata hai ki model ne kya predict kiya vs actual kya tha. Neeche values enter karke dekho metrics kaise change hote hain (Example: Predicting 'Spam'):</p>
+
+        <table class="confusion-matrix">
+            <tr>
+                <th colspan="2"></th>
+                <th colspan="2">Predicted Class</th>
+            </tr>
+            <tr>
+                <th colspan="2"></th>
+                <th>Spam (Positive)</th>
+                <th>Not Spam (Negative)</th>
+            </tr>
+            <tr>
+                <th rowspan="2">Actual<br>Class</th>
+                <th>Spam (Positive)</th>
+                <td>TP <input type="number" id="tp" value="85" oninput="calculateMetrics()"></td>
+                <td>FN <input type="number" id="fn" value="5" oninput="calculateMetrics()"></td>
+            </tr>
+            <tr>
+                <th>Not Spam (Negative)</th>
+                <td>FP <input type="number" id="fp" value="10" oninput="calculateMetrics()"></td>
+                <td>TN <input type="number" id="tn" value="900" oninput="calculateMetrics()"></td>
+            </tr>
+        </table>
+        <p style="font-size: 0.9em;">
+            TP: True Positive (Spam ko Spam predict kiya), FN: False Negative (Spam ko Not Spam predict kiya) <br>
+            FP: False Positive (Not Spam ko Spam predict kiya), TN: True Negative (Not Spam ko Not Spam predict kiya)
+        </p>
+
+        <div class="metrics">
+            <p>Calculated Metrics:</p>
+            Accuracy: <code id="accuracy">?</code><br>
+            Precision: <code id="precision">?</code><br>
+            Recall: <code id="recall">?</code><br>
+            F1-Score: <code id="f1-score">?</code>
+        </div>
+         <button onclick="resetMatrix()">Reset Values</button>
+
+    </div>
+
+    <a href="logistic_regression.html" class="nav-link" style="float: left;">&laquo; Previous: Logistic Regression</a>
+    <a href="overfitting_underfitting.html" class="nav-link" style="float: right;">Next Topic: Overfitting & Underfitting &raquo;</a>
+    <div style="clear: both;"></div>
+
+    <script>
+        const tpEl = document.getElementById('tp');
+        const fnEl = document.getElementById('fn');
+        const fpEl = document.getElementById('fp');
+        const tnEl = document.getElementById('tn');
+
+        const accEl = document.getElementById('accuracy');
+        const preEl = document.getElementById('precision');
+        const recEl = document.getElementById('recall');
+        const f1El = document.getElementById('f1-score');
+
+        function calculateMetrics() {
+            const TP = parseInt(tpEl.value) || 0;
+            const FN = parseInt(fnEl.value) || 0;
+            const FP = parseInt(fpEl.value) || 0;
+            const TN = parseInt(tnEl.value) || 0;
+
+            const total = TP + FN + FP + TN;
+
+            // Accuracy
+            const accuracy = total > 0 ? ((TP + TN) / total) : 0;
+            accEl.innerText = accuracy.toFixed(3);
+
+            // Precision
+            const precision = (TP + FP) > 0 ? (TP / (TP + FP)) : 0;
+            preEl.innerText = precision.toFixed(3);
+
+            // Recall
+            const recall = (TP + FN) > 0 ? (TP / (TP + FN)) : 0;
+            recEl.innerText = recall.toFixed(3);
+
+            // F1 Score
+            const f1 = (precision + recall) > 0 ? (2 * (precision * recall) / (precision + recall)) : 0;
+             f1El.innerText = f1.toFixed(3);
+        }
+
+         function resetMatrix() {
+            tpEl.value = 85;
+            fnEl.value = 5;
+            fpEl.value = 10;
+            tnEl.value = 900;
+            calculateMetrics();
+        }
+
+        // Initial calculation
+        calculateMetrics();
+    </script>
+</body>
+</html>

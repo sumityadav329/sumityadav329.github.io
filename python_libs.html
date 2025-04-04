@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Concepts: Python & Libraries</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>Topic 5: Python & Libraries (NumPy, Pandas) - Tools of the Trade</h1>
+    <a href="index.html" class="nav-link">&laquo; Back to Topics</a>
+
+    <div class="container">
+        <h2>Python & Libraries: Interview Q&A Style</h2>
+
+        <div class="qa-block">
+            <p class="question">Interviewer: Theory toh theek hai, par practically kaam kaise hota hai AI/ML mein? Python itna popular kyun hai aur yeh NumPy, Pandas kya cheez hain?</p>
+            <div class="answer">
+                <p>Bilkul! Python AI/ML ke liye sabse popular language hai. Iske reasons hain:</p>
+                <ul>
+                    <li><strong>Easy to Learn & Read:</strong> Syntax kaafi simple aur English jaisa hai.</li>
+                    <li><strong>Large Community:</strong> Bohot saare log use karte hain, toh help aur resources easily mil jaati hain.</li>
+                    <li><strong>Amazing Libraries:</strong> Yahi iska superpower hai! Pre-built code (libraries) available hain jo complex tasks ko aasan bana dete hain.</li>
+                </ul>
+                <p><strong>NumPy (Numerical Python):</strong> Yeh library high-performance arrays (vectors aur matrices ka programming version) aur un par mathematical operations karne ke liye essential hai. Jo matrix multiplication humne seekha, woh NumPy mein ek line mein ho jaata hai!</p>
+                <p><strong>Pandas:</strong> Yeh data manipulation aur analysis ke liye hai. Socho aapke paas Excel sheet jaisa data hai (rows/columns), Pandas use karke aap us data ko load karna, clean karna, filter karna, analyze karna - yeh sab easily kar sakte ho. Yeh DataFrames naam ka special structure use karta hai.</p>
+            </div>
+        </div>
+
+        <div class="qa-block">
+            <p class="question">Interviewer: Toh agar mujhe AI model banana hai, toh mujhe pehle data ko Pandas se saaf karna hoga, phir NumPy se calculations ke liye ready karna hoga?</p>
+            <div class="answer">
+                <p>Exactly! Ek typical workflow aisa ho sakta hai:</p>
+                <ol>
+                    <li>Data ko Pandas DataFrame mein load karo.</li>
+                    <li>Data ko explore karo, missing values handle karo, clean karo (Pandas).</li>
+                    <li>Relevant features select karo aur unhe numerical format mein convert karo (Pandas/NumPy).</li>
+                    <li>Data ko NumPy arrays mein convert karo jo Machine Learning models (like Scikit-learn library ke) input le sakein.</li>
+                    <li>Model train karo aur evaluate karo.</li>
+                </ol>
+                <p>NumPy aur Pandas data preparation aur manipulation ke liye backbone hain AI/ML projects mein.</p>
+            </div>
+        </div>
+
+        <h2>Mini Example: NumPy Array Operation</h2>
+        <p>Dekho NumPy kitna easy bana deta hai. Maan lo 2 vectors (arrays) hain, aur humein unhe element-wise add karna hai:</p>
+        <p>Vector A: <code id="vecA">[1, 2, 3]</code></p>
+        <p>Vector B: <code id="vecB">[4, 5, 6]</code></p>
+        <button onclick="addVectors()">Add Vectors using 'NumPy' (Simulated)</button>
+        <p>Result (A + B): <code id="vecResult" style="font-weight: bold; color: #198754;">?</code></p>
+
+        <div class="explanation">
+            Python mein bina NumPy ke yeh loop se karna padta. NumPy mein yeh seedha `result = array_a + array_b` jaisa ho jaata hai, jo bohot fast bhi hota hai bade data ke liye.
+        </div>
+
+    </div>
+
+    <a href="probability_stats.html" class="nav-link" style="float: left;">&laquo; Previous: P&S</a>
+    <a href="intro_ml.html" class="nav-link" style="float: right;">Next Topic: Intro ML &raquo;</a>
+    <div style="clear: both;"></div>
+
+    <script>
+        const vecA = [1, 2, 3];
+        const vecB = [4, 5, 6];
+        const vecResultEl = document.getElementById('vecResult');
+
+        // Display initial vectors
+        document.getElementById('vecA').innerText = `[${vecA.join(', ')}]`;
+        document.getElementById('vecB').innerText = `[${vecB.join(', ')}]`;
+
+
+        function addVectors() {
+            // Simulate NumPy's element-wise addition
+            if (vecA.length !== vecB.length) {
+                vecResultEl.innerText = "Error: Vectors must have same length";
+                return;
+            }
+            const result = [];
+            for (let i = 0; i < vecA.length; i++) {
+                result.push(vecA[i] + vecB[i]);
+            }
+            vecResultEl.innerText = `[${result.join(', ')}]`;
+        }
+    </script>
+</body>
+</html>

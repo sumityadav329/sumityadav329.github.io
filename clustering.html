@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Concepts: Clustering (K-Means)</title>
+    <link rel="stylesheet" href="style.css">
+     <style>
+        .cluster-viz { text-align: center; margin: 20px 0;}
+        .cluster-viz img { max-width: 80%; border: 1px solid #eee; margin-top: 10px;}
+        .step-desc { background: #f0f0f0; padding: 8px; border-radius: 4px; margin-top: 5px;}
+    </style>
+</head>
+<body>
+    <h1>Topic 12: Clustering (K-Means) - Groups Dhoondhna (Unsupervised)</h1>
+    <a href="index.html" class="nav-link">&laquo; Back to Topics</a>
+
+    <div class="container">
+        <h2>Clustering (K-Means): Interview Q&A Style</h2>
+
+        <div class="qa-block">
+            <p class="question">Interviewer: Ab tak humne Supervised Learning dekha jahan labels hote the. Unsupervised Learning mein Clustering ka kya concept hai?</p>
+            <div class="answer">
+                <p>Clustering Unsupervised Learning ka ek task hai jahan humein data mein natural groups (clusters) dhoondhne hote hain, bina kisi predefined labels ke. Goal hota hai ki ek cluster ke data points aapas mein similar hon, aur alag-alag clusters ke data points dissimilar hon.</p>
+                <p>Socho aapke paas bahut saare customers ka data hai (unki shopping habits, demographics). Clustering use karke aap un customers ke groups bana sakte ho jo similar behavior show karte hain (e.g., "Budget Shoppers", "Tech Enthusiasts", "Weekend Spenders"). Isse targeted marketing mein help milti hai.</p>
+            </div>
+        </div>
+
+        <div class="qa-block">
+            <p class="question">Interviewer: K-Means clustering kaafi common suna hai. Yeh kaam kaise karta hai, simple terms mein?</p>
+            <div class="answer">
+                <p>K-Means ek popular aur relatively simple clustering algorithm hai. Iska idea hai data ko 'K' predefined number of clusters mein divide karna ('K' hum pehle se decide karte hain).</p>
+                <p>Yeh aise kaam karta hai (Iteratively):</p>
+                <ol>
+                    <li><strong>Initialization:</strong> Randomly 'K' points ko choose karo, jinhe hum cluster centers ya 'centroids' kehte hain.</li>
+                    <li><strong>Assignment Step:</strong> Har data point ko uske sabse *nazdeeki* centroid wale cluster mein assign karo (distance calculate karke).</li>
+                    <li><strong>Update Step:</strong> Har cluster ke liye, naya centroid calculate karo (uss cluster ke sabhi points ka mean/average lekar).</li>
+                    <li><strong>Repeat:</strong> Step 2 aur 3 ko tab tak repeat karo jab tak centroids move karna band na kar dein (ya bahut kam move karein), yaani clusters stable ho jayein.</li>
+                </ol>
+                <p>End result mein humein 'K' clusters mil jaate hain, har cluster ka apna final centroid hota hai.</p>
+            </div>
+        </div>
+
+        <h2>Conceptual Visualization: K-Means Steps (K=3)</h2>
+        <p>Neeche K-Means algorithm ke steps conceptually dikhaye gaye hain (Images static hain):</p>
+
+        <div class="cluster-viz">
+            <div>
+                <p><strong>Step 1: Initialize Centroids (Red, Green, Blue Stars)</strong></p>
+                 <!-- Placeholder for Image 1: Data points + initial random centroids -->
+                 <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/K_Means_Example_Step_1.svg/300px-K_Means_Example_Step_1.svg.png" alt="K-Means Step 1">
+                 <p class="step-desc">Randomly 3 centroids place kiye gaye.</p>
+            </div>
+             <hr style="margin: 20px 0;">
+             <div>
+                <p><strong>Step 2: Assign Points to Nearest Centroid</strong></p>
+                <!-- Placeholder for Image 2: Points colored based on nearest centroid -->
+                 <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b9/K_Means_Example_Step_2.svg/300px-K_Means_Example_Step_2.svg.png" alt="K-Means Step 2">
+                 <p class="step-desc">Har point ko uske sabse paas wale centroid ka color mil gaya.</p>
+            </div>
+             <hr style="margin: 20px 0;">
+             <div>
+                <p><strong>Step 3: Update Centroid Locations</strong></p>
+                 <!-- Placeholder for Image 3: Centroids moved to the mean of their assigned points -->
+                 <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d2/K_Means_Example_Step_3.svg/300px-K_Means_Example_Step_3.svg.png" alt="K-Means Step 3">
+                 <p class="step-desc">Har cluster ke points ka average lekar centroid ko uss position par move kiya gaya.</p>
+            </div>
+            <hr style="margin: 20px 0;">
+             <div>
+                <p><strong>Step 4: Repeat Assignment & Update... Final Clusters</strong></p>
+                <!-- Placeholder for Image 4: Stable clusters after few iterations -->
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/K_means_convergence.gif/300px-K_means_convergence.gif" alt="K-Means Convergence">
+                 <p class="step-desc">Step 2 aur 3 repeat karne ke baad, clusters stable ho jaate hain.</p>
+            </div>
+        </div>
+        <p style="font-size:0.8em; text-align: center;">(Images Source: Wikimedia Commons)</p>
+
+    </div>
+
+    <a href="decision_trees.html" class="nav-link" style="float: left;">&laquo; Previous: Decision Trees</a>
+    <a href="dimensionality_reduction.html" class="nav-link" style="float: right;">Next Topic: Dimensionality Reduction &raquo;</a>
+    <div style="clear: both;"></div>
+</body>
+</html>

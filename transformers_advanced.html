@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Concepts: Transformers Advanced</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .adv-transformer-diagram { text-align: center; margin: 20px 0; }
+        .adv-transformer-diagram img { max-width: 90%; border: 1px solid #eee; margin-top: 10px;}
+    </style>
+</head>
+<body>
+    <h1>Topic 20: Transformers Advanced - Multi-Head Attention, Encoder-Decoder</h1>
+     <a href="index.html" class="nav-link">&laquo; Back to Topics</a>
+
+    <div class="container">
+        <h2>Transformers Advanced: Interview Q&A Style</h2>
+
+        <div class="qa-block">
+            <p class="question">Interviewer: Humne pehle Transformers aur Self-Attention ka basic idea dekha tha. Lekin asli Transformer models (like BERT, GPT) mein kuch aur advanced concepts bhi hote hain, jaise Multi-Head Attention?</p>
+            <div class="answer">
+                <p>Bilkul! Basic self-attention mechanism powerful hai, lekin <strong>Multi-Head Attention</strong> use aur bhi behtar banata hai.</p>
+                <p>Idea yeh hai ki ek baar attention calculate karne ke bajaye, hum multiple 'heads' mein attention parallel mein calculate karte hain. Har head input ko alag-alag tarike se project karta hai (using different learned projection matrices for Q, K, V) aur independently attention scores nikalta hai.</p>
+                <p>Isse model ko allow milta hai ki woh input sequence ke different aspects (e.g., syntactic dependencies, semantic relationships, positional information) par simultaneously focus kar sake. Ek head shayad verbs aur subjects ke relation par focus kare, dusra head synonyms par, etc.</p>
+                <p>Har head ka output (contextualized vector) phir concatenate kiya jaata hai aur ek final linear layer se pass karke combined output banaya jaata hai.</p>
+                <p>Essentially, Multi-Head Attention model ko different representation subspaces se information attend karne ki capacity deta hai.</p>
+            </div>
+        </div>
+
+        <div class="qa-block">
+            <p class="question">Interviewer: Original Transformer paper mein Encoder-Decoder architecture ki bhi baat thi. Yeh kya hai?</p>
+            <div class="answer">
+                <p>Haan, original Transformer model (jo machine translation ke liye design hua tha) ek <strong>Encoder-Decoder</strong> structure follow karta hai:</p>
+                <ul>
+                    <li><strong>Encoder:</strong> Yeh input sequence (e.g., English sentence) ko process karta hai. Ismein multiple layers hoti hain, har layer mein Multi-Head Self-Attention aur ek Feed-Forward Network hota hai. Encoder ka kaam hai input sequence ki ek rich contextual representation (ek set of vectors) generate karna.</li>
+                    <li><strong>Decoder:</strong> Yeh Encoder ki output representation aur target sequence (e.g., French translation, step-by-step generate karte hue) dono ko input leta hai. Decoder mein bhi multiple layers hoti hain. Har layer mein Self-Attention (sirf generated output sequence par), Encoder-Decoder Attention (output sequence ko input sequence ki representation se relate karne ke liye), aur ek Feed-Forward Network hota hai. Decoder ka kaam hai target sequence ko word by word generate karna.</li>
+                </ul>
+                <p>Yeh architecture sequence-to-sequence tasks (like translation, summarization) ke liye bahut effective hai.</p>
+                <p>Note: Kuch models jaise BERT sirf Encoder part use karte hain (understanding language ke liye), aur kuch jaise GPT sirf Decoder part use karte hain (language generation ke liye).</p>
+            </div>
+        </div>
+
+        <h2>Conceptual Diagram: Transformer (Encoder-Decoder) & Multi-Head Attention</h2>
+        <div class="adv-transformer-diagram">
+             <p><strong>Original Transformer Architecture (Encoder-Decoder)</strong></p>
+            <img src="https://pytorch.org/tutorials/_images/transformer_architecture.jpg" alt="Encoder-Decoder Transformer Architecture">
+             <p style="font-size:0.8em; text-align: center;">(Image Source: PyTorch Tutorials)</p>
+             <p>Dekho kaise Encoder input leta hai aur Decoder output generate karta hai, beech mein attention mechanism use karke.</p>
+        </div>
+         <hr style="margin: 20px 0;">
+        <div class="adv-transformer-diagram">
+             <p><strong>Multi-Head Attention Mechanism</strong></p>
+             <img src="https://uvadlc-notebooks.readthedocs.io/en/latest/_images/transformer_multihead_attention.svg" alt="Multi-Head Attention">
+              <p style="font-size:0.8em; text-align: center;">(Image Source: UvA Deep Learning Course)</p>
+              <p>Input Q, K, V multiple heads mein split hote hain, attention calculate hota hai, aur phir results combine hote hain.</p>
+        </div>
+
+        <div class="explanation">
+             Multi-Head Attention aur Encoder-Decoder architecture Transformers ko itna powerful banate hain complex language tasks ke liye.
+        </div>
+
+    </div>
+
+    <a href="rnns_lstms.html" class="nav-link" style="float: left;">&laquo; Previous: RNNs/LSTMs</a>
+    <a href="generative_models.html" class="nav-link" style="float: right;">Next Topic: Generative Models &raquo;</a> <!-- Update link when next file is ready -->
+    <div style="clear: both;"></div>
+</body>
+</html>

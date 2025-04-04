@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Concepts: Dimensionality Reduction (PCA)</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .pca-viz { text-align: center; margin: 20px 0; }
+        .pca-viz img { max-width: 70%; border: 1px solid #eee; margin-top: 10px;}
+    </style>
+</head>
+<body>
+    <h1>Topic 13: Dimensionality Reduction (PCA) - Data ko Simplify Karna</h1>
+    <a href="index.html" class="nav-link">&laquo; Back to Topics</a>
+
+    <div class="container">
+        <h2>Dimensionality Reduction (PCA): Interview Q&A Style</h2>
+
+        <div class="qa-block">
+            <p class="question">Interviewer: Kabhi kabhi data mein bahut saare features (columns/dimensions) hote hain. Kya yeh hamesha acchi baat hai? Dimensionality Reduction ki zaroorat kyun padti hai?</p>
+            <div class="answer">
+                <p>Zyada features hamesha acche nahi hote. High-dimensional data ke saath kuch problems aati hain:</p>
+                <ul>
+                    <li><strong>Curse of Dimensionality:</strong> Jaise dimensions badhte hain, data bahut 'sparse' (phaila hua) ho jaata hai. Patterns dhoondhna mushkil ho jaata hai aur zyada data chahiye hota hai reliable model banane ke liye.</li>
+                    <li><strong>Computational Cost:</strong> Zyada features matlab zyada calculations, toh model training slow ho jaati hai.</li>
+                    <li><strong>Overfitting Risk:</strong> Zyada features se model noise ko overfit kar sakta hai.</li>
+                    <li><strong>Visualization:</strong> Hum 2D ya 3D se zyada dimensions ko easily visualize nahi kar sakte.</li>
+                </ul>
+                <p><strong>Dimensionality Reduction</strong> techniques use karke hum features (dimensions) ka number kam karte hain, lekin koshish karte hain ki original data ki maximum important information retain rahe.</p>
+            </div>
+        </div>
+
+        <div class="qa-block">
+            <p class="question">Interviewer: PCA (Principal Component Analysis) ismein kaafi popular hai. Yeh conceptually kaise kaam karta hai?</p>
+            <div class="answer">
+                <p>PCA ek Unsupervised technique hai jo high-dimensional data ko lower-dimensional space mein project karta hai.</p>
+                <p>Iska core idea hai data mein <strong>maximum variance</strong> (spread) wale directions (axes) find karna. Yeh naye directions 'Principal Components' kehlate hain.</p>
+                <ul>
+                    <li><strong>First Principal Component (PC1):</strong> Woh direction jismein data sabse zyada phaila hua hai (maximum variance).</li>
+                    <li><strong>Second Principal Component (PC2):</strong> Woh direction jo PC1 ke perpendicular (orthogonal) ho aur remaining variance mein se maximum capture kare.</li>
+                    <li>And so on...</li>
+                </ul>
+                <p>PCA assume karta hai ki jin directions mein data zyada vary karta hai, woh zyada important information contain karte hain. Hum phir original data ko in top few principal components par project kar dete hain (e.g., 100 features ko top 2 principal components par project karke 2D data bana lena).</p>
+                <p>Isse dimension reduce ho jaate hain, lekin kyunki humne max variance wale directions choose kiye hain, isliye original data ki structure kaafi had tak preserve rehti hai.</p>
+                <p><strong>Important:</strong> PCA data ko scale karne ke prati sensitive hota hai, isliye usually PCA apply karne se pehle features ko standardize karna (mean=0, std dev=1) zaroori hota hai.</p>
+            </div>
+        </div>
+
+        <h2>Conceptual Visualization: PCA (3D to 2D)</h2>
+        <p>Socho aapke paas 3D data points hain (niche left image). PCA naye axes (Principal Components - PC1, PC2) dhoondhega jo data ke spread ko best capture karte hain. Phir data ko in axes se bane 2D plane par project kar dega (niche right image), maximum information retain karte hue.</p>
+        <div class="pca-viz">
+             <!-- Placeholder for Image showing 3D data projected onto 2D PCA plane -->
+             <img src="https://vitalflux.com/wp-content/uploads/2021/04/PCA-showing-data-projection-from-3D-to-2D.png" alt="PCA Projection 3D to 2D">
+             <p style="font-size:0.8em; text-align: center;">(Image Source: vitalflux.com)</p>
+        </div>
+        <div class="explanation">
+            PCA ka use data visualization, noise reduction, aur model training ko fast karne ke liye kiya jaata hai. Humne 3 features ko 2 (ya even 1) principal components mein reduce kar diya.
+        </div>
+
+    </div>
+
+    <a href="clustering.html" class="nav-link" style="float: left;">&laquo; Previous: Clustering</a>
+    <a href="neural_networks.html" class="nav-link" style="float: right;">Next Topic: Neural Networks &raquo;</a> <!-- Update link when next file is ready -->
+    <div style="clear: both;"></div>
+</body>
+</html>

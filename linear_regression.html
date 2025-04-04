@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Concepts: Linear Regression</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Simple Charting Library (Chart.js) for visualization -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <h1>Topic 7: Linear Regression - Simple Predictions Karna</h1>
+     <a href="index.html" class="nav-link">&laquo; Back to Topics</a>
+
+    <div class="container">
+        <h2>Linear Regression: Interview Q&A Style</h2>
+
+        <div class="qa-block">
+            <p class="question">Interviewer: Chalo ab actual Machine Learning models ki baat karte hain. Sabse basic model se shuru karte hain - Linear Regression. Yeh kya hai aur kahan use hota hai?</p>
+            <div class="answer">
+                <p>Linear Regression ek supervised learning algorithm hai. Iska goal hota hai ek ya ek se zyada input features (independent variables, X) aur ek continuous output variable (dependent variable, Y) ke beech linear relationship find karna.</p>
+                <p>Simple words mein, yeh data points ke beech ek straight line fit karne ki koshish karta hai. Equation form mein: <code>Y = mX + c</code> (agar ek input feature hai), jahan 'm' slope hai aur 'c' intercept hai. Model ka kaam hai 'm' aur 'c' ki best values find karna jo data ko sabse acche se fit karein (error minimize karein).</p>
+                <p>Use cases: House price prediction (based on size, location), Sales forecast (based on ad spend), predicting student scores (based on study hours), etc. Basically, jahan aapko ek continuous value predict karni ho.</p>
+            </div>
+        </div>
+
+        <div class="qa-block">
+            <p class="question">Interviewer: Toh model 'best fit' line kaise find karta hai?</p>
+            <div class="answer">
+                <p>Commonly 'Ordinary Least Squares' (OLS) method use hota hai. Iska idea hai aisi line find karna jo actual data points aur line par predicted points ke beech ke squared differences (errors) ke sum ko minimize kare.</p>
+                <p>Mathematical techniques (like calculus - derivatives) use karke hum 'm' aur 'c' ki woh values nikal sakte hain jinke liye yeh sum of squared errors minimum ho. Gradient Descent (hum aage dekhenge) bhi ek iterative approach hai yeh values find karne ka, jo complex models mein zyada use hota hai.</p>
+            </div>
+        </div>
+
+        <h2>Interactive Example: Fit the Line!</h2>
+        <p>Neeche kuch data points (X, Y) diye gaye hain. Best fit line (Red) bhi dikhayi gayi hai. Aap dekh sakte hain ki line data ke trend ko capture karne ki koshish kar rahi hai.</p>
+        <canvas id="regressionChart" width="400" height="250"></canvas>
+        <div class="explanation">
+             Chart shows sample data points (Blue) and the best fit linear regression line (Red). Line equation: <code id="lineEquation">Y = mX + c</code>. R-squared: <code id="rSquared">value</code> (batata hai line kitna variation explain karti hai).
+        </div>
+    </div>
+
+    <a href="intro_ml.html" class="nav-link" style="float: left;">&laquo; Previous: Intro ML</a>
+    <a href="logistic_regression.html" class="nav-link" style="float: right;">Next Topic: Logistic Regression &raquo;</a>
+    <div style="clear: both;"></div>
+
+    <script>
+        // Sample Data (e.g., Study Hours vs Scores)
+        const sampleData = [
+            { x: 1, y: 3 }, { x: 2, y: 5 }, { x: 3, y: 4 },
+            { x: 4, y: 7 }, { x: 5, y: 6 }, { x: 6, y: 9 },
+            { x: 7, y: 8 }, { x: 8, y: 11 }
+        ];
+
+        // Basic Linear Regression Calculation (for demonstration)
+        function simpleLinearRegression(data) {
+            const n = data.length;
+            let sumX = 0, sumY = 0, sumXY = 0, sumX2 = 0;
+            data.forEach(p => {
+                sumX += p.x;
+                sumY += p.y;
+                sumXY += p.x * p.y;
+                sumX2 += p.x * p.x;
+            });
+
+            const slope = (n * sumXY - sumX * sumY) / (n * sumX2 - sumX * sumX);
+            const intercept = (sumY - slope * sumX) / n;
+
+            // Calculate R-squared (coefficient of determination)
+            let ssTotal = 0;
+            let ssResidual = 0;
+            const meanY = sumY / n;
+            data.forEach(p => {
+                const predictedY = slope * p.x + intercept;
+                ssTotal += Math.pow(p.y - meanY, 2);
+                ssResidual += Math.pow(p.y - predictedY, 2);
+            });
+            const rSquared = 1 - (ssResidual / ssTotal);
+
+            return { slope, intercept, rSquared };
+        }
+
+        const { slope, intercept, rSquared } = simpleLinearRegression(sampleData);
+
+        // Update explanation text
+        document.getElementById('lineEquation').innerText = `Y = ${slope.toFixed(2)}X + ${intercept.toFixed(2)}`;
+         document.getElementById('rSquared').innerText = rSquared.toFixed(3);
+
+
+        // Prepare data for Chart.js
+        const chartDataPoints = sampleData.map(p => ({ x: p.x, y: p.y }));
+        const regressionLine = [ // Calculate points for the line
+             { x: Math.min(...sampleData.map(p=>p.x)), y: slope * Math.min(...sampleData.map(p=>p.x)) + intercept },
+             { x: Math.max(...sampleData.map(p=>p.x)), y: slope * Math.max(...sampleData.map(p=>p.x)) + intercept }
+        ];
+
+
+        // Chart.js Visualization
+        const ctx = document.getElementById('regressionChart').getContext('2d');
+        const regressionChart = new Chart(ctx, {
+            type: 'scatter', // Use scatter plot for points
+            data: {
+                datasets: [{
+                    label: 'Data Points',
+                    data: chartDataPoints,
+                    backgroundColor: 'rgba(0, 123, 255, 0.6)', // Blue points
+                     pointRadius: 5,
+                }, {
+                    label: 'Regression Line',
+                    data: regressionLine,
+                    type: 'line', // Overlay a line chart
+                    borderColor: 'rgba(220, 53, 69, 0.8)', // Red line
+                    borderWidth: 2,
+                    fill: false,
+                    pointRadius: 0, // Don't show points on the line itself
+                     tension: 0 // Straight line
+                }]
+            },
+            options: {
+                scales: {
+                    x: {
+                        type: 'linear',
+                        position: 'bottom',
+                        title: { display: true, text: 'Input Feature (X)' }
+                    },
+                    y: {
+                         title: { display: true, text: 'Output Value (Y)' }
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Concepts: Activation Functions</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+     <style>
+        .chart-container { width: 80%; margin: 20px auto; }
+     </style>
+</head>
+<body>
+    <h1>Topic 15: Activation Functions - Neuron ko 'Activate' Karna</h1>
+    <a href="index.html" class="nav-link">&laquo; Back to Topics</a>
+
+    <div class="container">
+        <h2>Activation Functions: Interview Q&A Style</h2>
+
+        <div class="qa-block">
+            <p class="question">Interviewer: Aapne bataya ki neuron weighted sum ko activation function se pass karta hai. Yeh function karta kya hai aur iski zaroorat kyun hai?</p>
+            <div class="answer">
+                <p>Activation Function ka bahut important role hai. Yeh decide karta hai ki neuron se output kya niklega based on the weighted sum of inputs.</p>
+                <p>Sabse important, yeh network mein <strong>non-linearity</strong> introduce karta hai. Agar activation function na ho (ya sirf ek linear function ho jaise f(x)=x), toh pura neural network kitna bhi deep ho, woh basically ek simple linear model ki tarah hi behave karega. Woh complex, real-world data ke non-linear patterns ko nahi seekh payega.</p>
+                <p>Activation functions output ko ek specific range mein bhi map kar sakte hain (jaise Sigmoid 0 se 1 ke beech mein).</p>
+            </div>
+        </div>
+
+        <div class="qa-block">
+            <p class="question">Interviewer: Kuch common activation functions ke naam bata sakte hain?</p>
+            <div class="answer">
+                <p>Haan, kuch popular wale hain:</p>
+                <ul>
+                    <li><strong>Sigmoid:</strong> Output ko 0 aur 1 ke beech squash karta hai. Logistic Regression mein use hota hai. Binary classification ke output layer mein common tha, par hidden layers mein ab kam use hota hai (Vanishing Gradient problem ke kaaran).</li>
+                    <li><strong>Tanh (Hyperbolic Tangent):</strong> Sigmoid jaisa hi S-shaped hai, par output -1 aur 1 ke beech hota hai. Sigmoid se thoda better perform karta hai hidden layers mein (zero-centered output).</li>
+                    <li><strong>ReLU (Rectified Linear Unit):</strong> Bahut popular hai hidden layers ke liye! Simple hai: `f(x) = max(0, x)`. Agar input positive hai, toh wahi output; agar negative hai, toh output 0. Computationaly efficient hai aur vanishing gradient problem kam karta hai.</li>
+                    <li><strong>Leaky ReLU:</strong> ReLU ka variation jo negative inputs ke liye 0 ke bajaye ek chhota sa positive slope deta hai (e.g., `f(x) = max(0.01*x, x)`). 'Dying ReLU' problem ko solve karne mein help karta hai.</li>
+                    <li><strong>Softmax:</strong> Yeh usually output layer mein use hota hai multi-class classification ke liye. Yeh N outputs leta hai aur unhe probabilities mein convert karta hai jinka sum 1 hota hai (har class ki probability).</li>
+                </ul>
+            </div>
+        </div>
+
+        <h2>Visualization: Common Activation Functions</h2>
+        <p>Neeche Sigmoid aur ReLU ke graphs hain:</p>
+        <div class="chart-container">
+             <canvas id="activationChart"></canvas>
+        </div>
+
+        <div class="explanation">
+            Dekho kaise Sigmoid S-shape mein 0-1 ke beech output deta hai. ReLU negative values ke liye 0 deta hai aur positive ke liye input ke barabar. Inki non-linear nature NNs ko powerful banati hai.
+        </div>
+
+    </div>
+
+    <a href="neural_networks.html" class="nav-link" style="float: left;">&laquo; Previous: Neural Networks</a>
+    <a href="backpropagation.html" class="nav-link" style="float: right;">Next Topic: Backpropagation &raquo;</a>
+    <div style="clear: both;"></div>
+
+    <script>
+        function sigmoid(x) { return 1 / (1 + Math.exp(-x)); }
+        function relu(x) { return Math.max(0, x); }
+
+        const labels = [];
+        const sigmoidData = [];
+        const reluData = [];
+
+        for (let x = -5; x <= 5; x += 0.5) {
+            labels.push(x.toFixed(1));
+            sigmoidData.push(sigmoid(x));
+            reluData.push(relu(x));
+        }
+
+        const ctx = document.getElementById('activationChart').getContext('2d');
+        const activationChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: 'Sigmoid(x)',
+                    data: sigmoidData,
+                    borderColor: 'rgb(0, 123, 255)', // Blue
+                    tension: 0.1,
+                    borderWidth: 2
+                }, {
+                    label: 'ReLU(x)',
+                    data: reluData,
+                    borderColor: 'rgb(220, 53, 69)', // Red
+                    tension: 0.1,
+                    borderWidth: 2,
+                    stepped: 'before' // Makes ReLU look sharper
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: false, // Allow negative Y for potential future functions
+                         title: { display: true, text: 'Output f(x)'}
+                    },
+                    x: {
+                        title: { display: true, text: 'Input (x)'}
+                    }
+                },
+                 plugins: {
+                    title: {
+                        display: true,
+                        text: 'Common Activation Functions'
+                    }
+                 }
+            }
+        });
+    </script>
+</body>
+</html>

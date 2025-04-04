@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Concepts: What is Machine Learning?</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>Topic 6: What is Machine Learning? (Supervised vs Unsupervised)</h1>
+    <a href="index.html" class="nav-link">&laquo; Back to Topics</a>
+
+    <div class="container">
+        <h2>Machine Learning Basics: Interview Q&A Style</h2>
+
+        <div class="qa-block">
+            <p class="question">Interviewer: Humne AI ki baat ki, ab yeh Machine Learning (ML) kya hai? Kya yeh AI ka hi part hai?</p>
+            <div class="answer">
+                <p>Haanji! Machine Learning AI ka ek subfield hai. AI ek broader concept hai - machines ko intelligent banana. ML specific tareeka hai AI achieve karne ka.</p>
+                <p>ML ka core idea hai: <strong>Algorithms ko data se automatically learn karne dena, bina explicitly programmed kiye.</strong></p>
+                <p>Traditional programming mein hum rules likhte hain (IF condition THEN do this). ML mein hum algorithm ko data dete hain, aur woh khud data se patterns aur rules seekh leta hai predictions ya decisions karne ke liye.</p>
+                <p>Example: Spam filter mein rules likhne ke bajaye (IF email has "free" THEN spam), hum ML model ko hazaron labeled emails (spam/not spam) dete hain, aur woh khud seekh jaata hai ki kaunse patterns spam indicate karte hain.</p>
+            </div>
+        </div>
+
+        <div class="qa-block">
+            <p class="question">Interviewer: Suna hai ML mein types hote hain, jaise Supervised aur Unsupervised learning. Inmein kya fark hai?</p>
+            <div class="answer">
+                <p>Yeh do main types hain:</p>
+                <ul>
+                    <li><strong>Supervised Learning (Teacher ke Saath):</strong> Ismein hum model ko labeled data dete hain - yaani har input ke liye correct output (label) pehle se pata hota hai. Model ka kaam hota hai input se output ko map karna seekhna.
+                        <ul>
+                            <li><strong>Examples:</strong> Spam detection (Input: email, Output: spam/not spam), House price prediction (Input: house size, Output: price).</li>
+                            <li><strong>Goal:</strong> Prediction (Regression - continuous value) ya Classification (discrete category).</li>
+                        </ul>
+                    </li>
+                    <br>
+                    <li><strong>Unsupervised Learning (Bina Teacher ke):</strong> Ismein hum model ko unlabeled data dete hain - yaani koi correct output pehle se nahi batate. Model ka kaam hota hai data mein hidden patterns ya structure dhoondhna.
+                         <ul>
+                            <li><strong>Examples:</strong> Customer segmentation (similar customers ke group banana), Anomaly detection (unusual data points dhoondhna).</li>
+                            <li><strong>Goal:</strong> Clustering (grouping), Dimensionality Reduction (simplifying data).</li>
+                        </ul>
+                    </li>
+                </ul>
+                <p>Ek aur type hai Reinforcement Learning, jahan model trial-and-error se seekhta hai reward maximize karne ke liye (jaise game khelna seekhna).</p>
+            </div>
+        </div>
+
+        <h2>Concept Check: Supervised vs Unsupervised</h2>
+        <p>Neeche kuch scenarios hain. Batao yeh Supervised hai ya Unsupervised?</p>
+        <ul>
+            <li>Scenario 1: Purane customer data (purchase history) se predict karna ki naya customer kaunsa product khareedega. -> <span class="answer-placeholder" id="q1">?</span></li>
+            <li>Scenario 2: News articles ko automatically topics (sports, politics, tech) mein group karna bina pehle se topic bataye. -> <span class="answer-placeholder" id="q2">?</span></li>
+             <li>Scenario 3: Medical images dekh kar batana ki tumor hai ya nahi (labeled images use karke). -> <span class="answer-placeholder" id="q3">?</span></li>
+        </ul>
+         <button onclick="revealAnswers()">Show Answers</button>
+         <style>.answer-placeholder{font-weight:bold; color: #dc3545;} .correct-answer{color:#198754 !important;}</style>
+    </div>
+
+    <a href="python_libs.html" class="nav-link" style="float: left;">&laquo; Previous: Python Libs</a>
+    <a href="linear_regression.html" class="nav-link" style="float: right;">Next Topic: Linear Regression &raquo;</a>
+    <div style="clear: both;"></div>
+
+    <script>
+        function revealAnswers() {
+            document.getElementById('q1').innerText = "Supervised (Prediction/Classification)";
+            document.getElementById('q1').classList.add('correct-answer');
+            document.getElementById('q2').innerText = "Unsupervised (Clustering)";
+             document.getElementById('q2').classList.add('correct-answer');
+            document.getElementById('q3').innerText = "Supervised (Classification)";
+             document.getElementById('q3').classList.add('correct-answer');
+        }
+    </script>
+</body>
+</html>

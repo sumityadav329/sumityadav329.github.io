@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Concepts: Logistic Regression</title>
+    <link rel="stylesheet" href="style.css">
+     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <h1>Topic 8: Logistic Regression - Classification ka Pehla Kadam</h1>
+    <a href="index.html" class="nav-link">&laquo; Back to Topics</a>
+
+    <div class="container">
+        <h2>Logistic Regression: Interview Q&A Style</h2>
+
+        <div class="qa-block">
+            <p class="question">Interviewer: Humne Linear Regression dekha jo continuous value (like price) predict karta hai. Agar mujhe categories predict karni ho (jaise Spam/Not Spam, Yes/No), toh kya use karun?</p>
+            <div class="answer">
+                <p>Uske liye ek bahut popular algorithm hai - <strong>Logistic Regression</strong>. Naam mein 'Regression' hai, par yeh actually <strong>Classification</strong> ke liye use hota hai (specifically binary classification - jahan do possible outputs ho).</p>
+                <p>Yeh Linear Regression jaisa hi start hota hai - input features ka weighted sum calculate karta hai. Lekin seedha uss value ko output karne ke bajaye, yeh us value ko ek special function (<strong>Sigmoid</strong> ya Logistic function) se pass karta hai.</p>
+                <p>Yeh Sigmoid function output ko <strong>0 aur 1 ke beech</strong> ki probability mein convert kar deta hai. Jaise, output 0.8 ka matlab hai 80% probability ki input class '1' (e.g., Spam) ko belong karta hai.</p>
+            </div>
+        </div>
+
+        <div class="qa-block">
+            <p class="question">Interviewer: Okay, toh yeh probability deta hai. Final decision (Spam hai ya nahi) kaise hota hai?</p>
+            <div class="answer">
+                <p>Hum ek threshold set karte hain, usually 0.5. Agar Sigmoid function ka output (probability) 0.5 se zyada hai, toh hum predict karte hain class '1'. Agar 0.5 se kam hai, toh hum predict karte hain class '0'.</p>
+                <p><code>IF probability > 0.5 THEN predict Class 1 (Spam)</code></p>
+                <p><code>ELSE predict Class 0 (Not Spam)</code></p>
+                <p>Yeh threshold adjust bhi kiya jaa sakta hai depending on the problem (kya false positive zyada costly hai ya false negative).</p>
+            </div>
+        </div>
+
+        <h2>Interactive Example: The Sigmoid Function</h2>
+        <p>Yeh hai Sigmoid function ka graph. Dekho kaise yeh kisi bhi input value (X-axis) ko 0 aur 1 ke beech ki value (Y-axis) mein badal deta hai. Jab input 0 hota hai, output ঠিক 0.5 hota hai.</p>
+        <canvas id="sigmoidChart" width="400" height="200"></canvas>
+        <div class="explanation">
+             Linear Regression ka output (weighted sum) is function mein input ki tarah jaata hai, aur output probability hoti hai. Y-axis = Probability (0 to 1).
+        </div>
+    </div>
+
+    <a href="linear_regression.html" class="nav-link" style="float: left;">&laquo; Previous: Linear Regression</a>
+    <a href="model_evaluation.html" class="nav-link" style="float: right;">Next Topic: Model Evaluation &raquo;</a>
+    <div style="clear: both;"></div>
+
+    <script>
+        function sigmoid(x) {
+            return 1 / (1 + Math.exp(-x));
+        }
+
+        const labels = [];
+        const dataPoints = [];
+        for (let x = -6; x <= 6; x += 0.5) {
+            labels.push(x.toFixed(1));
+            dataPoints.push(sigmoid(x));
+        }
+
+        const ctx = document.getElementById('sigmoidChart').getContext('2d');
+        const sigmoidChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: 'Sigmoid(x)',
+                    data: dataPoints,
+                    borderColor: 'rgb(75, 192, 192)',
+                    tension: 0.1,
+                     borderWidth: 2,
+                     pointRadius: 1 // Smaller points
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        max: 1,
+                        title: { display: true, text: 'Probability P(Y=1|X)' }
+                    },
+                    x: {
+                         title: { display: true, text: 'Weighted Sum of Inputs (z)' }
+                    }
+                },
+                 plugins: {
+                    legend: {
+                        display: false // Hide legend for simplicity
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>

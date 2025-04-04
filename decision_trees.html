@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Concepts: Decision Trees & Random Forests</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .tree-diagram {
+            font-family: monospace;
+            line-height: 1.5;
+            background-color: #f8f9fa;
+            padding: 15px;
+            border: 1px dashed #ccc;
+            border-radius: 5px;
+            margin-top: 15px;
+        }
+        .tree-node { padding-left: 20px; }
+        .tree-leaf { color: #198754; font-weight: bold; } /* Green for leaf */
+         .tree-condition { color: #007bff; } /* Blue for condition */
+    </style>
+</head>
+<body>
+    <h1>Topic 11: Decision Trees & Random Forests - Rule-Based Decisions</h1>
+    <a href="index.html" class="nav-link">&laquo; Back to Topics</a>
+
+    <div class="container">
+        <h2>Decision Trees: Interview Q&A Style</h2>
+
+        <div class="qa-block">
+            <p class="question">Interviewer: Humne regression models dekhe. Decision Trees kaise alag hain? Yeh kaam kaise karte hain?</p>
+            <div class="answer">
+                <p>Decision Trees ekdum alag tareeke se kaam karte hain. Yeh classification aur regression dono ke liye use ho sakte hain. Yeh model data se simple IF-ELSE rules ka ek tree structure seekhte hain.</p>
+                <p>Socho ek flowchart jaisa: Aap ek question (feature) se start karte ho, uske answer ke basis par aap ek branch follow karte ho, phir agla question, aur aise hi karte hue aap final decision (leaf node) tak pahunch jaate ho.</p>
+                <p>Example: Kya bahar khelne jaayein?</p>
+                <ul>
+                    <li>Start -> Question: Outlook kaisa hai? (Sunny/Overcast/Rainy)</li>
+                    <li>IF Sunny -> Question: Humidity कैसी hai? (High/Normal) -> IF High: No, IF Normal: Yes</li>
+                    <li>IF Overcast -> Yes</li>
+                    <li>IF Rainy -> Question: Hawa tez hai? (Strong/Weak) -> IF Strong: No, IF Weak: Yes</li>
+                </ul>
+                <p>Model training ke time seekhta hai ki kaunse features (questions) aur unki kaunsi values (branches) data ko sabse acche se split karte hain (information gain/gini impurity jaise criteria use karke).</p>
+            </div>
+        </div>
+
+        <div class="qa-block">
+            <p class="question">Interviewer: Yeh toh kaafi easy lag raha hai samajhne mein! Iske fayde aur nuksan kya hain? Aur yeh Random Forests kya hai?</p>
+            <div class="answer">
+                <p><strong>Fayde (Pros):</strong></p>
+                <ul>
+                    <li><strong>Interpretability:</strong> Iska structure (flowchart) dekh kar samajhna aasan hai ki model decision kaise le raha hai.</li>
+                    <li><strong>Minimal Data Prep:</strong> Feature scaling ki zaroorat usually nahi padti.</li>
+                    <li>Non-linear patterns handle kar sakta hai.</li>
+                </ul>
+                <p><strong>Nuksan (Cons):</strong></p>
+                <ul>
+                    <li><strong>Overfitting Prone:</strong> Agar tree bahut deep ban gaya, toh yeh training data ko overfit kar sakta hai.</li>
+                    <li><strong>Instability:</strong> Data mein chhote changes se tree structure kaafi badal sakta hai.</li>
+                </ul>
+                <p><strong>Random Forests:</strong> Yeh Decision Trees ki overfitting problem ko solve karne ka ek powerful tareeka hai. Ismein hum ek nahi, balki bahut saare Decision Trees banate hain (ek "forest"). Har tree ko training data ke random subset aur features ke random subset par train kiya jaata hai. Final prediction sabhi trees ki predictions ka average (regression) ya majority vote (classification) lekar kiya jaata hai. Isse model zyada robust aur accurate banta hai.</p>
+            </div>
+        </div>
+
+        <h2>Example: Simple Decision Tree Diagram</h2>
+        <p>Yeh ek simple decision tree hai predict karne ke liye ki koi person video game khareedega ya nahi (based on Age and if Student).</p>
+        <div class="tree-diagram">
+            <div class="tree-node">
+                <span class="tree-condition">Age <= 30?</span><br>
+                <div class="tree-node">
+                    |-- YES --> <span class="tree-condition">Student?</span><br>
+                    <div class="tree-node">
+                          |-- YES --> <span class="tree-leaf">Prediction: Buy</span><br>
+                          |-- NO --> <span class="tree-leaf">Prediction: Don't Buy</span>
+                    </div>
+                </div>
+                 <div class="tree-node">
+                    |-- NO --> <span class="tree-leaf">Prediction: Buy</span> (Assuming older people buy)
+                </div>
+            </div>
+        </div>
+
+        <div class="explanation">
+            Aap dekh sakte hain ki kaise simple rules follow karke final prediction tak pahunch rahe hain. Random Forest mein aise bahut saare (thode alag-alag) trees honge.
+        </div>
+
+    </div>
+
+    <a href="overfitting_underfitting.html" class="nav-link" style="float: left;">&laquo; Previous: Overfitting</a>
+    <a href="clustering.html" class="nav-link" style="float: right;">Next Topic: Clustering &raquo;</a>
+    <div style="clear: both;"></div>
+</body>
+</html>

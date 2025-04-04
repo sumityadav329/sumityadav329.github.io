@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Concepts: Generative Models (GANs)</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .gan-diagram { text-align: center; margin: 20px 0; }
+        .gan-diagram img { max-width: 80%; border: 1px solid #eee; margin-top: 10px;}
+        .component { border: 1px dashed #007bff; padding: 10px; margin: 10px; border-radius: 5px; background: #e7f3ff;}
+        .vs { font-size: 1.5em; font-weight: bold; color: #dc3545; margin: 10px 0;}
+    </style>
+</head>
+<body>
+    <h1>Topic 21: Generative Models (GANs Intro) - Nayi Cheezein Banana</h1>
+     <a href="index.html" class="nav-link">&laquo; Back to Topics</a>
+
+    <div class="container">
+        <h2>Generative Models (GANs): Interview Q&A Style</h2>
+
+        <div class="qa-block">
+            <p class="question">Interviewer: Ab tak humne models dekhe jo data ko classify ya predict karte hain (Discriminative models). Yeh Generative models kya hain? Suna hai yeh new data create kar sakte hain?</p>
+            <div class="answer">
+                <p>Bilkul! Discriminative models data ke beech boundary seekhte hain (e.g., Cat vs Dog). <strong>Generative models</strong> data ki underlying distribution (patterns aur structure) ko seekhte hain. Isse woh uss distribution se *naya*, pehle kabhi na dekha gaya data *generate* kar sakte hain, jo original data jaisa hi dikhe.</p>
+                <p>Socho aapke paas bahut saari real faces ki images hain. Ek generative model in images se seekh sakta hai ki ek 'typical' face kaisa dikhta hai, aur phir woh naye, realistic-looking (par fake) faces generate kar sakta hai.</p>
+                <p>Generative models ke bahut se types hain, jaise VAEs (Variational Autoencoders) aur sabse famous - <strong>GANs (Generative Adversarial Networks)</strong>.</p>
+            </div>
+        </div>
+
+        <div class="qa-block">
+            <p class="question">Interviewer: GANs ka concept kaafi unique lagta hai. Yeh 'Adversarial' (virodhi) part kya hai? Yeh kaam kaise karte hain?</p>
+            <div class="answer">
+                <p>GANs ka idea bada clever hai. Ismein do Neural Networks ek game khelte hain, ek doosre ke against compete karte hue:</p>
+                <ul>
+                    <li><strong>Generator (G):</strong> Iska kaam hai fake data (e.g., fake images) generate karna jo real jaisa dikhe. Yeh random noise ko input leta hai aur use fake data mein transform karta hai. Shuru mein yeh bahut bura fake data banata hai.</li>
+                    <li><strong>Discriminator (D):</strong> Iska kaam hai 'Police' ya 'Art Critic' jaisa. Yeh real data aur Generator dwara banaye gaye fake data dono ko dekhta hai aur decide karta hai ki kaunsa real hai aur kaunsa fake.</li>
+                </ul>
+                <p><strong>Training Process (Adversarial Game):</strong></p>
+                <ol>
+                    <li>Generator random noise se fake data banata hai.</li>
+                    <li>Discriminator ko real data aur fake data (Generator se) ka mix diya jaata hai. Discriminator seekhta hai real aur fake ko distinguish karna (classification task).</li>
+                    <li>Generator ko feedback milta hai ki Discriminator uske fake data ko kitni aasani se pakad paa raha hai. Generator ka goal hota hai aisa fake data banana ki Discriminator *dhokha kha jaaye* (Discriminator use 'real' classify kar de).</li>
+                    <li>Yeh process repeat hota hai. Discriminator better hota jaata hai fake ko pakadne mein, aur usse bachne ke liye Generator better hota jaata hai realistic fake data banane mein.</li>
+                </ol>
+                <p>Eventually, agar training successful ho, toh Generator itna accha ho jaata hai ki woh highly realistic fake data generate karne lagta hai jise Discriminator bhi mushkil se pakad paaye.</p>
+            </div>
+        </div>
+
+        <h2>Conceptual Diagram: GAN Architecture</h2>
+        <div class="gan-diagram">
+            <div class="component">
+                <strong>Random Noise (Input)</strong><br>
+                e.g., [0.1, -0.5, 0.8, ...]
+            </div>
+            <div class="arrow">▼</div>
+            <div class="component">
+                <strong>Generator Network (G)</strong><br>
+                (Tries to create realistic data)
+            </div>
+            <div class="arrow">▼ Fake Data</div>
+             <img src="https://developers.google.com/static/machine-learning/gan/images/gan_diagram.svg" alt="GAN Diagram" style="max-width: 60%; margin: 10px auto;">
+             <p style="font-size:0.8em; text-align: center;">(Image Source: Google Developers)</p>
+             <div style="display: flex; justify-content: space-around; align-items: center;">
+                 <div>▲ Real Data</div>
+                 <div class="component" style="border-color: #dc3545;">
+                    <strong>Discriminator Network (D)</strong><br>
+                    (Tries to classify Real vs Fake)
+                 </div>
+             </div>
+             <div class="arrow">▼</div>
+             <div>Output: Real or Fake?</div>
+             <div class="vs">Generator tries to Fool Discriminator <br> Discriminator tries to Catch Generator</div>
+        </div>
+
+        <div class="explanation">
+             GANs ka use realistic image generation, image-to-image translation, style transfer, data augmentation jaise Dher saare exciting applications mein hota hai.
+        </div>
+
+    </div>
+
+    <a href="transformers_advanced.html" class="nav-link" style="float: left;">&laquo; Previous: Transformers Adv.</a>
+    <a href="reinforcement_learning.html" class="nav-link" style="float: right;">Next Topic: Reinforcement Learning &raquo;</a>
+    <div style="clear: both;"></div>
+</body>
+</html>
