@@ -29,7 +29,7 @@
             position: relative;
         }
         .path-section li::before {
-            content: "➔"; /* Arrow symbol */
+            content: "➔";
             position: absolute;
             left: 0;
             color: #007bff;
@@ -43,21 +43,13 @@
          .path-section li a:hover {
              text-decoration: underline;
          }
-         .path-section li.completed a {
-             color: #198754; /* Green for completed/existing */
-             font-weight: bold;
-         }
-         .path-section li.completed::before {
-             color: #198754;
-             content: "✔"; /* Check mark */
-         }
-          .path-section li.coming-soon a {
-             color: #6c757d; /* Grey for coming soon */
+         .path-section li.coming-soon a {
+             color: #6c757d;
              font-style: italic;
          }
          .path-section li.coming-soon::before {
              color: #6c757d;
-             content: "⏳"; /* Hourglass */
+             content: "⏳";
          }
     </style>
 </head>
@@ -73,11 +65,10 @@
         <div class="path-section">
             <h3>Phase 1: Foundations (Neenv)</h3>
             <ul>
-                <li class="completed"><a href="vectors.html">Topic 1: Vectors - Information ki Buniyad</a></li>
-                <li class="completed"><a href="matrices.html">Topic 2: Matrices - Data ko Organize Karna</a></li>
-                <li class="completed"><a href="matrix_multiplication.html">Topic 3: Matrix Multiplication - Transformation ka Formula</a></li>
+                <li><a href="vectors.html">Topic 1: Vectors - Information ki Buniyad</a></li>
+                <li><a href="matrices.html">Topic 2: Matrices - Data ko Organize Karna</a></li>
+                <li><a href="matrix_multiplication.html">Topic 3: Matrix Multiplication - Transformation ka Formula</a></li>
                 <li><a href="probability_stats.html">Topic 4: Probability & Statistics - Uncertainty ko Handle Karna</a></li>
-                <!-- Add Calculus later if needed, or keep conceptual -->
                 <li><a href="python_libs.html">Topic 5: Python & Libraries (NumPy, Pandas) - Tools of the Trade</a></li>
             </ul>
         </div>
@@ -91,9 +82,9 @@
                 <li><a href="logistic_regression.html">Topic 8: Logistic Regression - Classification ka Pehla Kadam</a></li>
                 <li><a href="model_evaluation.html">Topic 9: Model Evaluation - Performance Kaise Check Karein? (Accuracy, Precision, Recall)</a></li>
                 <li><a href="overfitting_underfitting.html">Topic 10: Overfitting & Underfitting - Model ki Problems</a></li>
-                 <li><a href="decision_trees.html">Topic 11: Decision Trees & Random Forests - Rule-Based Decisions</a></li>
-                 <li><a href="clustering.html">Topic 12: Clustering (K-Means) - Groups Dhoondhna (Unsupervised)</a></li>
-                 <li><a href="dimensionality_reduction.html">Topic 13: Dimensionality Reduction (PCA) - Data ko Simplify Karna</a></li>
+                <li><a href="decision_trees.html">Topic 11: Decision Trees & Random Forests - Rule-Based Decisions</a></li>
+                <li><a href="clustering.html">Topic 12: Clustering (K-Means) - Groups Dhoondhna (Unsupervised)</a></li>
+                <li><a href="dimensionality_reduction.html">Topic 13: Dimensionality Reduction (PCA) - Data ko Simplify Karna</a></li>
             </ul>
         </div>
 
@@ -104,10 +95,10 @@
                 <li><a href="neural_networks.html">Topic 14: Neural Networks - Brain se Inspired Models</a></li>
                 <li><a href="activation_functions.html">Topic 15: Activation Functions - Neuron ko 'Activate' Karna</a></li>
                 <li><a href="backpropagation.html">Topic 16: How NNs Learn: Gradient Descent & Backpropagation (Conceptual)</a></li>
-                 <li class="completed"><a href="transformers.html">Topic 17: Transformers & Self-Attention - Bhasha ke liye Powerhouse (Existing)</a></li>
+                <li><a href="transformers.html">Topic 17: Transformers & Self-Attention - Bhasha ke liye Powerhouse</a></li>
                 <li><a href="cnns.html">Topic 18: Convolutional Neural Networks (CNNs) - Images ko Samajhna</a></li>
                 <li><a href="rnns_lstms.html">Topic 19: Recurrent Neural Networks (RNNs/LSTMs) - Sequences ke Models</a></li>
-                 <li><a href="transformers_advanced.html">Topic 20: Transformers Advanced - Multi-Head Attention, Encoder-Decoder</a></li>
+                <li><a href="transformers_advanced.html">Topic 20: Transformers Advanced - Multi-Head Attention, Encoder-Decoder</a></li>
             </ul>
         </div>
 
@@ -124,7 +115,7 @@
     </div>
 
     <div class="explanation">
-        <strong>Note:</strong> Hum dheere-dheere naye topic files add karte jayenge. Jo topics abhi available nahi hain, woh 'Coming Soon' mark kiye gaye hain. Existing topics 'Completed' mark kiye gaye hain. Happy Learning!
+        <strong>Note:</strong> Hum dheere-dheere naye topic files add karte jayenge. Jo topics abhi available nahi hain, woh 'Coming Soon' mark kiye gaye hain. Happy Learning!
     </div>
 
 </body>
