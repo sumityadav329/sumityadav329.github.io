@@ -7,21 +7,19 @@
     <meta name="description" content="Sumit Yadav - AI/ML Developer & Data Scientist">
     <title>Sumit Yadav - AI/ML Portfolio</title>
     <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Space+Grotesk:wght@400;500;600;700&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
         rel="stylesheet">
     <link rel="icon" href="static/images/logo.png" type="image/png">
     <style>
         :root {
             --primary: #6366f1;
-            /* Soft indigo */
             --secondary: #8b5cf6;
-            /* Soft violet */
             --accent: #a78bfa;
-            /* Light violet */
             --bg-dark: #0f0f1a;
             --bg-light: #1a1a2e;
             --text: #e2e8f0;
             --text-muted: #94a3b8;
+            --terminal-green: #4ade80;
         }
 
         * {
@@ -38,7 +36,6 @@
             min-height: 100vh;
         }
 
-        /* Subtle gradient background */
         .bg-ambient {
             position: fixed;
             inset: 0;
@@ -48,7 +45,7 @@
             z-index: 0;
         }
 
-        /* Loading Screen - Minimal */
+        /* Loading */
         #loading {
             position: fixed;
             inset: 0;
@@ -83,20 +80,19 @@
 
         #loading p {
             margin-top: 24px;
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 14px;
-            color: var(--text-muted);
-            letter-spacing: 2px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 12px;
+            color: var(--terminal-green);
+            letter-spacing: 1px;
         }
 
-        /* Canvas */
         #canvas-container {
             position: fixed;
             inset: 0;
             z-index: 1;
         }
 
-        /* Navigation - Clean */
+        /* Navigation */
         .nav-hud {
             position: fixed;
             top: 40px;
@@ -131,7 +127,7 @@
             border-color: var(--primary);
         }
 
-        /* Main Info Panel - Professional */
+        /* Main Info Panel */
         .info-panel {
             position: fixed;
             bottom: 60px;
@@ -185,6 +181,113 @@
             box-shadow: 0 8px 30px rgba(99, 102, 241, 0.4);
         }
 
+        /* Live Code Terminal */
+        .code-terminal {
+            position: fixed;
+            top: 120px;
+            left: 60px;
+            z-index: 90;
+            width: 380px;
+            background: rgba(15, 15, 26, 0.95);
+            border: 1px solid rgba(99, 102, 241, 0.2);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+        }
+
+        .terminal-header {
+            background: rgba(99, 102, 241, 0.1);
+            padding: 12px 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .terminal-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+        }
+
+        .terminal-dot.red {
+            background: #ff5f56;
+        }
+
+        .terminal-dot.yellow {
+            background: #ffbd2e;
+        }
+
+        .terminal-dot.green {
+            background: #27ca40;
+        }
+
+        .terminal-title {
+            margin-left: 8px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 11px;
+            color: var(--text-muted);
+        }
+
+        .terminal-body {
+            padding: 16px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 12px;
+            line-height: 1.6;
+            height: 180px;
+            overflow: hidden;
+        }
+
+        .code-line {
+            opacity: 0;
+            animation: fadeIn 0.3s ease forwards;
+        }
+
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+            }
+        }
+
+        .code-comment {
+            color: #6b7280;
+        }
+
+        .code-keyword {
+            color: #c084fc;
+        }
+
+        .code-function {
+            color: #60a5fa;
+        }
+
+        .code-string {
+            color: #4ade80;
+        }
+
+        .code-number {
+            color: #fb923c;
+        }
+
+        .code-class {
+            color: #fbbf24;
+        }
+
+        .cursor-blink {
+            display: inline-block;
+            width: 8px;
+            height: 14px;
+            background: var(--terminal-green);
+            animation: blink 1s step-end infinite;
+            vertical-align: middle;
+            margin-left: 2px;
+        }
+
+        @keyframes blink {
+            50% {
+                opacity: 0;
+            }
+        }
+
         /* Content Sections */
         .content-section {
             position: fixed;
@@ -196,7 +299,7 @@
             border: 1px solid rgba(99, 102, 241, 0.15);
             border-radius: 16px;
             padding: 32px;
-            max-width: 400px;
+            max-width: 420px;
             max-height: 70vh;
             overflow-y: auto;
             display: none;
@@ -227,42 +330,95 @@
             color: var(--text);
         }
 
-        /* Skills Grid - Clean */
-        .skill-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 12px;
+        /* Skill Radar Chart */
+        .radar-container {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 24px;
         }
 
-        .skill-item {
-            background: rgba(99, 102, 241, 0.08);
-            border: 1px solid rgba(99, 102, 241, 0.12);
-            border-radius: 12px;
-            padding: 16px 12px;
-            text-align: center;
+        .radar-chart {
+            position: relative;
+            width: 280px;
+            height: 280px;
+        }
+
+        .radar-chart svg {
+            width: 100%;
+            height: 100%;
+        }
+
+        .radar-grid {
+            fill: none;
+            stroke: rgba(99, 102, 241, 0.15);
+            stroke-width: 1;
+        }
+
+        .radar-axis {
+            stroke: rgba(99, 102, 241, 0.2);
+            stroke-width: 1;
+        }
+
+        .radar-shape {
+            fill: rgba(99, 102, 241, 0.2);
+            stroke: var(--primary);
+            stroke-width: 2;
+            transition: all 0.5s ease;
+        }
+
+        .radar-shape:hover {
+            fill: rgba(99, 102, 241, 0.35);
+        }
+
+        .radar-point {
+            fill: var(--primary);
             transition: all 0.3s ease;
         }
 
-        .skill-item:hover {
-            background: rgba(99, 102, 241, 0.15);
-            border-color: rgba(99, 102, 241, 0.3);
-            transform: translateY(-4px);
+        .radar-point:hover {
+            r: 6;
+            fill: var(--accent);
         }
 
-        .skill-item img {
-            width: 36px;
-            height: 36px;
-            margin-bottom: 8px;
-            opacity: 0.9;
+        .radar-label {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 10px;
+            fill: var(--text-muted);
+            text-anchor: middle;
         }
 
-        .skill-item span {
-            font-size: 11px;
+        /* Skill List */
+        .skill-list {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+        }
+
+        .skill-tag {
+            background: rgba(99, 102, 241, 0.1);
+            border: 1px solid rgba(99, 102, 241, 0.2);
+            border-radius: 8px;
+            padding: 10px 14px;
+            font-size: 12px;
             color: var(--text-muted);
-            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s;
         }
 
-        /* Projects - Minimal Cards */
+        .skill-tag:hover {
+            background: rgba(99, 102, 241, 0.2);
+            color: var(--text);
+            transform: translateY(-2px);
+        }
+
+        .skill-tag img {
+            width: 18px;
+            height: 18px;
+        }
+
+        /* Projects */
         .project-card {
             background: rgba(99, 102, 241, 0.06);
             border: 1px solid rgba(99, 102, 241, 0.1);
@@ -300,7 +456,23 @@
             line-height: 1.6;
         }
 
-        /* Contact - Simple */
+        .project-tags {
+            display: flex;
+            gap: 6px;
+            margin-top: 12px;
+            flex-wrap: wrap;
+        }
+
+        .project-tags span {
+            background: rgba(99, 102, 241, 0.15);
+            color: var(--accent);
+            font-size: 10px;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-weight: 500;
+        }
+
+        /* Contact */
         .contact-email {
             color: var(--primary);
             text-decoration: none;
@@ -349,6 +521,46 @@
             background: rgba(99, 102, 241, 0.3);
             border-radius: 2px;
         }
+
+        /* Neural Pulse Indicator */
+        .neural-indicator {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 90;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 16px;
+            background: rgba(15, 15, 26, 0.9);
+            border: 1px solid rgba(99, 102, 241, 0.2);
+            border-radius: 20px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 11px;
+            color: var(--text-muted);
+        }
+
+        .pulse-dot {
+            width: 8px;
+            height: 8px;
+            background: var(--terminal-green);
+            border-radius: 50%;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                opacity: 0.4;
+                transform: scale(1);
+            }
+
+            50% {
+                opacity: 1;
+                transform: scale(1.2);
+            }
+        }
     </style>
 </head>
 
@@ -358,11 +570,28 @@
     <!-- Loading -->
     <div id="loading">
         <div class="loader-ring"></div>
-        <p>LOADING</p>
+        <p>$ loading neural_network...</p>
     </div>
 
     <!-- 3D Canvas -->
     <div id="canvas-container"></div>
+
+    <!-- Live Code Terminal -->
+    <div class="code-terminal">
+        <div class="terminal-header">
+            <div class="terminal-dot red"></div>
+            <div class="terminal-dot yellow"></div>
+            <div class="terminal-dot green"></div>
+            <span class="terminal-title">model.py — Python</span>
+        </div>
+        <div class="terminal-body" id="code-display"></div>
+    </div>
+
+    <!-- Neural Indicator -->
+    <div class="neural-indicator">
+        <div class="pulse-dot"></div>
+        <span>Neural Network Active</span>
+    </div>
 
     <!-- Navigation -->
     <nav class="nav-hud">
@@ -386,47 +615,28 @@
         </a>
     </div>
 
-    <!-- Skills -->
+    <!-- Skills with Radar Chart -->
     <div class="content-section" id="skills-section">
         <h2>Skills & Expertise</h2>
-        <div class="skill-grid">
-            <div class="skill-item">
-                <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/python/python-original.svg"
-                    alt="Python">
-                <span>Python</span>
+        <div class="radar-container">
+            <div class="radar-chart">
+                <svg viewBox="0 0 280 280" id="radar-svg"></svg>
             </div>
-            <div class="skill-item">
-                <img src="https://www.vectorlogo.zone/logos/tensorflow/tensorflow-icon.svg" alt="TensorFlow">
-                <span>TensorFlow</span>
+        </div>
+        <div class="skill-list">
+            <div class="skill-tag"><img
+                    src="https://raw.githubusercontent.com/devicons/devicon/master/icons/python/python-original.svg"
+                    alt="">Python</div>
+            <div class="skill-tag"><img src="https://www.vectorlogo.zone/logos/tensorflow/tensorflow-icon.svg"
+                    alt="">TensorFlow</div>
+            <div class="skill-tag"><img src="https://www.vectorlogo.zone/logos/pytorch/pytorch-icon.svg" alt="">PyTorch
             </div>
-            <div class="skill-item">
-                <img src="https://www.vectorlogo.zone/logos/pytorch/pytorch-icon.svg" alt="PyTorch">
-                <span>PyTorch</span>
-            </div>
-            <div class="skill-item">
-                <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/docker/docker-original-wordmark.svg"
-                    alt="Docker">
-                <span>Docker</span>
-            </div>
-            <div class="skill-item">
-                <img src="https://www.vectorlogo.zone/logos/amazon_aws/amazon_aws-icon.svg" alt="AWS">
-                <span>AWS</span>
-            </div>
-            <div class="skill-item">
-                <img src="https://www.vectorlogo.zone/logos/mongodb/mongodb-icon.svg" alt="MongoDB">
-                <span>MongoDB</span>
-            </div>
-            <div class="skill-item">
-                <img src="https://www.vectorlogo.zone/logos/git-scm/git-scm-icon.svg" alt="Git">
-                <span>Git</span>
-            </div>
-            <div class="skill-item">
-                <img src="https://www.vectorlogo.zone/logos/opencv/opencv-icon.svg" alt="OpenCV">
-                <span>OpenCV</span>
-            </div>
-            <div class="skill-item">
-                <img src="https://www.vectorlogo.zone/logos/google_cloud/google_cloud-icon.svg" alt="GCP">
-                <span>GCP</span>
+            <div class="skill-tag"><img
+                    src="https://raw.githubusercontent.com/devicons/devicon/master/icons/docker/docker-original-wordmark.svg"
+                    alt="">Docker</div>
+            <div class="skill-tag"><img src="https://www.vectorlogo.zone/logos/amazon_aws/amazon_aws-icon.svg"
+                    alt="">AWS</div>
+            <div class="skill-tag"><img src="https://www.vectorlogo.zone/logos/opencv/opencv-icon.svg" alt="">OpenCV
             </div>
         </div>
     </div>
@@ -437,15 +647,24 @@
         <div class="project-card">
             <h3><a href="https://agenticai-sumityadav329.streamlit.app/" target="_blank">AI Agents Hub →</a></h3>
             <p>Multi-agent AI system for code debugging, intelligent chat, food analysis, and video summarization.</p>
+            <div class="project-tags">
+                <span>LangChain</span><span>GPT-4</span><span>Streamlit</span>
+            </div>
         </div>
         <div class="project-card">
             <h3><a href="https://huggingface.co/spaces/sumityadav329/text-to-image-webapp" target="_blank">AI Image
                     Generator →</a></h3>
             <p>Text-to-image generation using state-of-the-art diffusion models for photorealistic outputs.</p>
+            <div class="project-tags">
+                <span>Stable Diffusion</span><span>HuggingFace</span><span>Gradio</span>
+            </div>
         </div>
         <div class="project-card">
             <h3><a href="https://book-recommender-app-3q48.onrender.com/" target="_blank">Book Recommender →</a></h3>
             <p>NLP-powered recommendation engine with content-based filtering for personalized suggestions.</p>
+            <div class="project-tags">
+                <span>NLP</span><span>Scikit-learn</span><span>Flask</span>
+            </div>
         </div>
     </div>
 
@@ -478,16 +697,16 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 
     <script>
+        // ============ 3D SCENE ============
         let scene, camera, renderer, particles, nodes = [], connections = [];
+        let dataPackets = [];
         let mouseX = 0, mouseY = 0;
-
-        // Professional color palette - indigo/violet only
         const primaryColor = 0x6366f1;
         const secondaryColor = 0x8b5cf6;
+        const pulseColor = 0x4ade80;
 
         function init() {
             scene = new THREE.Scene();
-
             camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 1000);
             camera.position.z = 50;
 
@@ -496,16 +715,11 @@
             renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
             document.getElementById('canvas-container').appendChild(renderer.domElement);
 
-            // Create breathing particle field
             createBreathingField();
-
-            // Create subtle neural mesh
             createNeuralMesh();
 
-            // Ambient light only
             const ambientLight = new THREE.AmbientLight(0xffffff, 0.3);
             scene.add(ambientLight);
-
             const pointLight = new THREE.PointLight(primaryColor, 1, 150);
             pointLight.position.set(0, 0, 30);
             scene.add(pointLight);
@@ -515,28 +729,25 @@
 
             setTimeout(() => {
                 document.getElementById('loading').classList.add('hidden');
-            }, 800);
+            }, 1200);
 
             animate();
         }
 
         function createBreathingField() {
-            // Small, subtle particles in a sphere formation
             const geometry = new THREE.BufferGeometry();
-            const count = 800;
+            const count = 600;
             const positions = new Float32Array(count * 3);
             const scales = new Float32Array(count);
 
             for (let i = 0; i < count; i++) {
-                // Distribute in a sphere
-                const radius = 30 + Math.random() * 40;
+                const radius = 25 + Math.random() * 35;
                 const theta = Math.random() * Math.PI * 2;
                 const phi = Math.acos(2 * Math.random() - 1);
 
                 positions[i * 3] = radius * Math.sin(phi) * Math.cos(theta);
                 positions[i * 3 + 1] = radius * Math.sin(phi) * Math.sin(theta);
-                positions[i * 3 + 2] = radius * Math.cos(phi) - 20;
-
+                positions[i * 3 + 2] = radius * Math.cos(phi) - 15;
                 scales[i] = Math.random();
             }
 
@@ -544,7 +755,7 @@
             geometry.setAttribute('scale', new THREE.BufferAttribute(scales, 1));
 
             const material = new THREE.PointsMaterial({
-                size: 0.15,
+                size: 0.12,
                 color: primaryColor,
                 transparent: true,
                 opacity: 0.4,
@@ -556,53 +767,82 @@
         }
 
         function createNeuralMesh() {
-            // Create subtle floating nodes
-            const nodeGeometry = new THREE.SphereGeometry(0.2, 12, 12);
-            const nodeMaterial = new THREE.MeshBasicMaterial({
-                color: secondaryColor,
-                transparent: true,
-                opacity: 0.6
+            const nodeGeometry = new THREE.SphereGeometry(0.25, 12, 12);
+
+            // Create nodes in layers (like neural network)
+            const layers = [[0, -12], [0, -6], [0, 0], [0, 6], [0, 12]];
+            const nodesPerLayer = [3, 5, 6, 5, 3];
+
+            layers.forEach((layerZ, layerIdx) => {
+                const nodeCount = nodesPerLayer[layerIdx];
+                for (let i = 0; i < nodeCount; i++) {
+                    const nodeMaterial = new THREE.MeshBasicMaterial({
+                        color: secondaryColor,
+                        transparent: true,
+                        opacity: 0.7
+                    });
+                    const node = new THREE.Mesh(nodeGeometry, nodeMaterial);
+
+                    const spread = nodeCount * 4;
+                    node.position.set(
+                        (i - (nodeCount - 1) / 2) * 5,
+                        (Math.random() - 0.5) * 3,
+                        layerZ[1] - 25
+                    );
+                    node.userData = {
+                        basePos: node.position.clone(),
+                        phase: Math.random() * Math.PI * 2,
+                        speed: 0.3 + Math.random() * 0.3,
+                        layer: layerIdx
+                    };
+                    scene.add(node);
+                    nodes.push(node);
+                }
             });
 
-            // Create nodes in a loose grid
-            for (let i = 0; i < 30; i++) {
-                const node = new THREE.Mesh(nodeGeometry, nodeMaterial.clone());
-                node.position.set(
-                    (Math.random() - 0.5) * 60,
-                    (Math.random() - 0.5) * 40,
-                    (Math.random() - 0.5) * 30 - 15
-                );
-                node.userData = {
-                    basePos: node.position.clone(),
-                    phase: Math.random() * Math.PI * 2,
-                    speed: 0.5 + Math.random() * 0.5
-                };
-                scene.add(node);
-                nodes.push(node);
-            }
-
-            // Create connections between nearby nodes
+            // Create connections
             const lineMaterial = new THREE.LineBasicMaterial({
                 color: primaryColor,
                 transparent: true,
-                opacity: 0.1
+                opacity: 0.08
             });
 
             for (let i = 0; i < nodes.length; i++) {
                 for (let j = i + 1; j < nodes.length; j++) {
-                    const dist = nodes[i].position.distanceTo(nodes[j].position);
-                    if (dist < 20) {
+                    const layerDiff = Math.abs(nodes[i].userData.layer - nodes[j].userData.layer);
+                    if (layerDiff === 1) {
                         const lineGeometry = new THREE.BufferGeometry().setFromPoints([
-                            nodes[i].position,
-                            nodes[j].position
+                            nodes[i].position, nodes[j].position
                         ]);
                         const line = new THREE.Line(lineGeometry, lineMaterial.clone());
-                        line.userData = { node1: nodes[i], node2: nodes[j] };
+                        line.userData = {
+                            node1: nodes[i],
+                            node2: nodes[j],
+                            pulseTime: Math.random() * 10
+                        };
                         scene.add(line);
                         connections.push(line);
                     }
                 }
             }
+        }
+
+        // Create data packet traveling along connection
+        function createDataPacket(connection) {
+            const packetGeometry = new THREE.SphereGeometry(0.12, 8, 8);
+            const packetMaterial = new THREE.MeshBasicMaterial({
+                color: pulseColor,
+                transparent: true,
+                opacity: 0.9
+            });
+            const packet = new THREE.Mesh(packetGeometry, packetMaterial);
+            packet.userData = {
+                connection: connection,
+                progress: 0,
+                speed: 0.01 + Math.random() * 0.01
+            };
+            scene.add(packet);
+            dataPackets.push(packet);
         }
 
         function onWindowResize() {
@@ -620,53 +860,29 @@
             requestAnimationFrame(animate);
             const time = Date.now() * 0.001;
 
-            // Breathing effect for particles
+            // Breathing particles
             if (particles) {
-                const positions = particles.geometry.attributes.position.array;
-                const scales = particles.geometry.attributes.scale.array;
-
-                for (let i = 0; i < positions.length / 3; i++) {
-                    // Gentle breathing - expand and contract
-                    const breathe = Math.sin(time * 0.5 + scales[i] * Math.PI * 2) * 0.02 + 1;
-                    const idx = i * 3;
-
-                    // Apply breathing to distance from center
-                    const x = positions[idx];
-                    const y = positions[idx + 1];
-                    const z = positions[idx + 2] + 20;
-                    const dist = Math.sqrt(x * x + y * y + z * z);
-
-                    if (dist > 0) {
-                        const newDist = dist * breathe;
-                        const factor = newDist / dist;
-                        // Keep original direction but modulate distance
-                    }
-                }
-
-                // Slow rotation
-                particles.rotation.y += 0.0003;
-                particles.rotation.x = Math.sin(time * 0.2) * 0.05;
+                particles.rotation.y += 0.0002;
+                particles.rotation.x = Math.sin(time * 0.15) * 0.03;
             }
 
-            // Animate nodes with breathing
+            // Animate nodes
             nodes.forEach((node, i) => {
                 const data = node.userData;
                 const breathe = Math.sin(time * data.speed + data.phase);
 
-                // Gentle floating motion
-                node.position.x = data.basePos.x + Math.sin(time * 0.3 + data.phase) * 2;
-                node.position.y = data.basePos.y + Math.cos(time * 0.4 + data.phase) * 1.5;
-                node.position.z = data.basePos.z + Math.sin(time * 0.2 + data.phase) * 1;
+                node.position.x = data.basePos.x + Math.sin(time * 0.3 + data.phase) * 1.5;
+                node.position.y = data.basePos.y + Math.cos(time * 0.4 + data.phase) * 1;
 
-                // Breathing opacity
-                node.material.opacity = 0.3 + breathe * 0.2;
+                node.material.opacity = 0.4 + breathe * 0.3;
                 node.scale.setScalar(0.8 + breathe * 0.3);
             });
 
-            // Update connection lines
-            connections.forEach(line => {
-                const { node1, node2 } = line.userData;
+            // Update connections and create data packets
+            connections.forEach((line, idx) => {
+                const { node1, node2, pulseTime } = line.userData;
                 const positions = line.geometry.attributes.position.array;
+
                 positions[0] = node1.position.x;
                 positions[1] = node1.position.y;
                 positions[2] = node1.position.z;
@@ -675,23 +891,191 @@
                 positions[5] = node2.position.z;
                 line.geometry.attributes.position.needsUpdate = true;
 
-                // Breathing opacity for lines
-                const dist = node1.position.distanceTo(node2.position);
-                line.material.opacity = Math.max(0, 0.15 - dist * 0.005);
+                // Randomly create data packets
+                if (Math.random() < 0.001 && dataPackets.length < 15) {
+                    createDataPacket(line);
+                }
             });
 
-            // Subtle camera movement following mouse
-            camera.position.x += (mouseX * 5 - camera.position.x) * 0.02;
+            // Animate data packets
+            for (let i = dataPackets.length - 1; i >= 0; i--) {
+                const packet = dataPackets[i];
+                packet.userData.progress += packet.userData.speed;
+
+                if (packet.userData.progress >= 1) {
+                    scene.remove(packet);
+                    dataPackets.splice(i, 1);
+                } else {
+                    const conn = packet.userData.connection;
+                    const p = packet.userData.progress;
+                    packet.position.lerpVectors(
+                        conn.userData.node1.position,
+                        conn.userData.node2.position,
+                        p
+                    );
+                    packet.material.opacity = Math.sin(p * Math.PI) * 0.9;
+                }
+            }
+
+            // Camera
+            camera.position.x += (mouseX * 4 - camera.position.x) * 0.02;
             camera.position.y += (-mouseY * 3 - camera.position.y) * 0.02;
-            camera.lookAt(0, 0, -10);
+            camera.lookAt(0, 0, -15);
 
             renderer.render(scene, camera);
         }
 
-        // Navigation
+        // ============ RADAR CHART ============
+        function createRadarChart() {
+            const svg = document.getElementById('radar-svg');
+            const cx = 140, cy = 140, maxR = 100;
+            const skills = [
+                { name: 'ML/DL', value: 0.92 },
+                { name: 'Python', value: 0.95 },
+                { name: 'NLP', value: 0.85 },
+                { name: 'CV', value: 0.80 },
+                { name: 'Cloud', value: 0.75 },
+                { name: 'MLOps', value: 0.78 }
+            ];
+            const n = skills.length;
+            const angleStep = (Math.PI * 2) / n;
+
+            // Draw grid circles
+            for (let r = 0.25; r <= 1; r += 0.25) {
+                let points = '';
+                for (let i = 0; i < n; i++) {
+                    const angle = i * angleStep - Math.PI / 2;
+                    const x = cx + Math.cos(angle) * maxR * r;
+                    const y = cy + Math.sin(angle) * maxR * r;
+                    points += `${x},${y} `;
+                }
+                const polygon = document.createElementNS('http://www.w3.org/2000/svg', 'polygon');
+                polygon.setAttribute('points', points.trim());
+                polygon.setAttribute('class', 'radar-grid');
+                svg.appendChild(polygon);
+            }
+
+            // Draw axes
+            for (let i = 0; i < n; i++) {
+                const angle = i * angleStep - Math.PI / 2;
+                const x = cx + Math.cos(angle) * maxR;
+                const y = cy + Math.sin(angle) * maxR;
+                const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+                line.setAttribute('x1', cx);
+                line.setAttribute('y1', cy);
+                line.setAttribute('x2', x);
+                line.setAttribute('y2', y);
+                line.setAttribute('class', 'radar-axis');
+                svg.appendChild(line);
+            }
+
+            // Draw data shape
+            let dataPoints = '';
+            const pointElements = [];
+            for (let i = 0; i < n; i++) {
+                const angle = i * angleStep - Math.PI / 2;
+                const r = skills[i].value * maxR;
+                const x = cx + Math.cos(angle) * r;
+                const y = cy + Math.sin(angle) * r;
+                dataPoints += `${x},${y} `;
+
+                // Data point
+                const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+                circle.setAttribute('cx', x);
+                circle.setAttribute('cy', y);
+                circle.setAttribute('r', 4);
+                circle.setAttribute('class', 'radar-point');
+                pointElements.push(circle);
+
+                // Label
+                const labelR = maxR + 20;
+                const lx = cx + Math.cos(angle) * labelR;
+                const ly = cy + Math.sin(angle) * labelR + 3;
+                const text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+                text.setAttribute('x', lx);
+                text.setAttribute('y', ly);
+                text.setAttribute('class', 'radar-label');
+                text.textContent = skills[i].name;
+                svg.appendChild(text);
+            }
+
+            const shape = document.createElementNS('http://www.w3.org/2000/svg', 'polygon');
+            shape.setAttribute('points', dataPoints.trim());
+            shape.setAttribute('class', 'radar-shape');
+            svg.appendChild(shape);
+
+            pointElements.forEach(p => svg.appendChild(p));
+        }
+
+        // ============ CODE TERMINAL ============
+        const codeSnippets = [
+            [
+                '<span class="code-comment"># Neural Network Training</span>',
+                '<span class="code-keyword">import</span> tensorflow <span class="code-keyword">as</span> tf',
+                '',
+                '<span class="code-keyword">class</span> <span class="code-class">NeuralNet</span>(tf.keras.Model):',
+                '    <span class="code-keyword">def</span> <span class="code-function">__init__</span>(self):',
+                '        self.dense1 = tf.keras.layers.Dense(<span class="code-number">128</span>)',
+                '        self.dense2 = tf.keras.layers.Dense(<span class="code-number">10</span>)',
+                '',
+                'model.<span class="code-function">fit</span>(X_train, epochs=<span class="code-number">50</span>)'
+            ],
+            [
+                '<span class="code-comment"># Computer Vision Pipeline</span>',
+                '<span class="code-keyword">import</span> cv2',
+                '<span class="code-keyword">import</span> torch',
+                '',
+                '<span class="code-keyword">def</span> <span class="code-function">detect_objects</span>(image):',
+                '    model = torch.hub.<span class="code-function">load</span>(<span class="code-string">"yolov5"</span>)',
+                '    results = model(image)',
+                '    <span class="code-keyword">return</span> results.pandas().xyxy[<span class="code-number">0</span>]'
+            ],
+            [
+                '<span class="code-comment"># Generative AI</span>',
+                '<span class="code-keyword">from</span> langchain <span class="code-keyword">import</span> LLMChain',
+                '',
+                'llm = ChatOpenAI(model=<span class="code-string">"gpt-4"</span>)',
+                'chain = LLMChain(llm=llm, prompt=prompt)',
+                '',
+                'response = chain.<span class="code-function">run</span>(query)',
+                '<span class="code-function">print</span>(response)'
+            ]
+        ];
+
+        let currentSnippet = 0;
+        let currentLine = 0;
+
+        function typeCode() {
+            const display = document.getElementById('code-display');
+            const snippet = codeSnippets[currentSnippet];
+
+            if (currentLine < snippet.length) {
+                const line = document.createElement('div');
+                line.className = 'code-line';
+                line.style.animationDelay = `${currentLine * 0.1}s`;
+                line.innerHTML = snippet[currentLine] || '&nbsp;';
+                display.appendChild(line);
+                currentLine++;
+                setTimeout(typeCode, 150);
+            } else {
+                // Add blinking cursor
+                const cursor = document.createElement('span');
+                cursor.className = 'cursor-blink';
+                display.lastChild.appendChild(cursor);
+
+                // Wait and switch to next snippet
+                setTimeout(() => {
+                    display.innerHTML = '';
+                    currentSnippet = (currentSnippet + 1) % codeSnippets.length;
+                    currentLine = 0;
+                    typeCode();
+                }, 4000);
+            }
+        }
+
+        // ============ NAVIGATION ============
         document.querySelectorAll('.nav-btn').forEach(btn => {
             btn.addEventListener('click', () => {
-                // Update active state
                 document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
                 btn.classList.add('active');
 
@@ -705,7 +1089,10 @@
             });
         });
 
+        // ============ INIT ============
         init();
+        createRadarChart();
+        setTimeout(typeCode, 1500);
     </script>
 </body>
 
