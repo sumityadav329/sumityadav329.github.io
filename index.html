@@ -45,7 +45,7 @@
             z-index: 0;
         }
 
-        /* Loading */
+        /* Hacker Loading */
         #loading {
             position: fixed;
             inset: 0;
@@ -55,7 +55,7 @@
             align-items: center;
             justify-content: center;
             z-index: 9999;
-            transition: opacity 0.6s ease;
+            transition: opacity 0.8s ease;
         }
 
         #loading.hidden {
@@ -63,27 +63,73 @@
             pointer-events: none;
         }
 
-        .loader-ring {
-            width: 60px;
-            height: 60px;
-            border: 2px solid rgba(99, 102, 241, 0.2);
-            border-top-color: var(--primary);
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
+        .hacker-terminal {
+            width: 90%;
+            max-width: 500px;
+            background: rgba(0, 0, 0, 0.9);
+            border: 1px solid var(--terminal-green);
+            border-radius: 8px;
+            font-family: 'JetBrains Mono', monospace;
+            box-shadow: 0 0 30px rgba(74, 222, 128, 0.15);
         }
 
-        @keyframes spin {
+        .hacker-header {
+            background: rgba(74, 222, 128, 0.1);
+            padding: 10px 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            border-bottom: 1px solid rgba(74, 222, 128, 0.3);
+        }
+
+        .hacker-header span {
+            color: var(--terminal-green);
+            font-size: 12px;
+        }
+
+        .hacker-body {
+            padding: 20px;
+            min-height: 200px;
+        }
+
+        .hacker-line {
+            color: var(--terminal-green);
+            font-size: 13px;
+            line-height: 1.8;
+            opacity: 0;
+            animation: hackFadeIn 0.2s ease forwards;
+        }
+
+        .hacker-line .prompt {
+            color: #22c55e;
+        }
+
+        .hacker-line .path {
+            color: #60a5fa;
+        }
+
+        .hacker-line .success {
+            color: #4ade80;
+        }
+
+        .hacker-line .info {
+            color: #a78bfa;
+        }
+
+        @keyframes hackFadeIn {
             to {
-                transform: rotate(360deg);
+                opacity: 1;
             }
         }
 
-        #loading p {
-            margin-top: 24px;
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 12px;
-            color: var(--terminal-green);
-            letter-spacing: 1px;
+        .hacker-cursor {
+            display: inline-block;
+            width: 10px;
+            height: 16px;
+            background: var(--terminal-green);
+            animation: blink 0.8s step-end infinite;
+            vertical-align: middle;
+            margin-left: 4px;
         }
 
         #canvas-container {
@@ -561,16 +607,203 @@
                 transform: scale(1.2);
             }
         }
+
+        /* ============ RESPONSIVE DESIGN ============ */
+
+        /* Tablet (768px and below) */
+        @media (max-width: 768px) {
+            .nav-hud {
+                top: 20px;
+                right: 20px;
+                flex-wrap: wrap;
+                justify-content: flex-end;
+                gap: 6px;
+            }
+
+            .nav-btn {
+                padding: 10px 14px;
+                font-size: 12px;
+            }
+
+            .info-panel {
+                bottom: 40px;
+                left: 30px;
+                right: 30px;
+                max-width: none;
+            }
+
+            .info-panel h1 {
+                font-size: 32px;
+            }
+
+            .info-panel .role {
+                font-size: 14px;
+            }
+
+            .info-panel .description {
+                font-size: 13px;
+            }
+
+            .code-terminal {
+                top: auto;
+                bottom: 220px;
+                left: 20px;
+                right: 20px;
+                width: auto;
+            }
+
+            .terminal-body {
+                height: 120px;
+                font-size: 10px;
+            }
+
+            .content-section {
+                right: 20px;
+                left: 20px;
+                top: 100px;
+                max-width: none;
+                max-height: 55vh;
+                padding: 24px;
+            }
+
+            .skill-list {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .radar-chart {
+                width: 220px;
+                height: 220px;
+            }
+
+            .neural-indicator {
+                bottom: 10px;
+                right: 10px;
+                padding: 8px 12px;
+                font-size: 10px;
+            }
+        }
+
+        /* Mobile (480px and below) */
+        @media (max-width: 480px) {
+            .nav-hud {
+                top: 15px;
+                right: 15px;
+                left: 15px;
+                justify-content: center;
+            }
+
+            .nav-btn {
+                padding: 8px 12px;
+                font-size: 11px;
+            }
+
+            .info-panel {
+                bottom: 30px;
+                left: 15px;
+                right: 15px;
+            }
+
+            .info-panel h1 {
+                font-size: 26px;
+            }
+
+            .info-panel .role {
+                font-size: 12px;
+            }
+
+            .info-panel .description {
+                font-size: 12px;
+                display: none;
+                /* Hide on very small screens */
+            }
+
+            .cta-btn {
+                padding: 12px 20px;
+                font-size: 13px;
+                width: 100%;
+                justify-content: center;
+            }
+
+            .code-terminal {
+                display: none;
+                /* Hide terminal on mobile */
+            }
+
+            .content-section {
+                right: 10px;
+                left: 10px;
+                top: 80px;
+                max-height: 65vh;
+                padding: 20px;
+            }
+
+            .content-section h2 {
+                font-size: 18px;
+            }
+
+            .skill-list {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 8px;
+            }
+
+            .skill-tag {
+                padding: 8px 10px;
+                font-size: 11px;
+            }
+
+            .radar-container {
+                display: none;
+                /* Hide radar on mobile */
+            }
+
+            .project-card {
+                padding: 16px;
+            }
+
+            .project-card h3 {
+                font-size: 14px;
+            }
+
+            .project-card p {
+                font-size: 12px;
+            }
+
+            .social-links a {
+                width: 40px;
+                height: 40px;
+            }
+
+            .neural-indicator {
+                display: none;
+                /* Hide on mobile */
+            }
+        }
+
+        /* Very small screens (360px) */
+        @media (max-width: 360px) {
+            .nav-btn {
+                padding: 6px 10px;
+                font-size: 10px;
+            }
+
+            .info-panel h1 {
+                font-size: 22px;
+            }
+        }
     </style>
 </head>
 
 <body>
     <div class="bg-ambient"></div>
 
-    <!-- Loading -->
+    <!-- Hacker Loading -->
     <div id="loading">
-        <div class="loader-ring"></div>
-        <p>$ loading neural_network...</p>
+        <div class="hacker-terminal">
+            <div class="hacker-header">
+                <span>sumit@portfolio:~</span>
+            </div>
+            <div class="hacker-body" id="hacker-output"></div>
+        </div>
     </div>
 
     <!-- 3D Canvas -->
@@ -727,11 +960,43 @@
             window.addEventListener('resize', onWindowResize);
             document.addEventListener('mousemove', onMouseMove);
 
-            setTimeout(() => {
-                document.getElementById('loading').classList.add('hidden');
-            }, 1200);
+            // Start hacker boot sequence
+            hackerBoot();
 
             animate();
+        }
+
+        // ============ HACKER LOADING ============
+        function hackerBoot() {
+            const output = document.getElementById('hacker-output');
+            const commands = [
+                { text: '<span class="prompt">$</span> cd ~/portfolio', delay: 100 },
+                { text: '<span class="path">/home/sumit/portfolio</span>', delay: 200 },
+                { text: '<span class="prompt">$</span> ./initialize.sh', delay: 300 },
+                { text: '<span class="info">[INFO]</span> Loading neural networks...', delay: 400 },
+                { text: '<span class="info">[INFO]</span> Initializing TensorFlow...', delay: 500 },
+                { text: '<span class="info">[INFO]</span> Loading PyTorch models...', delay: 600 },
+                { text: '<span class="info">[INFO]</span> Connecting to GPU...', delay: 700 },
+                { text: '<span class="success">[OK]</span> All systems operational', delay: 900 },
+                { text: '<span class="prompt">$</span> echo "Welcome, visitor!"', delay: 1000 },
+                { text: '<span class="success">Welcome to Sumit Yadav\'s Portfolio!</span>', delay: 1100 },
+                { text: '<span class="prompt">$</span> launch --mode=production<span class="hacker-cursor"></span>', delay: 1200 }
+            ];
+
+            commands.forEach((cmd, i) => {
+                setTimeout(() => {
+                    const line = document.createElement('div');
+                    line.className = 'hacker-line';
+                    line.innerHTML = cmd.text;
+                    output.appendChild(line);
+                    output.scrollTop = output.scrollHeight;
+                }, cmd.delay);
+            });
+
+            // Hide loading after boot sequence
+            setTimeout(() => {
+                document.getElementById('loading').classList.add('hidden');
+            }, 2500);
         }
 
         function createBreathingField() {
@@ -767,27 +1032,27 @@
         }
 
         function createNeuralMesh() {
-            const nodeGeometry = new THREE.SphereGeometry(0.25, 12, 12);
+            const nodeGeometry = new THREE.SphereGeometry(0.3, 12, 12);
 
-            // Create nodes in layers (like neural network)
-            const layers = [[0, -12], [0, -6], [0, 0], [0, 6], [0, 12]];
+            // Create nodes in vertical layers (standing neural network)
+            const layerYPositions = [-15, -7, 0, 7, 15]; // Vertical positions
             const nodesPerLayer = [3, 5, 6, 5, 3];
 
-            layers.forEach((layerZ, layerIdx) => {
+            layerYPositions.forEach((layerY, layerIdx) => {
                 const nodeCount = nodesPerLayer[layerIdx];
                 for (let i = 0; i < nodeCount; i++) {
                     const nodeMaterial = new THREE.MeshBasicMaterial({
                         color: secondaryColor,
                         transparent: true,
-                        opacity: 0.7
+                        opacity: 0.8
                     });
                     const node = new THREE.Mesh(nodeGeometry, nodeMaterial);
 
-                    const spread = nodeCount * 4;
+                    // Spread nodes horizontally at each vertical layer
                     node.position.set(
-                        (i - (nodeCount - 1) / 2) * 5,
-                        (Math.random() - 0.5) * 3,
-                        layerZ[1] - 25
+                        (i - (nodeCount - 1) / 2) * 4,  // X: horizontal spread
+                        layerY,                          // Y: vertical layer position
+                        -20                              // Z: depth
                     );
                     node.userData = {
                         basePos: node.position.clone(),
@@ -1010,32 +1275,41 @@
         // ============ CODE TERMINAL ============
         const codeSnippets = [
             [
+                '<span class="code-string">╔══════════════════════════════════════╗</span>',
+                '<span class="code-string">║                                      ║</span>',
+                '<span class="code-string">║  <span class="code-function">Welcome to Sumit Yadav\'s</span>         ║</span>',
+                '<span class="code-string">║  <span class="code-class">AI/ML Portfolio</span>                  ║</span>',
+                '<span class="code-string">║                                      ║</span>',
+                '<span class="code-string">║  <span class="code-comment">$ initializing neural_net...</span>    ║</span>',
+                '<span class="code-string">║  <span class="code-keyword">✓</span> System ready</span>                    ║</span>',
+                '<span class="code-string">╚══════════════════════════════════════╝</span>'
+            ],
+            [
                 '<span class="code-comment"># Neural Network Training</span>',
                 '<span class="code-keyword">import</span> tensorflow <span class="code-keyword">as</span> tf',
                 '',
                 '<span class="code-keyword">class</span> <span class="code-class">NeuralNet</span>(tf.keras.Model):',
                 '    <span class="code-keyword">def</span> <span class="code-function">__init__</span>(self):',
-                '        self.dense1 = tf.keras.layers.Dense(<span class="code-number">128</span>)',
-                '        self.dense2 = tf.keras.layers.Dense(<span class="code-number">10</span>)',
+                '        self.dense1 = Dense(<span class="code-number">128</span>)',
+                '        self.dense2 = Dense(<span class="code-number">10</span>)',
                 '',
                 'model.<span class="code-function">fit</span>(X_train, epochs=<span class="code-number">50</span>)'
             ],
             [
                 '<span class="code-comment"># Computer Vision Pipeline</span>',
-                '<span class="code-keyword">import</span> cv2',
-                '<span class="code-keyword">import</span> torch',
+                '<span class="code-keyword">import</span> cv2, torch',
                 '',
                 '<span class="code-keyword">def</span> <span class="code-function">detect_objects</span>(image):',
                 '    model = torch.hub.<span class="code-function">load</span>(<span class="code-string">"yolov5"</span>)',
                 '    results = model(image)',
-                '    <span class="code-keyword">return</span> results.pandas().xyxy[<span class="code-number">0</span>]'
+                '    <span class="code-keyword">return</span> results.xyxy[<span class="code-number">0</span>]'
             ],
             [
                 '<span class="code-comment"># Generative AI</span>',
                 '<span class="code-keyword">from</span> langchain <span class="code-keyword">import</span> LLMChain',
                 '',
-                'llm = ChatOpenAI(model=<span class="code-string">"gpt-4"</span>)',
-                'chain = LLMChain(llm=llm, prompt=prompt)',
+                'llm = ChatOpenAI(<span class="code-string">"gpt-4"</span>)',
+                'chain = LLMChain(llm, prompt)',
                 '',
                 'response = chain.<span class="code-function">run</span>(query)',
                 '<span class="code-function">print</span>(response)'
