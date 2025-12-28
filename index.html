@@ -226,11 +226,83 @@
             font-family: 'JetBrains Mono', monospace;
             font-size: 13.5px;
             line-height: 1.6;
-            height: 500px;
+            height: 380px;
             /* Expanded Height */
             overflow-y: auto;
             scrollbar-width: thin;
             scrollbar-color: var(--primary) transparent;
+        }
+
+        /* Windows-Style Welcome Popup */
+        #welcome-popup {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0.95);
+            z-index: 1000;
+            background: #c0c0c0;
+            border-top: 2px solid #fff;
+            border-left: 2px solid #fff;
+            border-right: 2px solid #000;
+            border-bottom: 2px solid #000;
+            padding: 2px;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease;
+            max-width: 450px;
+            width: 90%;
+            font-family: 'Tahoma', 'Geneva', sans-serif;
+        }
+
+        #welcome-popup.show {
+            opacity: 1;
+            visibility: visible;
+            transform: translate(-50%, -50%) scale(1);
+        }
+
+        .win-title-bar {
+            background: linear-gradient(90deg, #000080, #1084d0);
+            padding: 3px 6px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: #fff;
+            font-weight: bold;
+            font-size: 13px;
+        }
+
+        .win-close-btn {
+            width: 16px;
+            height: 14px;
+            background: #c0c0c0;
+            border-top: 1px solid #fff;
+            border-left: 1px solid #fff;
+            border-right: 1px solid #000;
+            border-bottom: 1px solid #000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #000;
+            font-size: 10px;
+            cursor: pointer;
+        }
+
+        .win-body {
+            padding: 25px;
+            border-top: 1px solid #808080;
+            border-left: 1px solid #808080;
+            border-right: 1px solid #dfdfdf;
+            border-bottom: 1px solid #dfdfdf;
+            margin: 2px;
+            background: #c0c0c0;
+            text-align: center;
+        }
+
+        .win-body p {
+            color: #000;
+            font-size: 14px;
+            margin: 0;
+            font-weight: 500;
         }
 
         /* Mobile specific adjustments inside the style tag later */
@@ -836,6 +908,17 @@
 <body>
     <div class="bg-ambient"></div>
 
+    <!-- Windows-Style Welcome Popup -->
+    <div id="welcome-popup">
+        <div class="win-title-bar">
+            <span>Portfolio.exe</span>
+            <div class="win-close-btn">?</div>
+        </div>
+        <div class="win-body">
+            <p>Welcome to Sumit Yadav' Portfolio Site</p>
+        </div>
+    </div>
+
     <!-- Hacker Loading -->
     <div id="loading">
         <div class="hacker-terminal">
@@ -1041,6 +1124,15 @@
             // Hide loading after boot sequence
             setTimeout(() => {
                 document.getElementById('loading').classList.add('hidden');
+
+                // Show Welcome Popup
+                const popup = document.getElementById('welcome-popup');
+                popup.classList.add('show');
+
+                // Auto-close popup after 3s
+                setTimeout(() => {
+                    popup.classList.remove('show');
+                }, 3000);
             }, 2500);
         }
 
@@ -1320,46 +1412,55 @@
         // ============ CODE TERMINAL ============
         const codeSnippets = [
             [
-                '<span class="code-keyword">root@sumit:</span><span class="code-string">~</span><span class="code-keyword">$</span> profile --view',
+                '<span class="code-keyword">import</span> torch',
+                '<span class="code-keyword">from</span> transformers <span class="code-keyword">import</span> GPT2LMHeadModel',
                 '',
-                '<span class="code-class">class</span> <span class="code-keyword">SumitYadav</span>:',
-                '    role = <span class="code-string">"AI/ML Developer & Data Scientist"</span>',
-                '    focus = [<span class="code-string">"Deep Learning"</span>, <span class="code-string">"GenAI"</span>, <span class="code-string">"NLP"</span>]',
-                '    contact = <span class="code-string">"sumityadav329@gmail.com"</span>',
+                '<span class="code-class">class</span> <span class="code-keyword">PortfolioEngine</span>(torch.nn.Module):',
+                '    <span class="code-keyword">def</span> <span class="code-function">__init__</span>(self):',
+                '        super().__init__()',
+                '        self.role = <span class="code-string">"AI/ML Developer"</span>',
+                '        self.dev = <span class="code-string">"Sumit Yadav"</span>',
                 '',
-                '<span class="code-comment"># Initializing professional interface...</span>',
-                '<span class="code-keyword">✓</span> <span class="success">System Ready</span>'
+                '<span class="code-comment"># Loading weights... Success</span>',
+                '<span class="code-function">print</span>(<span class="code-string">"Model initialized."</span>)'
             ],
             [
-                '<span class="code-keyword">root@sumit:</span><span class="code-string">~</span><span class="code-keyword">$</span> list --skills',
+                '<span class="code-keyword">import</span> tensorflow <span class="code-keyword">as</span> tf',
                 '',
-                '<span class="code-function">Main Expertise:</span>',
-                '  <span class="code-keyword">▶</span> Python, TensorFlow, PyTorch, Scikit-learn',
-                '  <span class="code-keyword">▶</span> LLMs, LangChain, OpenAI, HuggingFace',
-                '  <span class="code-keyword">▶</span> Computer Vision, OpenCV, YOLOv8',
-                '  <span class="code-keyword">▶</span> GCP, AWS, Docker, MLOps Pipelines',
-                '  <span class="code-keyword">▶</span> SQL, NoSQL, Pandas, NumPy'
+                '<span class="code-keyword">def</span> <span class="code-function">build_neural_swarm</span>(nodes, layers):',
+                '    model = tf.keras.Sequential([',
+                '        tf.keras.layers.Dense(nodes, activation=<span class="code-string">"relu"</span>),',
+                '        tf.keras.layers.Dense(nodes * 2, activation=<span class="code-string">"relu"</span>),',
+                '        tf.keras.layers.Dense(layers, activation=<span class="code-string">"softmax"</span>)',
+                '    ])',
+                '    <span class="code-keyword">return</span> model',
+                '',
+                '<span class="code-comment"># Optimized for Distributed Swarm</span>'
             ],
             [
-                '<span class="code-keyword">root@sumit:</span><span class="code-string">~</span><span class="code-keyword">$</span> cat projects.log',
+                '<span class="code-keyword">import</span> pandas <span class="code-keyword">as</span> pd',
+                '<span class="code-keyword">import</span> numpy <span class="code-keyword">as</span> np',
                 '',
-                '<span class="code-class">1. AI Agents Hub:</span>',
-                '   <span class="code-comment">Multi-agent system for code & video analysis</span>',
-                '<span class="code-class">2. AI Image Generator:</span>',
-                '   <span class="code-comment">Prompt-to-image with diffusion models</span>',
-                '<span class="code-class">3. Smart Recommender:</span>',
-                '   <span class="code-comment">NLP-based content filtering engine</span>',
+                '<span class="code-comment"># Analysis of Project Metrics</span>',
+                'df = pd.DataFrame({',
+                '    <span class="code-string">"AI_Agents"</span>: [<span class="code-string">"LangChain"</span>, <span class="code-string">"GPT-4"</span>],',
+                '    <span class="code-string">"CV_Hub"</span>: [<span class="code-string">"OpenCV"</span>, <span class="code-string">"YOLOv8"</span>],',
+                '    <span class="code-string">"GenAI"</span>: [<span class="code-string">"Stable-Diffusion"</span>, <span class="code-string">"HFace"</span>]',
+                '})',
                 '',
-                '<span class="code-function">Click "Projects" menu for live demos</span>'
+                '<span class="code-function">print</span>(df.describe())'
             ],
             [
-                '<span class="code-keyword">root@sumit:</span><span class="code-string">~</span><span class="code-keyword">$</span> echo $CONTACT_INFO',
+                '<span class="code-class">class</span> <span class="code-keyword">Contact</span>:',
+                '    email = <span class="code-string">"sumityadav329@gmail.com"</span>',
+                '    github = <span class="code-string">"github.com/sumityadav329"</span>',
+                '    status = <span class="code-string">"Open for Collaboration"</span>',
                 '',
-                '<span class="code-function">GitHub:</span> github.com/sumityadav329',
-                '<span class="code-function">LinkedIn:</span> linkedin.com/in/sumityadav329',
-                '<span class="code-function">Twitter:</span> @sumityadav329',
+                '<span class="code-keyword">if</span> __name__ == <span class="code-string">"__main__"</span>:',
+                '    me = Contact()',
+                '    <span class="code-function">print</span>(me.email)',
                 '',
-                '<span class="code-comment">Open for collaborative AI projects.</span>'
+                '<span class="code-comment"># End of script.</span>'
             ]
         ];
 
