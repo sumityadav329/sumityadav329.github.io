@@ -193,6 +193,121 @@
             -webkit-text-fill-color: transparent;
         }
 
+        /* Enhanced Terminal Style */
+        .code-terminal {
+            position: fixed;
+            top: 100px;
+            left: 60px;
+            z-index: 100;
+            width: 700px;
+            /* Expanded Width */
+            background: rgba(15, 15, 26, 0.25);
+            /* High transparency */
+            backdrop-filter: blur(4px);
+            /* Subtle blur for readability */
+            border: 1px solid rgba(99, 102, 241, 0.3);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .terminal-header {
+            background: rgba(99, 102, 241, 0.1);
+            padding: 12px 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            border-bottom: 1px solid rgba(99, 102, 241, 0.1);
+        }
+
+        .terminal-body {
+            padding: 24px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 13.5px;
+            line-height: 1.6;
+            height: 380px;
+            /* Expanded Height */
+            overflow-y: auto;
+            scrollbar-width: thin;
+            scrollbar-color: var(--primary) transparent;
+        }
+
+        /* Windows-Style Welcome Popup */
+        #welcome-popup {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0.95);
+            z-index: 1000;
+            background: #c0c0c0;
+            border-top: 2px solid #fff;
+            border-left: 2px solid #fff;
+            border-right: 2px solid #000;
+            border-bottom: 2px solid #000;
+            padding: 2px;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease;
+            max-width: 450px;
+            width: 90%;
+            font-family: 'Tahoma', 'Geneva', sans-serif;
+        }
+
+        #welcome-popup.show {
+            opacity: 1;
+            visibility: visible;
+            transform: translate(-50%, -50%) scale(1);
+        }
+
+        .win-title-bar {
+            background: linear-gradient(90deg, #000080, #1084d0);
+            padding: 3px 6px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: #fff;
+            font-weight: bold;
+            font-size: 13px;
+        }
+
+        .win-close-btn {
+            width: 16px;
+            height: 14px;
+            background: #c0c0c0;
+            border-top: 1px solid #fff;
+            border-left: 1px solid #fff;
+            border-right: 1px solid #000;
+            border-bottom: 1px solid #000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #000;
+            font-size: 10px;
+            cursor: pointer;
+        }
+
+        .win-body {
+            padding: 25px;
+            border-top: 1px solid #808080;
+            border-left: 1px solid #808080;
+            border-right: 1px solid #dfdfdf;
+            border-bottom: 1px solid #dfdfdf;
+            margin: 2px;
+            background: #c0c0c0;
+            text-align: center;
+        }
+
+        .win-body p {
+            color: #000;
+            font-size: 14px;
+            margin: 0;
+            font-weight: 500;
+        }
+
+        /* Mobile specific adjustments inside the style tag later */
+
+
         .info-panel .role {
             font-size: 16px;
             color: var(--primary);
@@ -227,26 +342,10 @@
             box-shadow: 0 8px 30px rgba(99, 102, 241, 0.4);
         }
 
-        /* Live Code Terminal */
-        .code-terminal {
-            position: fixed;
-            top: 120px;
-            left: 60px;
-            z-index: 90;
-            width: 380px;
-            background: rgba(15, 15, 26, 0.95);
-            border: 1px solid rgba(99, 102, 241, 0.2);
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
-        }
-
-        .terminal-header {
-            background: rgba(99, 102, 241, 0.1);
-            padding: 12px 16px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
+        .terminal-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
         }
 
         .terminal-dot {
@@ -645,16 +744,18 @@
             }
 
             .code-terminal {
-                top: auto;
-                bottom: 220px;
+                top: 100px;
+                bottom: auto;
                 left: 20px;
                 right: 20px;
                 width: auto;
+                z-index: 90;
+                background: rgba(15, 15, 26, 0.4);
             }
 
             .terminal-body {
-                height: 120px;
-                font-size: 10px;
+                height: 350px;
+                font-size: 12px;
             }
 
             .content-section {
@@ -725,8 +826,19 @@
             }
 
             .code-terminal {
-                display: none;
-                /* Hide terminal on mobile */
+                display: block;
+                /* Show on mobile */
+                top: 80px;
+                left: 10px;
+                right: 10px;
+                width: auto;
+                background: rgba(15, 15, 26, 0.6);
+            }
+
+            .terminal-body {
+                height: 250px;
+                font-size: 11px;
+                padding: 15px;
             }
 
             .content-section {
@@ -795,6 +907,17 @@
 
 <body>
     <div class="bg-ambient"></div>
+
+    <!-- Windows-Style Welcome Popup -->
+    <div id="welcome-popup">
+        <div class="win-title-bar">
+            <span>Portfolio.exe</span>
+            <div class="win-close-btn">?</div>
+        </div>
+        <div class="win-body">
+            <p>Welcome to Sumit Yadav' Portfolio Site</p>
+        </div>
+    </div>
 
     <!-- Hacker Loading -->
     <div id="loading">
@@ -949,7 +1072,12 @@
             document.getElementById('canvas-container').appendChild(renderer.domElement);
 
             createBreathingField();
-            createNeuralMesh();
+
+            // Create multiple "Deep Learning" networks - Adjusted for better visibility
+            createNeuralMesh(-15, 10, -15, [4, 8, 8, 4], 0x818cf8); // Feature Extractor (Indigo) - Top Left
+            createNeuralMesh(18, 12, -10, [3, 5, 5, 2], 0x22d3ee); // Small Detail Unit (Cyan) - Top Right
+            createNeuralMesh(20, -10, -20, [5, 10, 8, 5], 0xc084fc); // Main Core Model (Violet) - Bottom Right
+            createNeuralMesh(-12, -18, -12, [4, 4], 0xf472b6); // Output Decoder (Pink) - Bottom Left
 
             const ambientLight = new THREE.AmbientLight(0xffffff, 0.3);
             scene.add(ambientLight);
@@ -996,6 +1124,15 @@
             // Hide loading after boot sequence
             setTimeout(() => {
                 document.getElementById('loading').classList.add('hidden');
+
+                // Show Welcome Popup
+                const popup = document.getElementById('welcome-popup');
+                popup.classList.add('show');
+
+                // Auto-close popup after 3s
+                setTimeout(() => {
+                    popup.classList.remove('show');
+                }, 3000);
             }, 2500);
         }
 
@@ -1031,60 +1168,62 @@
             scene.add(particles);
         }
 
-        function createNeuralMesh() {
-            const nodeGeometry = new THREE.SphereGeometry(0.3, 12, 12);
+        function createNeuralMesh(offsetX, offsetY, offsetZ, nodesPerLayer, baseColor) {
+            const nodeGeometry = new THREE.SphereGeometry(0.3, 16, 16);
 
-            // Create nodes in vertical layers (standing neural network)
-            const layerYPositions = [-15, -7, 0, 7, 15]; // Vertical positions
-            const nodesPerLayer = [3, 5, 6, 5, 3];
+            const layerGap = 8;
+            const clusterNodes = [];
 
-            layerYPositions.forEach((layerY, layerIdx) => {
-                const nodeCount = nodesPerLayer[layerIdx];
+
+            nodesPerLayer.forEach((nodeCount, layerIdx) => {
+                const layerY = (layerIdx - (nodesPerLayer.length - 1) / 2) * layerGap;
+
                 for (let i = 0; i < nodeCount; i++) {
                     const nodeMaterial = new THREE.MeshBasicMaterial({
-                        color: secondaryColor,
+                        color: baseColor,
                         transparent: true,
                         opacity: 0.8
                     });
                     const node = new THREE.Mesh(nodeGeometry, nodeMaterial);
 
-                    // Spread nodes horizontally at each vertical layer
+                    // Slightly wider spread for denser look
                     node.position.set(
-                        (i - (nodeCount - 1) / 2) * 4,  // X: horizontal spread
-                        layerY,                          // Y: vertical layer position
-                        -20                              // Z: depth
+                        offsetX + (i - (nodeCount - 1) / 2) * 4,
+                        offsetY + layerY,
+                        offsetZ
                     );
                     node.userData = {
                         basePos: node.position.clone(),
                         phase: Math.random() * Math.PI * 2,
-                        speed: 0.3 + Math.random() * 0.3,
-                        layer: layerIdx
+                        speed: 0.2 + Math.random() * 0.3,
+                        layer: layerIdx,
+                        color: baseColor,
+                        offset: new THREE.Vector3(offsetX, offsetY, offsetZ)
                     };
                     scene.add(node);
                     nodes.push(node);
+                    clusterNodes.push(node);
                 }
             });
 
-            // Create connections
+            // Create connections (Densely connected adjacent layers)
             const lineMaterial = new THREE.LineBasicMaterial({
                 color: primaryColor,
                 transparent: true,
-                opacity: 0.08
+                opacity: 0.12
             });
 
-            for (let i = 0; i < nodes.length; i++) {
-                for (let j = i + 1; j < nodes.length; j++) {
-                    const layerDiff = Math.abs(nodes[i].userData.layer - nodes[j].userData.layer);
-                    if (layerDiff === 1) {
-                        const lineGeometry = new THREE.BufferGeometry().setFromPoints([
-                            nodes[i].position, nodes[j].position
-                        ]);
+            for (let i = 0; i < clusterNodes.length; i++) {
+                for (let j = i + 1; j < clusterNodes.length; j++) {
+                    const n1 = clusterNodes[i];
+                    const n2 = clusterNodes[j];
+                    const layerDiff = n2.userData.layer - n1.userData.layer;
+                    const dist = n1.position.distanceTo(n2.position);
+
+                    if (layerDiff === 1 && dist < 12) {
+                        const lineGeometry = new THREE.BufferGeometry().setFromPoints([n1.position, n2.position]);
                         const line = new THREE.Line(lineGeometry, lineMaterial.clone());
-                        line.userData = {
-                            node1: nodes[i],
-                            node2: nodes[j],
-                            pulseTime: Math.random() * 10
-                        };
+                        line.userData = { node1: n1, node2: n2 };
                         scene.add(line);
                         connections.push(line);
                     }
@@ -1092,13 +1231,12 @@
             }
         }
 
-        // Create data packet traveling along connection
         function createDataPacket(connection) {
             const packetGeometry = new THREE.SphereGeometry(0.12, 8, 8);
             const packetMaterial = new THREE.MeshBasicMaterial({
-                color: pulseColor,
+                color: 0x4ade80, // Green
                 transparent: true,
-                opacity: 0.9
+                opacity: 1
             });
             const packet = new THREE.Mesh(packetGeometry, packetMaterial);
             packet.userData = {
@@ -1125,29 +1263,33 @@
             requestAnimationFrame(animate);
             const time = Date.now() * 0.001;
 
-            // Breathing particles
             if (particles) {
                 particles.rotation.y += 0.0002;
                 particles.rotation.x = Math.sin(time * 0.15) * 0.03;
             }
 
-            // Animate nodes
-            nodes.forEach((node, i) => {
+            const globalBreathe = Math.sin(time * 1.2);
+            const nodeScale = 1.2 + globalBreathe * 0.15;
+
+            nodes.forEach((node) => {
                 const data = node.userData;
-                const breathe = Math.sin(time * data.speed + data.phase);
+                const nodeBreathe = Math.sin(time * 1.2 + data.phase);
 
-                node.position.x = data.basePos.x + Math.sin(time * 0.3 + data.phase) * 1.5;
-                node.position.y = data.basePos.y + Math.cos(time * 0.4 + data.phase) * 1;
+                // Individual breathing + cluster floating
+                node.position.x = data.basePos.x + Math.sin(time * 0.4 + data.phase) * 0.8;
+                node.position.y = data.basePos.y + Math.cos(time * 0.3 + data.phase) * 0.6;
+                node.position.z = data.basePos.z + Math.sin(time * 0.5 + data.phase) * 1.0;
 
-                node.material.opacity = 0.4 + breathe * 0.3;
-                node.scale.setScalar(0.8 + breathe * 0.3);
+                // Sync color/glowing - Brighter
+                const glowColor = new THREE.Color(data.color).lerp(new THREE.Color(0xffffff), 0.3 + Math.max(0, globalBreathe * 0.5));
+                node.material.color.set(glowColor);
+                node.material.opacity = 0.7 + nodeBreathe * 0.2;
+                node.scale.setScalar(nodeScale);
             });
 
-            // Update connections and create data packets
-            connections.forEach((line, idx) => {
-                const { node1, node2, pulseTime } = line.userData;
+            connections.forEach((line) => {
+                const { node1, node2 } = line.userData;
                 const positions = line.geometry.attributes.position.array;
-
                 positions[0] = node1.position.x;
                 positions[1] = node1.position.y;
                 positions[2] = node1.position.z;
@@ -1156,37 +1298,32 @@
                 positions[5] = node2.position.z;
                 line.geometry.attributes.position.needsUpdate = true;
 
-                // Randomly create data packets
-                if (Math.random() < 0.001 && dataPackets.length < 15) {
-                    createDataPacket(line);
-                }
+                // Lines pulse with global phase
+                line.material.opacity = 0.06 + globalBreathe * 0.04;
             });
 
-            // Animate data packets
             for (let i = dataPackets.length - 1; i >= 0; i--) {
                 const packet = dataPackets[i];
                 packet.userData.progress += packet.userData.speed;
-
                 if (packet.userData.progress >= 1) {
                     scene.remove(packet);
                     dataPackets.splice(i, 1);
                 } else {
                     const conn = packet.userData.connection;
                     const p = packet.userData.progress;
-                    packet.position.lerpVectors(
-                        conn.userData.node1.position,
-                        conn.userData.node2.position,
-                        p
-                    );
-                    packet.material.opacity = Math.sin(p * Math.PI) * 0.9;
+                    packet.position.lerpVectors(conn.userData.node1.position, conn.userData.node2.position, p);
+                    packet.material.opacity = Math.sin(p * Math.PI);
+                    packet.material.color.copy(conn.userData.node1.material.color);
                 }
             }
 
-            // Camera
-            camera.position.x += (mouseX * 4 - camera.position.x) * 0.02;
-            camera.position.y += (-mouseY * 3 - camera.position.y) * 0.02;
-            camera.lookAt(0, 0, -15);
+            if (Math.random() < 0.04 && dataPackets.length < 50 && connections.length > 0) {
+                createDataPacket(connections[Math.floor(Math.random() * connections.length)]);
+            }
 
+            camera.position.x += (mouseX * 5 - camera.position.x) * 0.02;
+            camera.position.y += (-mouseY * 4 - camera.position.y) * 0.02;
+            camera.lookAt(0, 0, -15);
             renderer.render(scene, camera);
         }
 
@@ -1275,44 +1412,55 @@
         // ============ CODE TERMINAL ============
         const codeSnippets = [
             [
-                '<span class="code-string">╔══════════════════════════════════════╗</span>',
-                '<span class="code-string">║                                      ║</span>',
-                '<span class="code-string">║  <span class="code-function">Welcome to Sumit Yadav\'s</span>         ║</span>',
-                '<span class="code-string">║  <span class="code-class">AI/ML Portfolio</span>                  ║</span>',
-                '<span class="code-string">║                                      ║</span>',
-                '<span class="code-string">║  <span class="code-comment">$ initializing neural_net...</span>    ║</span>',
-                '<span class="code-string">║  <span class="code-keyword">✓</span> System ready</span>                    ║</span>',
-                '<span class="code-string">╚══════════════════════════════════════╝</span>'
+                '<span class="code-keyword">import</span> torch',
+                '<span class="code-keyword">from</span> transformers <span class="code-keyword">import</span> GPT2LMHeadModel',
+                '',
+                '<span class="code-class">class</span> <span class="code-keyword">PortfolioEngine</span>(torch.nn.Module):',
+                '    <span class="code-keyword">def</span> <span class="code-function">__init__</span>(self):',
+                '        super().__init__()',
+                '        self.role = <span class="code-string">"AI/ML Developer"</span>',
+                '        self.dev = <span class="code-string">"Sumit Yadav"</span>',
+                '',
+                '<span class="code-comment"># Loading weights... Success</span>',
+                '<span class="code-function">print</span>(<span class="code-string">"Model initialized."</span>)'
             ],
             [
-                '<span class="code-comment"># Neural Network Training</span>',
                 '<span class="code-keyword">import</span> tensorflow <span class="code-keyword">as</span> tf',
                 '',
-                '<span class="code-keyword">class</span> <span class="code-class">NeuralNet</span>(tf.keras.Model):',
-                '    <span class="code-keyword">def</span> <span class="code-function">__init__</span>(self):',
-                '        self.dense1 = Dense(<span class="code-number">128</span>)',
-                '        self.dense2 = Dense(<span class="code-number">10</span>)',
+                '<span class="code-keyword">def</span> <span class="code-function">build_neural_swarm</span>(nodes, layers):',
+                '    model = tf.keras.Sequential([',
+                '        tf.keras.layers.Dense(nodes, activation=<span class="code-string">"relu"</span>),',
+                '        tf.keras.layers.Dense(nodes * 2, activation=<span class="code-string">"relu"</span>),',
+                '        tf.keras.layers.Dense(layers, activation=<span class="code-string">"softmax"</span>)',
+                '    ])',
+                '    <span class="code-keyword">return</span> model',
                 '',
-                'model.<span class="code-function">fit</span>(X_train, epochs=<span class="code-number">50</span>)'
+                '<span class="code-comment"># Optimized for Distributed Swarm</span>'
             ],
             [
-                '<span class="code-comment"># Computer Vision Pipeline</span>',
-                '<span class="code-keyword">import</span> cv2, torch',
+                '<span class="code-keyword">import</span> pandas <span class="code-keyword">as</span> pd',
+                '<span class="code-keyword">import</span> numpy <span class="code-keyword">as</span> np',
                 '',
-                '<span class="code-keyword">def</span> <span class="code-function">detect_objects</span>(image):',
-                '    model = torch.hub.<span class="code-function">load</span>(<span class="code-string">"yolov5"</span>)',
-                '    results = model(image)',
-                '    <span class="code-keyword">return</span> results.xyxy[<span class="code-number">0</span>]'
+                '<span class="code-comment"># Analysis of Project Metrics</span>',
+                'df = pd.DataFrame({',
+                '    <span class="code-string">"AI_Agents"</span>: [<span class="code-string">"LangChain"</span>, <span class="code-string">"GPT-4"</span>],',
+                '    <span class="code-string">"CV_Hub"</span>: [<span class="code-string">"OpenCV"</span>, <span class="code-string">"YOLOv8"</span>],',
+                '    <span class="code-string">"GenAI"</span>: [<span class="code-string">"Stable-Diffusion"</span>, <span class="code-string">"HFace"</span>]',
+                '})',
+                '',
+                '<span class="code-function">print</span>(df.describe())'
             ],
             [
-                '<span class="code-comment"># Generative AI</span>',
-                '<span class="code-keyword">from</span> langchain <span class="code-keyword">import</span> LLMChain',
+                '<span class="code-class">class</span> <span class="code-keyword">Contact</span>:',
+                '    email = <span class="code-string">"sumityadav329@gmail.com"</span>',
+                '    github = <span class="code-string">"github.com/sumityadav329"</span>',
+                '    status = <span class="code-string">"Open for Collaboration"</span>',
                 '',
-                'llm = ChatOpenAI(<span class="code-string">"gpt-4"</span>)',
-                'chain = LLMChain(llm, prompt)',
+                '<span class="code-keyword">if</span> __name__ == <span class="code-string">"__main__"</span>:',
+                '    me = Contact()',
+                '    <span class="code-function">print</span>(me.email)',
                 '',
-                'response = chain.<span class="code-function">run</span>(query)',
-                '<span class="code-function">print</span>(response)'
+                '<span class="code-comment"># End of script.</span>'
             ]
         ];
 
