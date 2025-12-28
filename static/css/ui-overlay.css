@@ -1,0 +1,343 @@
+/**
+ * UI Overlay Styles for 3D Portfolio
+ * Futuristic glassmorphism design for overlays
+ */
+
+/* Loading Screen */
+#loading-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #000510 0%, #001a33 100%);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 10000;
+    transition: opacity 1s ease;
+}
+
+.loading-content {
+    text-align: center;
+    color: #00ffff;
+}
+
+.loading-spinner {
+    width: 80px;
+    height: 80px;
+    border: 4px solid rgba(0, 255, 255, 0.1);
+    border-top: 4px solid #00ffff;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin: 0 auto 30px;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.loading-text {
+    font-size: 24px;
+    font-family: 'Orbitron', 'Poppins', sans-serif;
+    margin-bottom: 20px;
+    text-shadow: 0 0 10px #00ffff;
+}
+
+.loading-progress {
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+.loading-bar-container {
+    width: 300px;
+    height: 4px;
+    background: rgba(0, 255, 255, 0.2);
+    border-radius: 2px;
+    overflow: hidden;
+}
+
+.loading-bar {
+    height: 100%;
+    background: linear-gradient(90deg, #00ffff, #00ff88);
+    width: 0%;
+    transition: width 0.3s ease;
+    box-shadow: 0 0 10px #00ffff;
+}
+
+/* Canvas Container */
+#canvas-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+
+#portfolio-canvas {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+/* Navigation HUD */
+.nav-hud {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 100;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.nav-3d-btn {
+    background: rgba(0, 20, 40, 0.7);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(0, 255, 255, 0.3);
+    color: #00ffff;
+    padding: 12px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    display: block;
+    text-align: center;
+}
+
+.nav-3d-btn:hover {
+    background: rgba(0, 255, 255, 0.2);
+    border-color: #00ffff;
+    box-shadow: 0 0 20px rgba(0, 255, 255, 0.5);
+    transform: translateX(-5px);
+}
+
+/* Help Panel */
+#help-btn {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 100;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: rgba(0, 20, 40, 0.7);
+    backdrop-filter: blur(10px);
+    border: 2px solid rgba(0, 255, 255, 0.3);
+    color: #00ffff;
+    font-size: 24px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+
+#help-btn:hover {
+    background: rgba(0, 255, 255, 0.2);
+    box-shadow: 0 0 20px rgba(0, 255, 255, 0.5);
+    transform: scale(1.1);
+}
+
+#help-panel {
+    position: fixed;
+    bottom: 80px;
+    right: 20px;
+    z-index: 99;
+    background: rgba(0, 20, 40, 0.9);
+    backdrop-filter: blur(15px);
+    border: 1px solid rgba(0, 255, 255, 0.3);
+    border-radius: 12px;
+    padding: 20px;
+    max-width: 300px;
+    color: #00ffff;
+    opacity: 0;
+    transform: translateY(20px);
+    pointer-events: none;
+    transition: all 0.3s ease;
+}
+
+#help-panel.visible {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: all;
+}
+
+#help-panel h3 {
+    margin-top: 0;
+    margin-bottom: 15px;
+    font-size: 18px;
+    text-shadow: 0 0 10px #00ffff;
+}
+
+#help-panel ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+#help-panel li {
+    margin-bottom: 10px;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+#help-panel kbd {
+    background: rgba(0, 255, 255, 0.2);
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-family: monospace;
+    font-size: 12px;
+}
+
+/* Skill Modal */
+#skill-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+#skill-modal-content {
+    background: rgba(0, 20, 40, 0.95);
+    backdrop-filter: blur(20px);
+    border: 2px solid rgba(0, 255, 255, 0.5);
+    border-radius: 16px;
+    padding: 40px;
+    max-width: 500px;
+    color: #00ffff;
+    box-shadow: 0 0 40px rgba(0, 255, 255, 0.3);
+}
+
+#skill-modal-content h3 {
+    margin-top: 0;
+    font-size: 28px;
+    text-shadow: 0 0 15px #00ffff;
+}
+
+#skill-modal-content p {
+    margin: 10px 0;
+    font-size: 16px;
+}
+
+.skill-bar {
+    width: 100%;
+    height: 20px;
+    background: rgba(0, 255, 255, 0.2);
+    border-radius: 10px;
+    overflow: hidden;
+    margin-top: 20px;
+}
+
+.skill-bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #00ffff, #00ff88);
+    border-radius: 10px;
+    transition: width 0.5s ease;
+    box-shadow: 0 0 10px #00ffff;
+}
+
+/* Info Overlay */
+.info-overlay {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    z-index: 100;
+    background: rgba(0, 20, 40, 0.7);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(0, 255, 255, 0.3);
+    border-radius: 8px;
+    padding: 15px 20px;
+    color: #00ffff;
+    font-size: 14px;
+    max-width: 300px;
+}
+
+.info-overlay h4 {
+    margin: 0 0 10px 0;
+    font-size: 16px;
+    text-shadow: 0 0 10px #00ffff;
+}
+
+/* Fallback Content */
+#fallback-content {
+    display: none;
+}
+
+/* Mobile Responsive */
+@media screen and (max-width: 768px) {
+    .nav-hud {
+        top: 10px;
+        right: 10px;
+        gap: 5px;
+    }
+
+    .nav-3d-btn {
+        padding: 8px 15px;
+        font-size: 12px;
+    }
+
+    #help-panel {
+        max-width: 250px;
+        padding: 15px;
+        right: 10px;
+    }
+
+    #skill-modal-content {
+        padding: 30px;
+        max-width: 90%;
+    }
+
+    .info-overlay {
+        left: 10px;
+        bottom: 10px;
+        max-width: 200px;
+        font-size: 12px;
+    }
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.fade-in {
+    animation: fadeIn 0.5s ease;
+}
+
+/* Glow effect */
+.glow {
+    box-shadow: 0 0 20px rgba(0, 255, 255, 0.5);
+}
+
+/* Pulse animation */
+@keyframes pulse {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.5;
+    }
+}
+
+.pulse {
+    animation: pulse 2s ease-in-out infinite;
+}
